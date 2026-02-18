@@ -7,416 +7,124 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0d1f3c;
-    --royal: #1a3a6b;
-    --gold: #c9973a;
-    --gold-light: #f0c96e;
-    --cream: #faf8f3;
-    --soft: #f0ede5;
-    --muted: #8a8070;
-    --text: #1c1a16;
-    --correct: #2d7a4f;
-    --wrong: #b83232;
-    --correct-bg: #edf7f1;
-    --wrong-bg: #fdeaea;
+    --navy:#0d1f3c; --royal:#1a3a6b; --gold:#c9973a; --gold-light:#f0c96e;
+    --cream:#faf8f3; --soft:#f0ede5; --muted:#8a8070; --text:#1c1a16;
+    --correct:#2d7a4f; --wrong:#b83232; --correct-bg:#edf7f1; --wrong-bg:#fdeaea;
   }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{font-size:16px}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;-webkit-text-size-adjust:100%}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* HEADER */
+  header{background:var(--navy);padding:0 clamp(14px,4vw,40px);display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+  .logo{font-family:'Playfair Display',serif;color:var(--gold-light);font-size:clamp(1rem,4vw,1.5rem);font-weight:700;white-space:nowrap}
+  .logo span{color:#fff}
+  .header-badge{background:var(--gold);color:var(--navy);font-size:.67rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:5px 11px;border-radius:20px;white-space:nowrap}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    min-height: 100vh;
+  /* HERO */
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--royal) 60%,#2a4a7f 100%);color:#fff;padding:clamp(36px,7vw,80px) clamp(16px,5vw,48px);text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 80%,rgba(201,151,58,.15) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(201,151,58,.1) 0%,transparent 50%);pointer-events:none}
+  .hero-tag{display:inline-block;border:1px solid rgba(201,151,58,.5);color:var(--gold-light);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;padding:5px 15px;border-radius:20px;margin-bottom:16px;position:relative}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.75rem,6vw,3.4rem);font-weight:900;line-height:1.15;margin-bottom:12px;position:relative}
+  .hero h1 em{font-style:normal;color:var(--gold-light)}
+  .hero p{font-size:clamp(.88rem,2.3vw,1.05rem);color:rgba(255,255,255,.75);max-width:540px;margin:0 auto 28px;line-height:1.7;position:relative}
+  .hero-stats{display:flex;justify-content:center;gap:clamp(20px,5vw,56px);flex-wrap:wrap;position:relative}
+  .stat{text-align:center}
+  .stat-num{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;color:var(--gold-light)}
+  .stat-label{font-size:.76rem;color:rgba(255,255,255,.6);margin-top:2px}
+
+  /* MAIN */
+  .main{max-width:900px;margin:0 auto;padding:clamp(24px,5vw,52px) clamp(14px,4vw,24px) 80px}
+
+  /* SECTION HEADER */
+  .section-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:12px}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,4vw,1.7rem);font-weight:700;color:var(--navy)}
+  .section-title span{display:block;font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+
+  /* DOWNLOAD BUTTON */
+  .btn-download{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;border:none;padding:12px 20px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap;flex-shrink:0;touch-action:manipulation;min-height:44px;-webkit-tap-highlight-color:transparent}
+  .btn-download:hover{background:var(--royal);transform:translateY(-1px)}
+  .btn-download:active{transform:translateY(0)}
+  .btn-download svg{width:16px;height:16px;flex-shrink:0}
+
+  /* PROGRESS */
+  .progress-label{font-size:.79rem;color:var(--muted);margin-bottom:7px;font-weight:500}
+  .progress-bar-wrap{background:var(--soft);border-radius:6px;height:8px;margin-bottom:26px;overflow:hidden}
+  .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:6px;transition:width .4s ease}
+
+  /* QUESTION CARD */
+  .question-card{background:#fff;border-radius:14px;padding:clamp(18px,4vw,34px);margin-bottom:14px;box-shadow:0 2px 16px rgba(0,0,0,.06);border:1.5px solid transparent;transition:border-color .3s,box-shadow .3s;animation:fadeUp .35s ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  .question-card.answered-correct{border-color:var(--correct);box-shadow:0 2px 16px rgba(45,122,79,.12)}
+  .question-card.answered-wrong{border-color:var(--wrong);box-shadow:0 2px 16px rgba(184,50,50,.12)}
+  .q-header{display:flex;align-items:flex-start;gap:13px;margin-bottom:16px}
+  .q-num{background:var(--navy);color:var(--gold-light);font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;width:33px;height:33px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .q-meta{flex:1;min-width:0}
+  .q-category{font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+  .q-text{font-size:clamp(.9rem,2.4vw,1.04rem);font-weight:500;line-height:1.6;color:var(--navy);word-break:break-word}
+
+  /* OPTIONS */
+  .options{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px}
+  @media(max-width:540px){.options{grid-template-columns:1fr}}
+  .option{display:flex;align-items:center;gap:11px;padding:12px 14px;border:1.5px solid #e5e0d5;border-radius:10px;cursor:pointer;transition:border-color .2s,background .2s;font-size:clamp(.83rem,2.2vw,.94rem);color:var(--text);background:var(--cream);user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:46px}
+  .option:hover:not(.disabled){border-color:var(--gold);background:#fdf9f1}
+  .option:active:not(.disabled){transform:scale(.98)}
+  .option.selected-correct{background:var(--correct-bg);border-color:var(--correct);color:var(--correct);font-weight:600}
+  .option.selected-wrong{background:var(--wrong-bg);border-color:var(--wrong);color:var(--wrong);font-weight:600}
+  .option.show-correct{background:var(--correct-bg);border-color:var(--correct);color:var(--correct);font-weight:600}
+  .option.disabled{cursor:default}
+  .opt-letter{width:25px;height:25px;border-radius:50%;background:#fff;border:1.5px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:.73rem;font-weight:700;flex-shrink:0;transition:background .2s,border-color .2s,color .2s}
+  .selected-correct .opt-letter,.show-correct .opt-letter{background:var(--correct);border-color:var(--correct);color:#fff}
+  .selected-wrong .opt-letter{background:var(--wrong);border-color:var(--wrong);color:#fff}
+
+  .feedback{margin-top:13px;padding:10px 14px;border-radius:8px;font-size:.85rem;line-height:1.5;display:none}
+  .feedback.show{display:block}
+  .feedback.correct-fb{background:var(--correct-bg);color:var(--correct)}
+  .feedback.wrong-fb{background:var(--wrong-bg);color:var(--wrong)}
+
+  /* SUBMIT */
+  .test-footer{text-align:center;margin-top:30px}
+  .btn-submit{background:linear-gradient(135deg,var(--gold) 0%,#e0a830 100%);color:var(--navy);border:none;padding:15px clamp(28px,8vw,52px);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:clamp(.9rem,2.5vw,1rem);font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .2s,opacity .2s;box-shadow:0 4px 20px rgba(201,151,58,.4);touch-action:manipulation;min-height:50px;width:100%;max-width:300px}
+  .btn-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,151,58,.5)}
+  .btn-submit:disabled{opacity:.45;cursor:default}
+
+  /* RESULTS */
+  .results-card{background:#fff;border-radius:16px;padding:clamp(26px,6vw,50px) clamp(18px,5vw,40px);text-align:center;box-shadow:0 4px 32px rgba(0,0,0,.1);display:none;margin-top:26px;animation:fadeUp .5s ease both}
+  .results-card.show{display:block}
+  .score-ring{width:108px;height:108px;border-radius:50%;border:5px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px;background:#fdf9f1}
+  .score-big{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:var(--navy);line-height:1}
+  .score-denom{font-size:.76rem;color:var(--muted)}
+  .results-card h2{font-family:'Playfair Display',serif;font-size:clamp(1.15rem,4vw,1.55rem);color:var(--navy);margin-bottom:9px}
+  .results-card p{color:var(--muted);font-size:.9rem;line-height:1.6;max-width:360px;margin:0 auto 24px}
+  .btn-retry{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;border:none;padding:12px 24px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s;touch-action:manipulation;min-height:44px}
+  .btn-retry:hover{background:var(--royal)}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--navy);color:#fff;padding:11px 20px;border-radius:8px;font-size:.86rem;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.25);transition:transform .3s ease,opacity .3s ease;opacity:0;pointer-events:none;z-index:9999;white-space:nowrap;max-width:90vw;text-align:center}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+  /* FOOTER */
+  footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;font-size:.79rem;padding:22px clamp(16px,4vw,40px);line-height:1.6}
+  footer strong{color:var(--gold-light)}
+
+  /* MOBILE EXTRAS */
+  @media(max-width:480px){
+    .section-header{flex-direction:column;align-items:flex-start}
+    .btn-download{width:100%;justify-content:center}
   }
-
-  /* ── HEADER ── */
-  header {
-    background: var(--navy);
-    padding: 0 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 72px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 20px rgba(0,0,0,.3);
-  }
-
-  .logo {
-    font-family: 'Playfair Display', serif;
-    color: var(--gold-light);
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: .5px;
-  }
-  .logo span { color: white; }
-
-  .header-badge {
-    background: var(--gold);
-    color: var(--navy);
-    font-size: .72rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 20px;
-  }
-
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--royal) 60%, #2a4a7f 100%);
-    color: white;
-    padding: 70px 40px 80px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle at 20% 80%, rgba(201,151,58,.15) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, rgba(201,151,58,.1) 0%, transparent 50%);
-  }
-
-  .hero-tag {
-    display: inline-block;
-    border: 1px solid rgba(201,151,58,.5);
-    color: var(--gold-light);
-    font-size: .75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 6px 18px;
-    border-radius: 20px;
-    margin-bottom: 22px;
-  }
-
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.4rem);
-    font-weight: 900;
-    line-height: 1.15;
-    margin-bottom: 16px;
-    position: relative;
-  }
-
-  .hero h1 em {
-    font-style: normal;
-    color: var(--gold-light);
-  }
-
-  .hero p {
-    font-size: 1.05rem;
-    color: rgba(255,255,255,.75);
-    max-width: 560px;
-    margin: 0 auto 36px;
-    line-height: 1.7;
-    position: relative;
-  }
-
-  .hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: 48px;
-    position: relative;
-  }
-
-  .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--gold-light);
-  }
-  .stat-label { font-size: .8rem; color: rgba(255,255,255,.6); margin-top: 2px; }
-
-  /* ── MAIN LAYOUT ── */
-  .main {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 50px 24px 80px;
-  }
-
-  /* ── SECTION TITLE ── */
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: var(--navy);
-  }
-  .section-title span {
-    display: block;
-    font-family: 'DM Sans', sans-serif;
-    font-size: .8rem;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 4px;
-  }
-
-  /* ── DOWNLOAD BUTTON ── */
-  .btn-download {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--navy);
-    color: white;
-    border: none;
-    padding: 13px 24px;
-    border-radius: 8px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: .9rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background .2s, transform .15s;
-  }
-  .btn-download:hover { background: var(--royal); transform: translateY(-1px); }
-
-  .btn-download svg { width: 18px; height: 18px; }
-
-  /* ── PROGRESS BAR ── */
-  .progress-bar-wrap {
-    background: var(--soft);
-    border-radius: 6px;
-    height: 8px;
-    margin-bottom: 32px;
-    overflow: hidden;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--gold), var(--gold-light));
-    border-radius: 6px;
-    transition: width .4s ease;
-  }
-  .progress-label {
-    font-size: .8rem;
-    color: var(--muted);
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
-
-  /* ── QUESTION CARD ── */
-  .question-card {
-    background: white;
-    border-radius: 16px;
-    padding: 36px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 16px rgba(0,0,0,.06);
-    border: 1.5px solid transparent;
-    transition: border-color .3s, box-shadow .3s;
-    animation: fadeUp .4s ease both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .question-card.answered-correct { border-color: var(--correct); box-shadow: 0 2px 16px rgba(45,122,79,.12); }
-  .question-card.answered-wrong   { border-color: var(--wrong);   box-shadow: 0 2px 16px rgba(184,50,50,.12); }
-
-  .q-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 22px;
-  }
-
-  .q-num {
-    background: var(--navy);
-    color: var(--gold-light);
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .q-category {
-    font-size: .72rem;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 6px;
-  }
-
-  .q-text {
-    font-size: 1.05rem;
-    font-weight: 500;
-    line-height: 1.6;
-    color: var(--navy);
-  }
-
-  /* ── OPTIONS ── */
-  .options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 4px;
-  }
-
-  @media(max-width: 580px) { .options { grid-template-columns: 1fr; } }
-
-  .option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 13px 16px;
-    border: 1.5px solid #e5e0d5;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: border-color .2s, background .2s, transform .1s;
-    font-size: .95rem;
-    font-weight: 400;
-    color: var(--text);
-    background: var(--cream);
-    user-select: none;
-  }
-  .option:hover:not(.disabled) { border-color: var(--gold); background: #fdf9f1; transform: translateX(2px); }
-  .option.selected-correct { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); font-weight: 600; }
-  .option.selected-wrong   { background: var(--wrong-bg);   border-color: var(--wrong);   color: var(--wrong);   font-weight: 600; }
-  .option.show-correct     { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); font-weight: 600; }
-  .option.disabled         { cursor: default; }
-
-  .opt-letter {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    background: white;
-    border: 1.5px solid #ccc;
-    display: flex; align-items: center; justify-content: center;
-    font-size: .78rem;
-    font-weight: 700;
-    flex-shrink: 0;
-    transition: background .2s, border-color .2s, color .2s;
-  }
-  .selected-correct .opt-letter { background: var(--correct); border-color: var(--correct); color: white; }
-  .selected-wrong   .opt-letter { background: var(--wrong);   border-color: var(--wrong);   color: white; }
-  .show-correct     .opt-letter { background: var(--correct); border-color: var(--correct); color: white; }
-
-  .feedback {
-    margin-top: 16px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-size: .88rem;
-    line-height: 1.5;
-    display: none;
-  }
-  .feedback.show { display: block; }
-  .feedback.correct-fb { background: var(--correct-bg); color: var(--correct); }
-  .feedback.wrong-fb   { background: var(--wrong-bg);   color: var(--wrong); }
-
-  /* ── SUBMIT + RESULTS ── */
-  .test-footer {
-    text-align: center;
-    margin-top: 36px;
-  }
-
-  .btn-submit {
-    background: linear-gradient(135deg, var(--gold) 0%, #e0a830 100%);
-    color: var(--navy);
-    border: none;
-    padding: 16px 48px;
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: .5px;
-    transition: transform .15s, box-shadow .2s;
-    box-shadow: 0 4px 20px rgba(201,151,58,.4);
-  }
-  .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,151,58,.5); }
-  .btn-submit:disabled { opacity: .5; cursor: default; }
-
-  .results-card {
-    background: white;
-    border-radius: 16px;
-    padding: 48px 36px;
-    text-align: center;
-    box-shadow: 0 4px 32px rgba(0,0,0,.1);
-    display: none;
-    margin-top: 32px;
-    animation: fadeUp .5s ease both;
-  }
-  .results-card.show { display: block; }
-
-  .score-ring {
-    width: 120px; height: 120px;
-    border-radius: 50%;
-    border: 6px solid var(--gold);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    margin: 0 auto 24px;
-    background: #fdf9f1;
-  }
-  .score-big { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 900; color: var(--navy); line-height: 1; }
-  .score-denom { font-size: .8rem; color: var(--muted); }
-
-  .results-card h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--navy); margin-bottom: 10px; }
-  .results-card p { color: var(--muted); font-size: .95rem; line-height: 1.6; max-width: 400px; margin: 0 auto 28px; }
-
-  .btn-retry {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--navy);
-    color: white;
-    border: none;
-    padding: 13px 28px;
-    border-radius: 8px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: .9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background .2s;
-  }
-  .btn-retry:hover { background: var(--royal); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--navy);
-    color: rgba(255,255,255,.5);
-    text-align: center;
-    font-size: .82rem;
-    padding: 28px 24px;
-  }
-  footer strong { color: var(--gold-light); }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo">Eleven<span>Plus</span> Academy</div>
   <div class="header-badge">MVP Preview</div>
 </header>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-tag">UK 11+ Exam Preparation</div>
   <h1>Prepare Smarter.<br><em>Score Higher.</em></h1>
-  <p>Practice with expertly crafted mock tests covering Maths, English, Verbal & Non-Verbal Reasoning — exactly what top grammar schools expect.</p>
+  <p>Practice with expertly crafted mock tests covering Maths, English, Verbal &amp; Non-Verbal Reasoning — exactly what top grammar schools expect.</p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">10</div><div class="stat-label">Questions</div></div>
     <div class="stat"><div class="stat-num">4</div><div class="stat-label">Subjects</div></div>
@@ -424,16 +132,14 @@
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
-
   <div class="section-header">
     <div class="section-title">
       <span>Mock Test · Set A</span>
       Mixed 11+ Practice Paper
     </div>
-    <button class="btn-download" onclick="downloadPDF()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <button class="btn-download" id="dlBtn" onclick="downloadPDF()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
         <polyline points="7 10 12 15 17 10"/>
         <line x1="12" y1="15" x2="12" y2="3"/>
@@ -443,11 +149,8 @@
   </div>
 
   <div class="progress-label" id="progressLabel">Question 0 of 10 answered</div>
-  <div class="progress-bar-wrap">
-    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
-  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
 
-  <!-- Questions injected here -->
   <div id="questionsContainer"></div>
 
   <div class="test-footer">
@@ -459,188 +162,103 @@
       <div class="score-big" id="scoreNum">0</div>
       <div class="score-denom">/ 10</div>
     </div>
-    <h2 id="resultsTitle">Well Done!</h2>
-    <p id="resultsMsg">Review your answers above to see detailed feedback for each question.</p>
+    <h2 id="resultsTitle"></h2>
+    <p id="resultsMsg"></p>
     <button class="btn-retry" onclick="retryTest()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
       Retry Test
     </button>
   </div>
-
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <strong>ElevenPlus Academy</strong> · MVP Demo · All questions are for practice purposes only. © 2025
-</footer>
+<footer><strong>ElevenPlus Academy</strong> · MVP Demo · Practice use only · © 2025</footer>
+<div class="toast" id="toast"></div>
 
 <script>
+/* ===== DATA ===== */
 const questions = [
-  {
-    category: "Mathematics",
-    text: "A train travels 240 km in 3 hours. What is its average speed in km/h?",
-    options: ["60 km/h", "80 km/h", "90 km/h", "75 km/h"],
-    answer: 1,
-    explanation: "Speed = Distance ÷ Time = 240 ÷ 3 = 80 km/h."
-  },
-  {
-    category: "English – Vocabulary",
-    text: "Choose the word most similar in meaning to 'BENEVOLENT'.",
-    options: ["Cruel", "Generous", "Timid", "Arrogant"],
-    answer: 1,
-    explanation: "'Benevolent' means well-meaning and kindly — closest to 'Generous'."
-  },
-  {
-    category: "Verbal Reasoning",
-    text: "If CAT → FDW (each letter shifted +3), what does DOG become?",
-    options: ["GRJ", "GRK", "GPJ", "GQJ"],
-    answer: 0,
-    explanation: "D→G, O→R, G→J. Shifting each letter +3 gives GRJ."
-  },
-  {
-    category: "Mathematics",
-    text: "What is 15% of 320?",
-    options: ["42", "48", "52", "56"],
-    answer: 1,
-    explanation: "10% of 320 = 32; 5% = 16; total = 32 + 16 = 48."
-  },
-  {
-    category: "Non-Verbal Reasoning",
-    text: "A square has a perimeter of 36 cm. What is its area?",
-    options: ["72 cm²", "81 cm²", "64 cm²", "90 cm²"],
-    answer: 1,
-    explanation: "Side = 36 ÷ 4 = 9 cm. Area = 9 × 9 = 81 cm²."
-  },
-  {
-    category: "English – Comprehension",
-    text: "Which sentence uses a simile correctly?",
-    options: [
-      "The moon is a lantern in the sky.",
-      "She ran like the wind across the field.",
-      "The stars are dancing overhead.",
-      "He was a lion in the battle."
-    ],
-    answer: 1,
-    explanation: "A simile uses 'like' or 'as' to make a comparison. 'Like the wind' is a simile."
-  },
-  {
-    category: "Mathematics",
-    text: "What is the next number in the sequence: 3, 6, 12, 24, ___?",
-    options: ["36", "42", "48", "30"],
-    answer: 2,
-    explanation: "Each number is multiplied by 2: 24 × 2 = 48."
-  },
-  {
-    category: "Verbal Reasoning",
-    text: "Which word is the odd one out? Apple, Pear, Carrot, Grape",
-    options: ["Apple", "Pear", "Carrot", "Grape"],
-    answer: 2,
-    explanation: "Apple, Pear, and Grape are all fruits. Carrot is a vegetable."
-  },
-  {
-    category: "Mathematics",
-    text: "A rectangle has a length of 12 cm and a width of 7 cm. What is its area?",
-    options: ["38 cm²", "76 cm²", "84 cm²", "96 cm²"],
-    answer: 2,
-    explanation: "Area = Length × Width = 12 × 7 = 84 cm²."
-  },
-  {
-    category: "English – Grammar",
-    text: "Choose the correctly punctuated sentence.",
-    options: [
-      "Its a lovely day, isnt it.",
-      "It's a lovely day, isn't it?",
-      "Its a lovely day isn't it?",
-      "It's a lovely day isn't it."
-    ],
-    answer: 1,
-    explanation: "'It's' needs an apostrophe (contraction of 'it is'), and 'isn't' also needs one. The question ends with a question mark."
-  }
+  { category:"Mathematics", text:"A train travels 240 km in 3 hours. What is its average speed?", options:["60 km/h","80 km/h","90 km/h","75 km/h"], answer:1, explanation:"Speed = Distance / Time = 240 / 3 = 80 km/h." },
+  { category:"English - Vocabulary", text:"Choose the word most similar in meaning to BENEVOLENT.", options:["Cruel","Generous","Timid","Arrogant"], answer:1, explanation:"Benevolent means well-meaning and kindly - closest to Generous." },
+  { category:"Verbal Reasoning", text:"If CAT becomes FDW (each letter +3), what does DOG become?", options:["GRJ","GRK","GPJ","GQJ"], answer:0, explanation:"D+3=G, O+3=R, G+3=J. Shifting each letter +3 gives GRJ." },
+  { category:"Mathematics", text:"What is 15% of 320?", options:["42","48","52","56"], answer:1, explanation:"10% of 320 = 32; 5% = 16; total = 32 + 16 = 48." },
+  { category:"Non-Verbal Reasoning", text:"A square has a perimeter of 36 cm. What is its area?", options:["72 cm2","81 cm2","64 cm2","90 cm2"], answer:1, explanation:"Side = 36 / 4 = 9 cm. Area = 9 x 9 = 81 cm2." },
+  { category:"English - Comprehension", text:"Which sentence uses a simile correctly?", options:["The moon is a lantern in the sky.","She ran like the wind across the field.","The stars are dancing overhead.","He was a lion in the battle."], answer:1, explanation:"A simile uses 'like' or 'as' to compare. 'Like the wind' is a simile; the others are metaphors." },
+  { category:"Mathematics", text:"What is the next number in the sequence: 3, 6, 12, 24, ___?", options:["36","42","48","30"], answer:2, explanation:"Each number is multiplied by 2: 24 x 2 = 48." },
+  { category:"Verbal Reasoning", text:"Which word is the odd one out? Apple, Pear, Carrot, Grape", options:["Apple","Pear","Carrot","Grape"], answer:2, explanation:"Apple, Pear and Grape are fruits. Carrot is a vegetable - the odd one out." },
+  { category:"Mathematics", text:"A rectangle has a length of 12 cm and a width of 7 cm. What is its area?", options:["38 cm2","76 cm2","84 cm2","96 cm2"], answer:2, explanation:"Area = Length x Width = 12 x 7 = 84 cm2." },
+  { category:"English - Grammar", text:"Choose the correctly punctuated sentence.", options:["Its a lovely day, isnt it.","It's a lovely day, isn't it?","Its a lovely day isn't it?","It's a lovely day isn't it."], answer:1, explanation:"It's needs an apostrophe (it is), isn't also needs one, and the question ends with a question mark." }
 ];
 
-const letters = ['A','B','C','D'];
+const LETTERS = ['A','B','C','D'];
 let answered = new Array(10).fill(null);
 
+/* ===== RENDER ===== */
 function renderQuestions() {
-  const container = document.getElementById('questionsContainer');
-  container.innerHTML = '';
+  const c = document.getElementById('questionsContainer');
+  c.innerHTML = '';
   questions.forEach((q, qi) => {
     const card = document.createElement('div');
     card.className = 'question-card';
-    card.id = `card-${qi}`;
-    card.style.animationDelay = `${qi * 0.05}s`;
-
+    card.id = 'card-' + qi;
+    card.style.animationDelay = (qi * 0.04) + 's';
     card.innerHTML = `
       <div class="q-header">
         <div class="q-num">${qi+1}</div>
-        <div>
+        <div class="q-meta">
           <div class="q-category">${q.category}</div>
           <div class="q-text">${q.text}</div>
         </div>
       </div>
       <div class="options" id="opts-${qi}">
-        ${q.options.map((opt, oi) => `
-          <div class="option" id="opt-${qi}-${oi}" onclick="selectAnswer(${qi},${oi})">
-            <div class="opt-letter">${letters[oi]}</div>
-            <span>${opt}</span>
-          </div>
-        `).join('')}
+        ${q.options.map((opt,oi) => `
+          <div class="option" id="opt-${qi}-${oi}" onclick="selectAnswer(${qi},${oi})" role="button" tabindex="0"
+               onkeydown="if(event.key==='Enter'||event.key===' ')selectAnswer(${qi},${oi})">
+            <div class="opt-letter">${LETTERS[oi]}</div><span>${opt}</span>
+          </div>`).join('')}
       </div>
-      <div class="feedback" id="fb-${qi}"></div>
-    `;
-    container.appendChild(card);
+      <div class="feedback" id="fb-${qi}"></div>`;
+    c.appendChild(card);
   });
 }
 
 function selectAnswer(qi, oi) {
-  if (answered[qi] !== null) return; // already answered
+  if (answered[qi] !== null) return;
   answered[qi] = oi;
-
-  const q = questions[qi];
-  const isCorrect = oi === q.answer;
-  const card = document.getElementById(`card-${qi}`);
-  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
-
+  const q = questions[qi], ok = oi === q.answer;
+  document.getElementById('card-'+qi).classList.add(ok ? 'answered-correct' : 'answered-wrong');
   for (let i = 0; i < q.options.length; i++) {
-    const optEl = document.getElementById(`opt-${qi}-${i}`);
-    optEl.classList.add('disabled');
-    if (i === oi) optEl.classList.add(isCorrect ? 'selected-correct' : 'selected-wrong');
-    if (!isCorrect && i === q.answer) optEl.classList.add('show-correct');
+    const el = document.getElementById('opt-'+qi+'-'+i);
+    el.classList.add('disabled');
+    if (i === oi) el.classList.add(ok ? 'selected-correct' : 'selected-wrong');
+    if (!ok && i === q.answer) el.classList.add('show-correct');
   }
-
-  const fb = document.getElementById(`fb-${qi}`);
-  fb.className = `feedback show ${isCorrect ? 'correct-fb' : 'wrong-fb'}`;
-  fb.innerHTML = `<strong>${isCorrect ? '✓ Correct!' : '✗ Incorrect.'}</strong> ${q.explanation}`;
-
+  const fb = document.getElementById('fb-'+qi);
+  fb.className = 'feedback show ' + (ok ? 'correct-fb' : 'wrong-fb');
+  fb.innerHTML = '<strong>' + (ok ? '&#10003; Correct!' : '&#10007; Incorrect.') + '</strong> ' + q.explanation;
   updateProgress();
 }
 
 function updateProgress() {
-  const count = answered.filter(a => a !== null).length;
-  document.getElementById('progressLabel').textContent = `Question ${count} of 10 answered`;
-  document.getElementById('progressBar').style.width = `${count * 10}%`;
-  document.getElementById('submitBtn').disabled = count < 10;
+  const n = answered.filter(a=>a!==null).length;
+  document.getElementById('progressLabel').textContent = 'Question ' + n + ' of 10 answered';
+  document.getElementById('progressBar').style.width = (n*10) + '%';
+  document.getElementById('submitBtn').disabled = n < 10;
 }
 
 function submitTest() {
-  const score = answered.reduce((acc, a, i) => acc + (a === questions[i].answer ? 1 : 0), 0);
-  const pct = score / 10;
-
+  const score = answered.reduce((acc,a,i)=>acc+(a===questions[i].answer?1:0),0);
   document.getElementById('scoreNum').textContent = score;
-
+  const p = score/10;
   let title, msg;
-  if (pct === 1)       { title = '🏆 Perfect Score!';        msg = 'Outstanding! You answered every question correctly. Exceptional 11+ preparation!'; }
-  else if (pct >= .8)  { title = '🌟 Excellent Work!';       msg = `You scored ${score}/10. A fantastic result! Focus on the questions you missed to reach a perfect score.`; }
-  else if (pct >= .6)  { title = '👍 Good Effort!';          msg = `You scored ${score}/10. Good progress! Review your incorrect answers and keep practising daily.`; }
-  else                  { title = '📚 Keep Practising!';     msg = `You scored ${score}/10. Don't be discouraged — review each explanation carefully and try again.`; }
-
+  if (p===1)    { title='🏆 Perfect Score!';   msg='Outstanding! Every question correct. Exceptional 11+ preparation!'; }
+  else if(p>=.8){ title='🌟 Excellent Work!';  msg='You scored '+score+'/10. Fantastic! Review what you missed to aim for a perfect score.'; }
+  else if(p>=.6){ title='👍 Good Effort!';     msg='You scored '+score+'/10. Good progress! Review incorrect answers and keep practising.'; }
+  else          { title='📚 Keep Practising!'; msg='You scored '+score+'/10. Don\'t be discouraged - read each explanation and try again.'; }
   document.getElementById('resultsTitle').textContent = title;
   document.getElementById('resultsMsg').textContent = msg;
-
-  const card = document.getElementById('resultsCard');
-  card.classList.add('show');
-  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
+  const rc = document.getElementById('resultsCard');
+  rc.classList.add('show');
+  rc.scrollIntoView({ behavior:'smooth', block:'start' });
   document.getElementById('submitBtn').disabled = true;
 }
 
@@ -650,176 +268,244 @@ function retryTest() {
   document.getElementById('submitBtn').disabled = true;
   renderQuestions();
   updateProgress();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ── PDF GENERATION ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3500);
+}
+
+/* ===== PDF DOWNLOAD =====
+   Pure-JS minimal PDF 1.4 builder — zero external dependencies.
+   Works offline and in all modern browsers via Blob + object URL.
+================================================= */
 function downloadPDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  const btn = document.getElementById('dlBtn');
+  btn.disabled = true;
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Generating...`;
 
-  const navy = [13, 31, 60];
-  const gold = [201, 151, 58];
-  const cream = [250, 248, 243];
-  const black = [28, 26, 22];
-  const grey = [120, 112, 100];
-  const W = 210, margin = 20;
+  setTimeout(function() {
+    try {
+      const pdfStr = buildPDF();
+      // Convert to byte array
+      const len = pdfStr.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) bytes[i] = pdfStr.charCodeAt(i) & 0xFF;
+      const blob = new Blob([bytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = '11plus-mock-test-set-a.pdf';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(()=>URL.revokeObjectURL(url), 4000);
+      showToast('✓ PDF downloaded successfully!');
+    } catch(e) {
+      console.error(e);
+      showToast('⚠ Could not generate PDF. Please try again.');
+    }
+    btn.disabled = false;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF`;
+  }, 40);
+}
 
-  // Header band
-  doc.setFillColor(...navy);
-  doc.rect(0, 0, W, 32, 'F');
-  doc.setFillColor(...gold);
-  doc.rect(0, 32, W, 2, 'F');
+function buildPDF() {
+  /* A4 in points: 595 x 842 */
+  var W = 595, H = 842, ML = 48, MR = 48, CW = W - ML - MR;
+  var objs = [], offsets = {}, nextId = 1;
 
-  doc.setTextColor(240, 201, 110);
-  doc.setFontSize(18);
-  doc.setFont('helvetica', 'bold');
-  doc.text('ElevenPlus Academy', margin, 14);
-  doc.setFontSize(10);
-  doc.setTextColor(200, 195, 185);
-  doc.setFont('helvetica', 'normal');
-  doc.text('UK 11+ Exam Preparation · Mock Test Set A', margin, 22);
+  function addObj(str) { var id = nextId++; objs.push({id:id, str:str}); return id; }
+  function addStream(s) { var id = nextId++; objs.push({id:id, stream:s}); return id; }
 
-  doc.setTextColor(...black);
-  doc.setFontSize(9);
-  doc.text(`Generated: ${new Date().toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'})}`, W - margin, 22, { align: 'right' });
+  /* Helvetica font refs */
+  var fNorm = '/Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding';
+  var fBold = '/Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding';
 
-  // Subtitle
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(...navy);
-  doc.text('Mixed Practice Paper — 10 Questions', margin, 46);
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(...grey);
-  doc.text('Subjects covered: Mathematics · English · Verbal Reasoning · Non-Verbal Reasoning', margin, 53);
+  /* escape for PDF string */
+  function esc(s) { return s.replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)'); }
 
-  // Divider
-  doc.setDrawColor(...gold);
-  doc.setLineWidth(0.5);
-  doc.line(margin, 57, W - margin, 57);
-
-  let y = 66;
-
-  questions.forEach((q, i) => {
-    const numLines = Math.ceil(q.text.length / 85);
-    const blockHeight = 14 + numLines * 6 + q.options.length * 7 + 6;
-
-    if (y + blockHeight > 275) { doc.addPage(); y = 20; }
-
-    // Question number pill
-    doc.setFillColor(...navy);
-    doc.roundedRect(margin, y - 5, 8, 8, 2, 2, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'bold');
-    doc.text(`${i+1}`, margin + 4, y + 1, { align: 'center' });
-
-    // Category
-    doc.setTextColor(...gold);
-    doc.setFontSize(7.5);
-    doc.setFont('helvetica', 'bold');
-    doc.text(q.category.toUpperCase(), margin + 11, y - 1);
-
-    // Question text
-    doc.setTextColor(...black);
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    const lines = doc.splitTextToSize(q.text, W - margin * 2 - 11);
-    doc.text(lines, margin + 11, y + 5);
-    y += 5 + lines.length * 6;
-
-    // Options
-    q.options.forEach((opt, oi) => {
-      doc.setFillColor(...cream);
-      doc.roundedRect(margin + 11, y - 0.5, W - margin * 2 - 11, 6.5, 1.5, 1.5, 'F');
-      doc.setDrawColor(220, 214, 200);
-      doc.setLineWidth(0.3);
-      doc.roundedRect(margin + 11, y - 0.5, W - margin * 2 - 11, 6.5, 1.5, 1.5, 'S');
-
-      doc.setFillColor(...navy);
-      doc.circle(margin + 17, y + 2.5, 2.5, 'F');
-      doc.setTextColor(255,255,255);
-      doc.setFontSize(7);
-      doc.setFont('helvetica', 'bold');
-      doc.text(letters[oi], margin + 17, y + 4.2, { align: 'center' });
-
-      doc.setTextColor(...black);
-      doc.setFontSize(9);
-      doc.setFont('helvetica', 'normal');
-      doc.text(opt, margin + 22, y + 4);
-      y += 8;
-    });
-
-    y += 6;
-  });
-
-  // Answer Key page
-  doc.addPage();
-  doc.setFillColor(...navy);
-  doc.rect(0, 0, W, 24, 'F');
-  doc.setTextColor(240, 201, 110);
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.text('Answer Key & Explanations', margin, 16);
-  doc.setFillColor(...gold);
-  doc.rect(0, 24, W, 1.5, 'F');
-
-  y = 36;
-  questions.forEach((q, i) => {
-    if (y > 265) { doc.addPage(); y = 20; }
-    doc.setFillColor(oi => q.answer === oi ? [45,122,79] : cream);
-
-    // Answer number
-    doc.setFillColor(...navy);
-    doc.roundedRect(margin, y - 4, 7, 7, 1.5, 1.5, 'F');
-    doc.setTextColor(255,255,255);
-    doc.setFontSize(8);
-    doc.setFont('helvetica','bold');
-    doc.text(`${i+1}`, margin + 3.5, y + 1, {align:'center'});
-
-    // Correct answer pill
-    const ca = q.options[q.answer];
-    doc.setFillColor(45, 122, 79);
-    doc.roundedRect(margin + 10, y - 4, 5 + ca.length * 1.6, 7, 2, 2, 'F');
-    doc.setTextColor(255,255,255);
-    doc.setFontSize(7.5);
-    doc.setFont('helvetica','bold');
-    doc.text(`${letters[q.answer]}  ${ca}`, margin + 13, y + 1);
-
-    // Explanation
-    doc.setTextColor(...grey);
-    doc.setFontSize(8.5);
-    doc.setFont('helvetica','normal');
-    const expLines = doc.splitTextToSize(q.explanation, W - margin * 2 - 10);
-    doc.text(expLines, margin + 10, y + 10);
-    y += 14 + expLines.length * 5;
-  });
-
-  // Footer on all pages
-  const total = doc.getNumberOfPages();
-  for (let p = 1; p <= total; p++) {
-    doc.setPage(p);
-    doc.setFillColor(...navy);
-    doc.rect(0, 289, W, 8, 'F');
-    doc.setTextColor(180, 170, 155);
-    doc.setFontSize(7.5);
-    doc.setFont('helvetica','normal');
-    doc.text('ElevenPlus Academy · Mock Test Set A · For practice use only', margin, 294);
-    doc.text(`Page ${p} of ${total}`, W - margin, 294, { align: 'right' });
+  /* Approximate text wrap */
+  function wrap(text, maxPt, fsize) {
+    var cw = fsize * 0.54, max = Math.floor(maxPt / cw);
+    var words = text.split(' '), lines = [], cur = '';
+    for (var i=0;i<words.length;i++) {
+      var w=words[i], test = cur ? cur+' '+w : w;
+      if (test.length <= max) cur = test;
+      else { if(cur)lines.push(cur); cur=w; }
+    }
+    if(cur)lines.push(cur); return lines;
   }
 
-  doc.save('11plus-mock-test-set-a.pdf');
+  /* Build page streams */
+  var pageStreams = [];
+
+  function makePage(drawFn) {
+    var cmds = [];
+    var y = 0; // top-down tracking; convert with: H - y
+
+    function py(ty) { return (H - ty).toFixed(2); }
+
+    function rgb(r,g,b,stroke) {
+      var v=(r/255).toFixed(3)+' '+(g/255).toFixed(3)+' '+(b/255).toFixed(3);
+      cmds.push(v + (stroke?' RG':' rg'));
+    }
+
+    function fillRect(x,ty,w,h) {
+      cmds.push(x.toFixed(2)+' '+py(ty+h)+' '+w.toFixed(2)+' '+h.toFixed(2)+' re f');
+    }
+
+    function strokeRect(x,ty,w,h,lw) {
+      cmds.push((lw||0.5)+' w');
+      cmds.push(x.toFixed(2)+' '+py(ty+h)+' '+w.toFixed(2)+' '+h.toFixed(2)+' re S');
+    }
+
+    function drawText(t, x, ty, size, bold, r,g,b) {
+      rgb(r,g,b);
+      cmds.push('BT /'+(bold?'FB':'FN')+' '+size+' Tf '+x.toFixed(2)+' '+py(ty)+' Td ('+esc(t)+') Tj ET');
+    }
+
+    function hline(ty) {
+      rgb(201,151,58,true);
+      cmds.push('0.8 w');
+      cmds.push(ML.toFixed(2)+' '+py(ty)+' m '+(W-MR).toFixed(2)+' '+py(ty)+' l S');
+    }
+
+    drawFn({ cmds, rgb, fillRect, strokeRect, drawText, hline, wrap,
+      ML, MR, CW, W, H, esc });
+
+    return cmds.join('\n');
+  }
+
+  /* ── PAGE 1: Questions ── */
+  var p1stream = makePage(function(ctx) {
+    var c=ctx, y=0;
+
+    /* Header band */
+    c.fillRect(0,0,W,54);    /* navy fill (default black — we set colour first) */
+    c.rgb(13,31,60); c.fillRect(0,0,W,54);
+    c.rgb(201,151,58); c.fillRect(0,54,W,2.5);
+
+    c.drawText('ElevenPlus Academy', ctx.ML, 20, 17, true, 240,200,108);
+    c.drawText('UK 11+ Exam Preparation  |  Mock Test Set A', ctx.ML, 35, 9, false, 190,183,170);
+
+    var dateStr = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    c.drawText('Generated: '+dateStr, W-ctx.MR-145, 35, 8, false, 190,183,170);
+
+    y = 70;
+    c.drawText('Mixed Practice Paper — 10 Questions', ctx.ML, y, 12, true, 13,31,60);
+    y += 13;
+    c.drawText('Subjects: Mathematics  |  English  |  Verbal Reasoning  |  Non-Verbal Reasoning', ctx.ML, y, 8.5, false, 120,112,100);
+    y += 10;
+    c.hline(y); y += 14;
+
+    questions.forEach(function(q,i) {
+      /* Num bubble */
+      c.rgb(13,31,60); c.fillRect(ctx.ML, y, 16, 16);
+      c.drawText(String(i+1), ctx.ML+4, y+11.5, 8, true, 240,200,108);
+
+      /* Category */
+      c.drawText(q.category.toUpperCase(), ctx.ML+22, y+8, 7, true, 201,151,58);
+
+      y += 15;
+      var qlines = wrap(q.text, ctx.CW-22, 10);
+      qlines.forEach(function(l){ c.drawText(l, ctx.ML+22, y, 10, false, 28,26,22); y+=13; });
+      y += 2;
+
+      q.options.forEach(function(opt,oi){
+        c.rgb(248,245,240); c.fillRect(ctx.ML+22, y-3, ctx.CW-22, 16);
+        c.rgb(210,204,192,true); c.strokeRect(ctx.ML+22, y-3, ctx.CW-22, 16, 0.4);
+        c.rgb(13,31,60); c.fillRect(ctx.ML+27, y+1, 11, 11);
+        c.drawText(LETTERS[oi], ctx.ML+30.5, y+9.5, 7, true, 255,255,255);
+        c.drawText(opt, ctx.ML+44, y+8.5, 9, false, 28,26,22);
+        y += 20;
+      });
+      y += 9;
+    });
+  });
+
+  /* ── PAGE 2: Answer Key ── */
+  var p2stream = makePage(function(ctx) {
+    var c=ctx, y=0;
+
+    c.rgb(13,31,60); c.fillRect(0,0,W,44);
+    c.rgb(201,151,58); c.fillRect(0,44,W,2.5);
+    c.drawText('Answer Key & Explanations', ctx.ML, 25, 13, true, 240,200,108);
+    c.drawText('Mock Test Set A  —  ElevenPlus Academy', ctx.ML, 38, 8.5, false, 170,163,152);
+
+    y = 60;
+
+    questions.forEach(function(q,i) {
+      /* Num */
+      c.rgb(13,31,60); c.fillRect(ctx.ML, y, 14, 14);
+      c.drawText(String(i+1), ctx.ML+3.5, y+10.5, 8, true, 255,255,255);
+
+      /* Correct answer green pill */
+      var ca = LETTERS[q.answer]+'  '+q.options[q.answer];
+      var pw = Math.min(ca.length*5.6+14, ctx.CW-28);
+      c.rgb(45,122,79); c.fillRect(ctx.ML+20, y, pw, 14);
+      c.drawText(ca, ctx.ML+27, y+10.5, 8, true, 255,255,255);
+
+      y += 18;
+
+      /* Explanation */
+      var expLines = wrap(q.explanation, ctx.CW-20, 9);
+      expLines.forEach(function(l){ c.drawText(l, ctx.ML+20, y, 9, false, 110,100,90); y+=12; });
+
+      /* Divider */
+      c.rgb(220,213,200,true);
+      var cc=c.cmds; cc.push('0.5 w');
+      cc.push(ctx.ML.toFixed(2)+' '+(H-(y+5)).toFixed(2)+' m '+(W-ctx.MR).toFixed(2)+' '+(H-(y+5)).toFixed(2)+' l S');
+      y += 12;
+    });
+  });
+
+  /* Register streams */
+  var s1id = addStream(p1stream);
+  var s2id = addStream(p2stream);
+
+  /* Font objects */
+  var fnId = addObj('<< '+fNorm+' >>');
+  var fbId = addObj('<< '+fBold+' >>');
+
+  /* Resource dict (shared) */
+  var resDict = '<< /Font << /FN '+fnId+' 0 R /FB '+fbId+' 0 R >> >>';
+
+  /* Page objects */
+  var kidsId = nextId; // pages dict will come after
+  var p1id = addObj('<< /Type /Page /Parent '+(kidsId+1)+' 0 R /MediaBox [0 0 '+W+' '+H+'] /Contents '+s1id+' 0 R /Resources '+resDict+' >>');
+  var p2id = addObj('<< /Type /Page /Parent '+(kidsId+1)+' 0 R /MediaBox [0 0 '+W+' '+H+'] /Contents '+s2id+' 0 R /Resources '+resDict+' >>');
+
+  var pagesId = addObj('<< /Type /Pages /Kids ['+p1id+' 0 R '+p2id+' 0 R] /Count 2 >>');
+  var catalogId = addObj('<< /Type /Catalog /Pages '+pagesId+' 0 R >>');
+
+  /* ── Serialise ── */
+  objs.sort(function(a,b){return a.id-b.id});
+
+  var out = '%PDF-1.4\n%\xFF\xFF\xFF\xFF\n';
+
+  objs.forEach(function(obj) {
+    offsets[obj.id] = out.length;
+    if ('stream' in obj) {
+      out += obj.id+' 0 obj\n<< /Length '+obj.stream.length+' >>\nstream\n'+obj.stream+'\nendstream\nendobj\n';
+    } else {
+      out += obj.id+' 0 obj\n'+obj.str+'\nendobj\n';
+    }
+  });
+
+  var xref = out.length;
+  var total = nextId;
+  out += 'xref\n0 '+total+'\n';
+  out += '0000000000 65535 f \n';
+  for (var i=1;i<total;i++) {
+    var off = offsets[i];
+    out += (off!==undefined ? String(off).padStart(10,'0') : '0000000000')+' 00000 n \n';
+  }
+  out += 'trailer\n<< /Size '+total+' /Root '+catalogId+' 0 R >>\nstartxref\n'+xref+'\n%%EOF';
+  return out;
 }
 
-// Load jsPDF from CDN then render
-(function loadJsPDF() {
-  const s = document.createElement('script');
-  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-  s.onload = () => console.log('jsPDF ready');
-  document.head.appendChild(s);
-})();
-
+/* ===== INIT ===== */
 renderQuestions();
 updateProgress();
 </script>
