@@ -41,11 +41,29 @@
   .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,4vw,1.7rem);font-weight:700;color:var(--navy)}
   .section-title span{display:block;font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
 
+  /* BUTTON ROW */
+  .btn-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex-shrink:0}
+
   /* DOWNLOAD BUTTON */
   .btn-download{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;border:none;padding:12px 20px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap;flex-shrink:0;touch-action:manipulation;min-height:44px;-webkit-tap-highlight-color:transparent}
   .btn-download:hover{background:var(--royal);transform:translateY(-1px)}
   .btn-download:active{transform:translateY(0)}
   .btn-download svg{width:16px;height:16px;flex-shrink:0}
+
+  /* SHUFFLE BUTTON */
+  .btn-shuffle{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--navy);border:2px solid var(--navy);padding:10px 18px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s,color .2s,transform .15s,border-color .2s;white-space:nowrap;flex-shrink:0;touch-action:manipulation;min-height:44px;-webkit-tap-highlight-color:transparent;position:relative}
+  .btn-shuffle:hover{background:var(--navy);color:#fff;transform:translateY(-1px)}
+  .btn-shuffle:active{transform:translateY(0) rotate(180deg)}
+  .btn-shuffle svg{width:16px;height:16px;flex-shrink:0;transition:transform .5s ease}
+  .btn-shuffle:hover svg{transform:rotate(180deg)}
+  .btn-shuffle.shuffled{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+  .btn-shuffle.shuffled:hover{background:#d4a030;border-color:#d4a030;color:var(--navy)}
+
+  /* SHUFFLE MODE BADGE */
+  .shuffle-badge{display:none;align-items:center;gap:6px;background:linear-gradient(135deg,#fff8ec,#fef3d7);border:1.5px solid var(--gold);color:#7a5a10;font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:5px 12px;border-radius:20px;animation:badgePop .3s cubic-bezier(.34,1.56,.64,1) both}
+  .shuffle-badge.show{display:inline-flex}
+  @keyframes badgePop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+  .shuffle-badge svg{width:12px;height:12px;flex-shrink:0}
 
   /* PROGRESS */
   .progress-label{font-size:.79rem;color:var(--muted);margin-bottom:7px;font-weight:500}
@@ -110,7 +128,8 @@
   /* MOBILE EXTRAS */
   @media(max-width:480px){
     .section-header{flex-direction:column;align-items:flex-start}
-    .btn-download{width:100%;justify-content:center}
+    .btn-row{width:100%}
+    .btn-download,.btn-shuffle{flex:1;justify-content:center}
   }
 </style>
 </head>
@@ -126,7 +145,8 @@
   <h1>Prepare Smarter.<br><em>Score Higher.</em></h1>
   <p>Practice with expertly crafted mock tests covering Maths, English, Verbal &amp; Non-Verbal Reasoning — exactly what top grammar schools expect.</p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">10</div><div class="stat-label">Questions</div></div>
+    <div class="stat"><div class="stat-num">40</div><div class="stat-label">Question Bank</div></div>
+    <div class="stat"><div class="stat-num">10</div><div class="stat-label">Per Test</div></div>
     <div class="stat"><div class="stat-num">4</div><div class="stat-label">Subjects</div></div>
     <div class="stat"><div class="stat-num">PDF</div><div class="stat-label">Download</div></div>
   </div>
@@ -134,18 +154,30 @@
 
 <div class="main">
   <div class="section-header">
-    <div class="section-title">
-      <span>Mock Test · Set A</span>
-      Mixed 11+ Practice Paper
+    <div>
+      <div class="section-title">
+        <span>Mock Test · Set A · 40-Question Bank</span>
+        Mixed 11+ Practice Paper
+      </div>
+      <div class="shuffle-badge" id="shuffleBadge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+        Shuffled Mode
+      </div>
     </div>
-    <button class="btn-download" id="dlBtn" onclick="downloadPDF()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
-      </svg>
-      Download PDF
-    </button>
+    <div class="btn-row">
+      <button class="btn-shuffle" id="shuffleBtn" onclick="shuffleTest()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+        Shuffle
+      </button>
+      <button class="btn-download" id="dlBtn" onclick="downloadPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download PDF
+      </button>
+    </div>
   </div>
 
   <div class="progress-label" id="progressLabel">Question 0 of 10 answered</div>
@@ -160,13 +192,13 @@
   <div class="results-card" id="resultsCard">
     <div class="score-ring">
       <div class="score-big" id="scoreNum">0</div>
-      <div class="score-denom">/ 10</div>
+      <div class="score-denom">/ <span id="testSize">10</span></div>
     </div>
     <h2 id="resultsTitle"></h2>
     <p id="resultsMsg"></p>
     <button class="btn-retry" onclick="retryTest()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-      Retry Test
+      New Test (10 fresh questions)
     </button>
   </div>
 </div>
@@ -175,28 +207,133 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* ===== DATA ===== */
-const questions = [
+/* ===== QUESTION BANK (40 questions across 4 subjects, 10 each) ===== */
+const QUESTION_BANK = [
+
+  /* ── MATHEMATICS (10) ── */
   { category:"Mathematics", text:"A train travels 240 km in 3 hours. What is its average speed?", options:["60 km/h","80 km/h","90 km/h","75 km/h"], answer:1, explanation:"Speed = Distance / Time = 240 / 3 = 80 km/h." },
-  { category:"English - Vocabulary", text:"Choose the word most similar in meaning to BENEVOLENT.", options:["Cruel","Generous","Timid","Arrogant"], answer:1, explanation:"Benevolent means well-meaning and kindly - closest to Generous." },
-  { category:"Verbal Reasoning", text:"If CAT becomes FDW (each letter +3), what does DOG become?", options:["GRJ","GRK","GPJ","GQJ"], answer:0, explanation:"D+3=G, O+3=R, G+3=J. Shifting each letter +3 gives GRJ." },
-  { category:"Mathematics", text:"What is 15% of 320?", options:["42","48","52","56"], answer:1, explanation:"10% of 320 = 32; 5% = 16; total = 32 + 16 = 48." },
-  { category:"Non-Verbal Reasoning", text:"A square has a perimeter of 36 cm. What is its area?", options:["72 cm2","81 cm2","64 cm2","90 cm2"], answer:1, explanation:"Side = 36 / 4 = 9 cm. Area = 9 x 9 = 81 cm2." },
-  { category:"English - Comprehension", text:"Which sentence uses a simile correctly?", options:["The moon is a lantern in the sky.","She ran like the wind across the field.","The stars are dancing overhead.","He was a lion in the battle."], answer:1, explanation:"A simile uses 'like' or 'as' to compare. 'Like the wind' is a simile; the others are metaphors." },
+  { category:"Mathematics", text:"What is 15% of 320?", options:["42","48","52","56"], answer:1, explanation:"10% of 320 = 32; 5% of 320 = 16; 32 + 16 = 48." },
   { category:"Mathematics", text:"What is the next number in the sequence: 3, 6, 12, 24, ___?", options:["36","42","48","30"], answer:2, explanation:"Each number is multiplied by 2: 24 x 2 = 48." },
-  { category:"Verbal Reasoning", text:"Which word is the odd one out? Apple, Pear, Carrot, Grape", options:["Apple","Pear","Carrot","Grape"], answer:2, explanation:"Apple, Pear and Grape are fruits. Carrot is a vegetable - the odd one out." },
   { category:"Mathematics", text:"A rectangle has a length of 12 cm and a width of 7 cm. What is its area?", options:["38 cm2","76 cm2","84 cm2","96 cm2"], answer:2, explanation:"Area = Length x Width = 12 x 7 = 84 cm2." },
-  { category:"English - Grammar", text:"Choose the correctly punctuated sentence.", options:["Its a lovely day, isnt it.","It's a lovely day, isn't it?","Its a lovely day isn't it?","It's a lovely day isn't it."], answer:1, explanation:"It's needs an apostrophe (it is), isn't also needs one, and the question ends with a question mark." }
+  { category:"Mathematics", text:"What is the value of 7 squared?", options:["42","47","49","56"], answer:2, explanation:"7 squared (7²) = 7 x 7 = 49." },
+  { category:"Mathematics", text:"A bag has 3 red, 5 blue, and 2 green balls. What is the probability of picking a blue ball?", options:["1/2","3/10","5/10","2/5"], answer:2, explanation:"5 blue out of 10 total = 5/10 = 1/2. Both 5/10 and 1/2 are correct; 5/10 is the direct fraction." },
+  { category:"Mathematics", text:"What is the missing number? 4, 9, 16, 25, ___", options:["30","34","36","40"], answer:2, explanation:"These are square numbers: 2²=4, 3²=9, 4²=16, 5²=25, 6²=36." },
+  { category:"Mathematics", text:"A shop sells apples for 35p each. How much do 8 apples cost?", options:["£2.40","£2.80","£3.00","£2.60"], answer:1, explanation:"8 x 35p = 280p = £2.80." },
+  { category:"Mathematics", text:"What is 3/4 of 96?", options:["68","72","76","80"], answer:1, explanation:"96 / 4 = 24; 24 x 3 = 72." },
+  { category:"Mathematics", text:"The angles in a triangle add up to 180°. If two angles are 65° and 75°, what is the third?", options:["30°","40°","50°","45°"], answer:1, explanation:"180 - 65 - 75 = 40°." },
+
+  /* ── ENGLISH – VOCABULARY & GRAMMAR (10) ── */
+  { category:"English - Vocabulary", text:"Choose the word most similar in meaning to BENEVOLENT.", options:["Cruel","Generous","Timid","Arrogant"], answer:1, explanation:"Benevolent means well-meaning and kindly — closest to Generous." },
+  { category:"English - Grammar", text:"Choose the correctly punctuated sentence.", options:["Its a lovely day, isnt it.","It's a lovely day, isn't it?","Its a lovely day isn't it?","It's a lovely day isn't it."], answer:1, explanation:"It's (it is) and isn't both need apostrophes; the sentence is a question." },
+  { category:"English - Vocabulary", text:"Which word is the antonym (opposite) of ANCIENT?", options:["Old","Historic","Modern","Worn"], answer:2, explanation:"Ancient means very old; its opposite is Modern." },
+  { category:"English - Grammar", text:"Which sentence is written in the passive voice?", options:["The dog chased the cat.","The cat was chased by the dog.","The cat ran away quickly.","A dog barked loudly."], answer:1, explanation:"Passive voice: the subject receives the action. 'The cat was chased by the dog' — the cat is acted upon." },
+  { category:"English - Vocabulary", text:"Choose the word closest in meaning to DILIGENT.", options:["Lazy","Hardworking","Careless","Noisy"], answer:1, explanation:"Diligent means showing careful and persistent effort — synonymous with hardworking." },
+  { category:"English - Grammar", text:"Which of the following is a compound sentence?", options:["She sang beautifully.","Although it rained, we stayed dry.","I like cats and I like dogs.","Running through the park, she tripped."], answer:2, explanation:"A compound sentence joins two independent clauses with a conjunction: 'I like cats' + 'I like dogs'." },
+  { category:"English - Vocabulary", text:"What does the word MELANCHOLY mean?", options:["Happy","Confused","Angry","Sad"], answer:3, explanation:"Melancholy means a deep, long-lasting sadness or gloom." },
+  { category:"English - Grammar", text:"Identify the adverb in: 'She spoke quietly in the library.'", options:["She","spoke","quietly","library"], answer:2, explanation:"An adverb modifies a verb — 'quietly' describes how she spoke." },
+  { category:"English - Vocabulary", text:"Which word means to make something less severe?", options:["Aggravate","Mitigate","Amplify","Provoke"], answer:1, explanation:"Mitigate means to lessen the severity or seriousness of something." },
+  { category:"English - Grammar", text:"Choose the sentence that uses a semicolon correctly.", options:["I love reading; books are great.","I love; reading books.","I; love reading books.","I love reading books;"], answer:0, explanation:"A semicolon correctly links two related independent clauses: 'I love reading' and 'books are great'." },
+
+  /* ── VERBAL REASONING (10) ── */
+  { category:"Verbal Reasoning", text:"If CAT becomes FDW (each letter +3), what does DOG become?", options:["GRJ","GRK","GPJ","GQJ"], answer:0, explanation:"D+3=G, O+3=R, G+3=J. Answer: GRJ." },
+  { category:"Verbal Reasoning", text:"Which word is the odd one out? Apple, Pear, Carrot, Grape", options:["Apple","Pear","Carrot","Grape"], answer:2, explanation:"Apple, Pear and Grape are fruits. Carrot is a vegetable." },
+  { category:"Verbal Reasoning", text:"DENTIST is to TEETH as OPTICIAN is to ___", options:["Glasses","Hospital","Eyes","Ears"], answer:2, explanation:"A dentist cares for teeth; an optician cares for eyes." },
+  { category:"Verbal Reasoning", text:"Find the word that completes both pairs: PLAY ___ / ___ WORK", options:["GROUND","TIME","FIELD","HOUSE"], answer:0, explanation:"PLAYGROUND and GROUNDWORK both work — GROUND completes both compound words." },
+  { category:"Verbal Reasoning", text:"Which number comes next? 2, 5, 10, 17, 26, ___", options:["33","35","37","39"], answer:2, explanation:"Differences are +3, +5, +7, +9, +11 — next is 26 + 11 = 37." },
+  { category:"Verbal Reasoning", text:"PIANO is to MUSIC as PAINTBRUSH is to ___", options:["Canvas","Colour","Art","Paint"], answer:2, explanation:"A piano produces music; a paintbrush produces art." },
+  { category:"Verbal Reasoning", text:"Which word cannot be made from the letters in CHAMPION?", options:["CHAIN","MANIC","PIANO","BACON"], answer:3, explanation:"BACON needs a B — there is no B in CHAMPION." },
+  { category:"Verbal Reasoning", text:"If FRIEND is coded as GSJFOE (each letter +1), how is BRAVE coded?", options:["CSBWF","CRAVF","DSCXG","CSAWF"], answer:0, explanation:"B+1=C, R+1=S, A+1=B, V+1=W, E+1=F → CSBWF." },
+  { category:"Verbal Reasoning", text:"Complete the analogy: Cub is to Bear as Kitten is to ___", options:["Dog","Lion","Cat","Tiger"], answer:2, explanation:"A cub is a young bear; a kitten is a young cat." },
+  { category:"Verbal Reasoning", text:"Which word is most similar in meaning to SWIFT?", options:["Strong","Quick","Silent","Steady"], answer:1, explanation:"Swift means moving or capable of moving at high speed — synonymous with Quick." },
+
+  /* ── NON-VERBAL REASONING (10) ── */
+  { category:"Non-Verbal Reasoning", text:"A square has a perimeter of 36 cm. What is its area?", options:["72 cm2","81 cm2","64 cm2","90 cm2"], answer:1, explanation:"Side = 36 / 4 = 9 cm. Area = 9 x 9 = 81 cm2." },
+  { category:"Non-Verbal Reasoning", text:"A shape has 6 faces, 12 edges, and 8 vertices. What is it?", options:["Tetrahedron","Cube","Triangular prism","Cylinder"], answer:1, explanation:"A cube has exactly 6 faces, 12 edges, and 8 vertices." },
+  { category:"Non-Verbal Reasoning", text:"How many lines of symmetry does a regular hexagon have?", options:["4","5","6","8"], answer:2, explanation:"A regular hexagon has 6 lines of symmetry — one through each pair of opposite vertices and one through each pair of opposite edges." },
+  { category:"Non-Verbal Reasoning", text:"A triangle has a base of 10 cm and a height of 8 cm. What is its area?", options:["40 cm2","80 cm2","20 cm2","48 cm2"], answer:0, explanation:"Area of triangle = ½ x base x height = ½ x 10 x 8 = 40 cm2." },
+  { category:"Non-Verbal Reasoning", text:"Which 3D shape has one circular face and comes to a point?", options:["Sphere","Cylinder","Cone","Pyramid"], answer:2, explanation:"A cone has one circular base and tapers to a single apex (point)." },
+  { category:"Non-Verbal Reasoning", text:"A rectangle is 9 cm long and 4 cm wide. What is its perimeter?", options:["36 cm","26 cm","18 cm","13 cm"], answer:1, explanation:"Perimeter = 2 x (length + width) = 2 x (9 + 4) = 2 x 13 = 26 cm." },
+  { category:"Non-Verbal Reasoning", text:"How many faces does a triangular prism have?", options:["4","5","6","3"], answer:1, explanation:"A triangular prism has 5 faces: 2 triangular ends and 3 rectangular sides." },
+  { category:"Non-Verbal Reasoning", text:"A circle has a radius of 5 cm. What is its diameter?", options:["5 cm","15 cm","10 cm","25 cm"], answer:2, explanation:"Diameter = 2 x radius = 2 x 5 = 10 cm." },
+  { category:"Non-Verbal Reasoning", text:"Which shape has exactly 4 lines of symmetry?", options:["Rectangle","Square","Rhombus","Parallelogram"], answer:1, explanation:"A square has 4 lines of symmetry: 2 diagonal and 2 through midpoints of opposite sides." },
+  { category:"Non-Verbal Reasoning", text:"A cube has a side length of 3 cm. What is its volume?", options:["9 cm3","18 cm3","27 cm3","36 cm3"], answer:2, explanation:"Volume of cube = side³ = 3 x 3 x 3 = 27 cm3." }
 ];
 
+/* ── Subject groups for balanced drawing ── */
+const SUBJECTS = ["Mathematics","English","Verbal Reasoning","Non-Verbal Reasoning"];
+
 const LETTERS = ['A','B','C','D'];
-let answered = new Array(10).fill(null);
+const TEST_SIZE = 10;           // questions per test
+const PER_SUBJECT = 2;          // guaranteed questions per subject (4 x 2 = 8, remaining 2 random)
+
+let answered = new Array(TEST_SIZE).fill(null);
+let isShuffled = false;
+let activeQuestions = [];
+
+/* ===== SHUFFLE UTILS ===== */
+function fisherYates(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function shuffleOptions(q) {
+  const indices = [0,1,2,3];
+  fisherYates(indices);
+  const newOptions = indices.map(i => q.options[i]);
+  const newCorrect = indices.indexOf(q.answer);
+  return { ...q, options: newOptions, answer: newCorrect };
+}
+
+/* ===== DRAW A FRESH TEST FROM THE BANK =====
+   Strategy: draw PER_SUBJECT (2) from each of the 4 subjects = 8 guaranteed
+   balanced questions, then fill remaining 2 from whatever is left. This ensures
+   every test always has Maths, English, Verbal AND Non-Verbal questions. ===== */
+function drawTest() {
+  const pool = [...QUESTION_BANK];
+  fisherYates(pool);
+
+  const selected = [];
+  const used = new Set();
+
+  // Draw PER_SUBJECT from each subject first
+  for (const subj of SUBJECTS) {
+    let count = 0;
+    for (let i = 0; i < pool.length && count < PER_SUBJECT; i++) {
+      if (!used.has(i) && pool[i].category.startsWith(subj.split(' ')[0])) {
+        selected.push(pool[i]);
+        used.add(i);
+        count++;
+      }
+    }
+  }
+
+  // Fill remaining slots from the rest of the pool
+  for (let i = 0; i < pool.length && selected.length < TEST_SIZE; i++) {
+    if (!used.has(i)) { selected.push(pool[i]); used.add(i); }
+  }
+
+  // Final shuffle of the selected set so subject order is randomised
+  fisherYates(selected);
+  return selected.map(q => ({ ...q, options: [...q.options] }));
+}
+
+// Build: draw fresh set, optionally shuffle options too
+function buildShuffled() {
+  return drawTest().map(q => shuffleOptions(q));
+}
+
+function buildOriginal() {
+  return drawTest(); // still draws fresh questions, just no option-shuffling
+}
 
 /* ===== RENDER ===== */
 function renderQuestions() {
   const c = document.getElementById('questionsContainer');
   c.innerHTML = '';
-  questions.forEach((q, qi) => {
+  activeQuestions.forEach((q, qi) => {
     const card = document.createElement('div');
     card.className = 'question-card';
     card.id = 'card-' + qi;
@@ -224,7 +361,7 @@ function renderQuestions() {
 function selectAnswer(qi, oi) {
   if (answered[qi] !== null) return;
   answered[qi] = oi;
-  const q = questions[qi], ok = oi === q.answer;
+  const q = activeQuestions[qi], ok = oi === q.answer;
   document.getElementById('card-'+qi).classList.add(ok ? 'answered-correct' : 'answered-wrong');
   for (let i = 0; i < q.options.length; i++) {
     const el = document.getElementById('opt-'+qi+'-'+i);
@@ -240,20 +377,21 @@ function selectAnswer(qi, oi) {
 
 function updateProgress() {
   const n = answered.filter(a=>a!==null).length;
-  document.getElementById('progressLabel').textContent = 'Question ' + n + ' of 10 answered';
-  document.getElementById('progressBar').style.width = (n*10) + '%';
-  document.getElementById('submitBtn').disabled = n < 10;
+  document.getElementById('progressLabel').textContent = 'Question ' + n + ' of ' + TEST_SIZE + ' answered';
+  document.getElementById('progressBar').style.width = (n / TEST_SIZE * 100) + '%';
+  document.getElementById('submitBtn').disabled = n < TEST_SIZE;
 }
 
 function submitTest() {
-  const score = answered.reduce((acc,a,i)=>acc+(a===questions[i].answer?1:0),0);
+  const score = answered.reduce((acc,a,i)=>acc+(a===activeQuestions[i].answer?1:0),0);
   document.getElementById('scoreNum').textContent = score;
-  const p = score/10;
+  document.getElementById('testSize').textContent = TEST_SIZE;
+  const p = score / TEST_SIZE;
   let title, msg;
-  if (p===1)    { title='🏆 Perfect Score!';   msg='Outstanding! Every question correct. Exceptional 11+ preparation!'; }
-  else if(p>=.8){ title='🌟 Excellent Work!';  msg='You scored '+score+'/10. Fantastic! Review what you missed to aim for a perfect score.'; }
-  else if(p>=.6){ title='👍 Good Effort!';     msg='You scored '+score+'/10. Good progress! Review incorrect answers and keep practising.'; }
-  else          { title='📚 Keep Practising!'; msg='You scored '+score+'/10. Don\'t be discouraged - read each explanation and try again.'; }
+  if (p===1)    { title='🏆 Perfect Score!';   msg='Outstanding! Every question correct. Exceptional 11+ preparation! Try a new test to tackle fresh questions from the bank.'; }
+  else if(p>=.8){ title='🌟 Excellent Work!';  msg='You scored '+score+'/'+TEST_SIZE+'. Fantastic result! Start a new test to face different questions and keep improving.'; }
+  else if(p>=.6){ title='👍 Good Effort!';     msg='You scored '+score+'/'+TEST_SIZE+'. Good progress! Review your incorrect answers, then try a new test for fresh practice.'; }
+  else          { title='📚 Keep Practising!'; msg='You scored '+score+'/'+TEST_SIZE+'. Don\'t be discouraged — read each explanation carefully, then start a new test.'; }
   document.getElementById('resultsTitle').textContent = title;
   document.getElementById('resultsMsg').textContent = msg;
   const rc = document.getElementById('resultsCard');
@@ -263,9 +401,43 @@ function submitTest() {
 }
 
 function retryTest() {
-  answered = new Array(10).fill(null);
+  answered = new Array(TEST_SIZE).fill(null);
   document.getElementById('resultsCard').classList.remove('show');
   document.getElementById('submitBtn').disabled = true;
+  // Always draw a fresh set of questions from the bank on retry
+  activeQuestions = isShuffled ? buildShuffled() : buildOriginal();
+  renderQuestions();
+  updateProgress();
+  showToast('🎲 New set of questions drawn from the bank!');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ===== SHUFFLE TOGGLE ===== */
+function shuffleTest() {
+  // Don't shuffle mid-test if questions already answered
+  const answeredCount = answered.filter(a=>a!==null).length;
+  if (answeredCount > 0 && !confirm('Shuffling will reset your current progress. Continue?')) return;
+
+  isShuffled = !isShuffled;
+  activeQuestions = isShuffled ? buildShuffled() : buildOriginal();
+  answered = new Array(TEST_SIZE).fill(null);
+
+  // Update button appearance
+  const btn = document.getElementById('shuffleBtn');
+  const badge = document.getElementById('shuffleBadge');
+  if (isShuffled) {
+    btn.classList.add('shuffled');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg> Shuffled ✓`;
+    badge.classList.add('show');
+    showToast('🔀 Questions & answer options shuffled!');
+  } else {
+    btn.classList.remove('shuffled');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg> Shuffle`;
+    badge.classList.remove('show');
+    showToast('↩ Restored original order.');
+  }
+
+  document.getElementById('resultsCard').classList.remove('show');
   renderQuestions();
   updateProgress();
   window.scrollTo({top:0,behavior:'smooth'});
@@ -506,6 +678,7 @@ function buildPDF() {
 }
 
 /* ===== INIT ===== */
+activeQuestions = buildOriginal();  // draw first fresh set on load
 renderQuestions();
 updateProgress();
 </script>
