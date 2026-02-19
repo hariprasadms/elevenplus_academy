@@ -206,6 +206,115 @@ footer strong{color:var(--gold-l)}
 /* ── CONFETTI ── */
 .confetti-piece{position:fixed;top:-10px;z-index:1000;pointer-events:none;border-radius:2px;animation:confettiFall linear forwards}
 @keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE ENHANCEMENTS (≤ 768px)
+══════════════════════════════════════════════════════ */
+@media(max-width:768px){
+  html{font-size:17px}
+
+  /* HEADER */
+  .hdr-inner{height:58px;padding:0 14px}
+  .logo{font-size:1.15rem}
+  .hstat-val{font-size:1.1rem}
+  .hstat{font-size:.82rem;gap:5px}
+  .xp-bar-wrap{width:60px}
+
+  /* HERO */
+  .hero{padding:36px 18px 32px}
+  .hero h1{font-size:2.1rem;line-height:1.12}
+  .hero p{font-size:.97rem;line-height:1.7;margin-bottom:28px}
+  .hero-eyebrow{font-size:.74rem;padding:5px 14px;margin-bottom:16px}
+  .pill{font-size:.82rem;padding:7px 14px}
+
+  /* SET SELECTOR */
+  .set-selector{padding:24px 14px 0}
+  .set-tabs{gap:10px}
+  .set-tab{padding:16px 14px}
+  .set-name{font-size:1.1rem}
+  .set-desc{font-size:.84rem;line-height:1.55}
+  .set-chip{font-size:.72rem;padding:4px 10px}
+  .set-label{font-size:.72rem}
+  .set-badge{font-size:.64rem}
+
+  /* MAIN / TEST AREA */
+  .main{padding:20px 14px 80px}
+  .toolbar-title{font-size:1.15rem}
+  .toolbar-set-label{font-size:.74rem}
+  .prog-text{font-size:.82rem}
+  .prog-count{font-size:1rem}
+  .prog-wrap{margin-bottom:20px}
+
+  /* QUESTION CARD */
+  .q-card{padding:18px 16px 16px;border-radius:14px;margin-bottom:12px}
+  .q-num{width:30px;height:30px;font-size:.85rem}
+  .q-cat{font-size:.7rem}
+  .q-text{font-size:1.02rem;line-height:1.7}
+
+  /* OPTIONS */
+  .options{gap:9px;margin-top:6px}
+  .opt{font-size:.95rem;padding:13px 14px;min-height:50px;border-radius:11px;gap:11px}
+  .opt-letter{width:26px;height:26px;font-size:.75rem}
+
+  /* FEEDBACK */
+  .feedback{font-size:.88rem;padding:11px 14px}
+
+  /* TOOLBAR BUTTONS */
+  .test-toolbar{margin-bottom:16px}
+  .btn{font-size:.88rem;min-height:44px;padding:10px 14px}
+  .btn svg{width:16px;height:16px}
+
+  /* SUBMIT BUTTON */
+  .btn-submit{font-size:1rem;padding:16px 28px;min-height:54px}
+
+  /* RESULTS */
+  .results{padding:28px 18px 24px;border-radius:16px}
+  .score-wrap{width:120px;height:120px;margin-bottom:20px}
+  .score-num{font-size:2.2rem}
+  .results h2{font-size:1.35rem}
+  .results p{font-size:.95rem}
+  .rstat-val{font-size:1.5rem}
+  .rstat-lbl{font-size:.73rem}
+  .results-stats{gap:18px;margin-bottom:22px}
+  .results-btns{flex-direction:column;align-items:stretch}
+  .results-btns .btn{justify-content:center;width:100%}
+
+  /* BREAKDOWN */
+  .breakdown h3{font-size:1rem}
+  .bk-label{width:110px;font-size:.78rem}
+  .bk-score{font-size:.8rem}
+
+  /* STREAK BANNER */
+  .streak-banner{padding:13px 16px;gap:10px}
+  .streak-icon{font-size:1.6rem}
+  .streak-text{font-size:.92rem}
+  .streak-text strong{font-size:1.05rem}
+
+  /* FOOTER */
+  footer{font-size:.82rem;padding:18px 16px;line-height:1.8}
+
+  /* TOAST */
+  .toast{font-size:.88rem;padding:12px 20px;border-radius:10px}
+}
+
+/* ══════════════════════════════════════════════════════
+   SMALL MOBILE (≤ 400px)
+══════════════════════════════════════════════════════ */
+@media(max-width:400px){
+  html{font-size:17.5px}
+  .hero h1{font-size:1.85rem}
+  .hero p{font-size:.95rem}
+  .q-text{font-size:1rem}
+  .opt{font-size:.93rem;padding:12px 12px}
+  .set-name{font-size:1.05rem}
+  .logo{font-size:1.05rem}
+  .toolbar-title{font-size:1.05rem}
+  .score-wrap{width:110px;height:110px}
+  .score-num{font-size:2rem}
+  .results h2{font-size:1.2rem}
+  .set-selector{padding:20px 12px 0}
+  .main{padding:16px 12px 80px}
+}
 </style>
 </head>
 <body>
