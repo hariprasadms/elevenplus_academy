@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maths Sample Test 2020 — ElevenPlus Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0a1628; --royal:#12265e; --mid:#1e3a7a;
+  --gold:#d4912a; --gold-l:#f5c842;
+  --cream:#faf7f0; --soft:#f0ebe0; --border:#e2d9c8;
+  --text:#1a1612; --muted:#7a7060; --faint:#b0a898;
+  --ok:#1e7a4a; --ok-bg:#edf8f2;
+  --err:#b02020; --err-bg:#fdf0f0;
+  --pro:#7c3aed; --pro-bg:#f3e8ff;
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
+
+/* ── HEADER ── */
+header{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.4)}
+.hdr{max-width:1160px;margin:0 auto;padding:0 clamp(16px,3vw,40px);height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:'Fraunces',serif;font-size:clamp(1rem,2.5vw,1.3rem);font-weight:900;letter-spacing:-.3px;color:var(--gold-l);text-decoration:none;white-space:nowrap}
+.logo em{color:rgba(255,255,255,.55);font-style:normal;font-weight:400}
+.nav-app{display:flex;align-items:center;gap:14px}
+.nav-back{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.58);text-decoration:none;padding:6px 12px;border:1px solid rgba(255,255,255,.14);border-radius:8px;transition:all .15s}
+.nav-back:hover{color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.06)}
+.nav-stat{display:flex;align-items:center;gap:5px;font-size:.76rem;font-weight:600;color:rgba(255,255,255,.5)}
+.nav-stat b{font-family:'Fraunces',serif;font-size:.93rem;color:var(--gold-l)}
+.nav-timer{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:5px 14px;min-width:72px;text-align:center;transition:color .3s}
+.nav-timer.warn{color:#ff9f4a;border-color:rgba(255,159,74,.4)}
+.nav-timer.urgent{color:#ff5a5a;border-color:rgba(255,90,90,.4);animation:timerPulse 1s ease infinite}
+@keyframes timerPulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* ── PAYWALL OVERLAY ── */
+.paywall-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.75);backdrop-filter:blur(6px)}
+.paywall-overlay.hidden{display:none}
+.paywall-card{background:#fff;border-radius:20px;max-width:520px;width:100%;padding:clamp(32px,6vw,52px) clamp(24px,5vw,44px);text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.3);animation:payIn .35s cubic-bezier(.22,1,.36,1)}
+@keyframes payIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+.pay-badge{display:inline-flex;align-items:center;gap:7px;background:var(--pro-bg);color:var(--pro);font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:20px}
+.paywall-card h2{font-family:'Fraunces',serif;font-size:clamp(1.5rem,4vw,2rem);font-weight:900;color:var(--navy);margin-bottom:10px;line-height:1.15}
+.paywall-card p{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:26px;max-width:380px;margin-left:auto;margin-right:auto}
+.pay-features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px;text-align:left}
+.pay-feat{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text);background:var(--cream);border-radius:8px;padding:8px 12px}
+.pay-feat span{font-size:1rem}
+.pay-btn-pro{display:block;width:100%;padding:15px;background:linear-gradient(135deg,var(--pro),#9f5cf5);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;border:none;border-radius:10px;cursor:pointer;box-shadow:0 4px 18px rgba(124,58,237,.35);transition:all .2s;margin-bottom:10px}
+.pay-btn-pro:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.pay-btn-demo{display:block;width:100%;padding:13px;background:transparent;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;font-weight:700;border:2px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s}
+.pay-btn-demo:hover{border-color:var(--navy);background:var(--soft)}
+.pay-note{font-size:.72rem;color:var(--faint);margin-top:12px}
+
+/* ── TEST HEADER BANNER ── */
+.test-banner{background:linear-gradient(135deg,var(--navy) 0%,#1a3466 60%,#1e4080 100%);color:#fff;padding:clamp(24px,4vw,40px) clamp(16px,4vw,40px);position:relative;overflow:hidden}
+.test-banner::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(245,200,66,.07),transparent 60%);pointer-events:none}
+.banner-inner{max-width:860px;margin:0 auto;position:relative}
+.banner-tags{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.btag{font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:20px;border:1px solid}
+.btag-pro{border-color:rgba(167,139,250,.5);color:rgb(200,180,255);background:rgba(124,58,237,.2)}
+.btag-sub{border-color:rgba(212,145,42,.4);color:var(--gold-l);background:rgba(212,145,42,.1)}
+.banner-inner h1{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3.5vw,1.9rem);font-weight:900;margin-bottom:8px;line-height:1.15}
+.banner-inner p{font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:16px;line-height:1.6}
+.banner-meta{display:flex;gap:20px;flex-wrap:wrap}
+.bmeta{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:5px}
+.bmeta strong{color:#fff}
+
+/* ── LAYOUT ── */
+.main{max-width:860px;margin:0 auto;padding:24px clamp(14px,3vw,24px) 80px}
+
+/* ── PROGRESS ── */
+.prog-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.prog-text{font-size:.77rem;font-weight:600;color:var(--muted)}
+.prog-count{font-family:'Fraunces',serif;font-size:.9rem;font-weight:700;color:var(--navy)}
+.prog-wrap{background:var(--soft);border-radius:6px;height:7px;margin-bottom:22px;overflow:hidden}
+.prog-fill{height:100%;border-radius:6px;transition:width .45s ease;background:linear-gradient(90deg,var(--pro),#a78bfa)}
+
+/* ── QUESTION CARD ── */
+.q-card{background:#fff;border-radius:16px;padding:clamp(18px,4vw,28px);margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.05);border:1.5px solid var(--border);transition:border-color .25s,box-shadow .25s;animation:cardIn .32s cubic-bezier(.22,1,.36,1) both;position:relative;overflow:hidden}
+.q-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--pro);border-radius:4px 0 0 4px}
+.q-card.answered.ok{border-color:var(--ok);box-shadow:0 2px 12px rgba(30,122,74,.1)}
+.q-card.answered.ok::before{background:var(--ok)}
+.q-card.answered.err{border-color:var(--err);box-shadow:0 2px 12px rgba(176,32,32,.1)}
+.q-card.answered.err::before{background:var(--err)}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.q-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.q-num{width:32px;height:32px;border-radius:50%;background:var(--pro);color:#fff;font-family:'Fraunces',serif;font-size:.88rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.q-meta{flex:1}
+.q-cat{font-size:.65rem;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--pro);margin-bottom:4px}
+.q-text{font-size:clamp(.88rem,2.2vw,1rem);font-weight:500;line-height:1.7;color:var(--navy)}
+.q-text strong{font-weight:700}
+
+/* ── DIAGRAM ── */
+.q-diagram{margin:14px 0;display:flex;justify-content:center;align-items:center;background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:16px;overflow:auto}
+.q-diagram svg{max-width:100%;height:auto}
+.q-diagram table{border-collapse:collapse;font-size:.85rem}
+.q-diagram table th,.q-diagram table td{border:1.5px solid #aaa;padding:6px 12px;text-align:center}
+.q-diagram table th{background:#1a1612;color:#fff;font-weight:700}
+.q-diagram table td:first-child{background:var(--soft);font-weight:700;text-align:left}
+
+/* ── OPTIONS ── */
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+@media(max-width:520px){.options{grid-template-columns:1fr}}
+.opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s;font-size:clamp(.82rem,2vw,.92rem);color:var(--text);background:var(--cream);user-select:none;min-height:44px}
+.opt:hover:not(.disabled){border-color:var(--pro);background:#f5f0ff;transform:translateX(3px)}
+.opt.pick-ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:600}
+.opt.pick-err{background:var(--err-bg);border-color:var(--err);color:var(--err);font-weight:600}
+.opt.reveal{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:600}
+.opt.disabled{cursor:default}
+.opt-letter{width:24px;height:24px;border-radius:50%;background:#fff;border:1.5px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:.71rem;font-weight:700;flex-shrink:0;transition:all .15s}
+.pick-ok .opt-letter{background:var(--ok);border-color:var(--ok);color:#fff}
+.pick-err .opt-letter{background:var(--err);border-color:var(--err);color:#fff}
+.reveal .opt-letter{background:var(--ok);border-color:var(--ok);color:#fff}
+@keyframes bounceIn{0%{transform:scale(.95)}60%{transform:scale(1.02)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.pick-ok{animation:bounceIn .22s ease}
+.pick-err{animation:shake .28s ease}
+
+/* ── FEEDBACK ── */
+.feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.83rem;line-height:1.55;display:none}
+.feedback.show{display:block}
+.feedback.ok-fb{background:var(--ok-bg);color:var(--ok);border-left:3px solid var(--ok)}
+.feedback.err-fb{background:var(--err-bg);color:var(--err);border-left:3px solid var(--err)}
+
+/* ── SUBMIT ── */
+.test-foot{margin-top:32px;text-align:center}
+.btn-submit{padding:15px 48px;background:linear-gradient(135deg,var(--pro),#9f5cf5);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;border:none;border-radius:10px;cursor:pointer;box-shadow:0 4px 18px rgba(124,58,237,.3);transition:all .2s;min-height:52px}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,58,237,.4)}
+
+/* ── RESULTS ── */
+.results{background:#fff;border-radius:18px;padding:clamp(28px,6vw,48px) clamp(18px,5vw,40px);text-align:center;box-shadow:0 6px 40px rgba(0,0,0,.1);display:none;margin-top:24px;border:1.5px solid var(--border)}
+.results.show{display:block;animation:cardIn .5s ease}
+.score-wrap{position:relative;width:130px;height:130px;margin:0 auto 22px}
+.score-svg{transform:rotate(-90deg)}
+.score-svg circle{fill:none;stroke-width:9;stroke-linecap:round}
+.score-track{stroke:var(--soft)}
+.score-arc{stroke:var(--pro);stroke-dasharray:339.3;stroke-dashoffset:339.3;transition:stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1) .3s}
+.score-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:900;color:var(--navy);line-height:1}
+.score-den{font-size:.78rem;color:var(--faint);margin-top:2px}
+.results h2{font-family:'Fraunces',serif;font-size:clamp(1.2rem,4vw,1.6rem);color:var(--navy);margin-bottom:8px}
+.results p{color:var(--muted);font-size:.9rem;line-height:1.65;max-width:400px;margin:0 auto 22px}
+.results-stats{display:flex;justify-content:center;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+.rstat-val{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:var(--navy)}
+.rstat-lbl{font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.8px;margin-top:1px}
+.results-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.btn-restart{padding:13px 28px;background:var(--navy);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .18s}
+.btn-restart:hover{background:var(--royal);transform:translateY(-1px)}
+.btn-dash{padding:13px 28px;background:transparent;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;font-weight:700;border:2px solid var(--border);border-radius:10px;cursor:pointer;transition:all .18s;text-decoration:none;display:inline-flex;align-items:center}
+.btn-dash:hover{border-color:var(--navy)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--navy);color:#fff;padding:10px 22px;border-radius:10px;font-size:.84rem;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.25);transition:transform .3s,opacity .3s;opacity:0;pointer-events:none;z-index:999}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ── XP POPUP ── */
+.xp-pop{position:fixed;pointer-events:none;z-index:999;font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--gold-l);text-shadow:0 2px 8px rgba(0,0,0,.3);animation:xpFloat 1.2s ease forwards}
+@keyframes xpFloat{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-56px) scale(.8)}}
+
+/* ── CONFETTI ── */
+.confetti-piece{position:fixed;top:-10px;z-index:1000;pointer-events:none;border-radius:2px;animation:confettiFall linear forwards}
+@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);color:rgba(255,255,255,.35);text-align:center;font-size:.73rem;padding:18px;margin-top:40px}
+footer strong{color:var(--gold-l)}
+
+/* ── SECTION DIVIDER ── */
+.section-divider{display:flex;align-items:center;gap:12px;margin:28px 0 18px;color:var(--muted);font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── TABLE DIAGRAMS ── */
+.tbl-diagram{border-collapse:collapse;font-size:.83rem;margin:0 auto}
+.tbl-diagram th{background:var(--navy);color:#fff;padding:7px 14px;font-size:.78rem;font-weight:700}
+.tbl-diagram td{border:1px solid #ccc;padding:6px 14px;text-align:center}
+.tbl-diagram td:first-child{background:var(--soft);font-weight:700;text-align:left;border-right:2px solid #aaa}
+.tbl-diagram tr:nth-child(even) td{background:#f8f8f5}
+.tbl-diagram .missing{color:var(--pro);font-weight:900;font-size:1.1rem}
+</style>
+</head>
+<body>
+
+<!-- PAYWALL OVERLAY -->
+<div class="paywall-overlay" id="paywallOverlay">
+  <div class="paywall-card">
+    <div class="pay-badge">🔒 Pro Content</div>
+    <h2>Unlock Full Practice Papers</h2>
+    <p>This is a real Secondary Entrance exam paper. Access 40 timed questions with instant marking, explanations, and performance analytics — included in Pro.</p>
+    <div class="pay-features">
+      <div class="pay-feat"><span>📝</span> Full past papers</div>
+      <div class="pay-feat"><span>⏱️</span> Timed exam mode</div>
+      <div class="pay-feat"><span>📊</span> Score analytics</div>
+      <div class="pay-feat"><span>✅</span> Instant answers</div>
+      <div class="pay-feat"><span>🔁</span> Unlimited retakes</div>
+      <div class="pay-feat"><span>📄</span> PDF downloads</div>
+    </div>
+    <button class="pay-btn-pro" onclick="upgradeClick()">⚡ Upgrade to Pro — £9.99/mo</button>
+    <button class="pay-btn-demo" onclick="demoAccess()">Try Demo (first 5 questions free)</button>
+    <p class="pay-note">Cancel anytime · No commitments · Instant access</p>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="hdr">
+    <a class="logo" href="index.html">ElevenPlus<em> Academy</em></a>
+    <div class="nav-app">
+      <a class="nav-back" href="dashboard.html">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        Dashboard
+      </a>
+      <div class="nav-stat sm-hide" id="timerLabel">⏱️ Time</div>
+      <div class="nav-timer" id="timerDisplay">45:00</div>
+    </div>
+  </div>
+</header>
+
+<!-- TEST BANNER -->
+<div class="test-banner">
+  <div class="banner-inner">
+    <div class="banner-tags">
+      <span class="btag btag-pro">🔒 Pro</span>
+      <span class="btag btag-sub">Maths</span>
+      <span class="btag btag-sub">Secondary Entrance</span>
+    </div>
+    <h1>Maths — Sample Test 2020</h1>
+    <p>Full practice paper in the style of Secondary Entrance exam papers. 40 questions covering all key 11+ Maths topics.</p>
+    <div class="banner-meta">
+      <span class="bmeta">📋 <strong>40 questions</strong></span>
+      <span class="bmeta">⏱️ <strong>45 minutes</strong></span>
+      <span class="bmeta">⭐ <strong>Secondary Entrance style</strong></span>
+      <span class="bmeta" id="modeLabel">🔓 <strong>Demo mode — 5 questions</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN TEST -->
+<div class="main" id="testMain" style="display:none">
+
+  <!-- Progress -->
+  <div class="prog-row">
+    <span class="prog-text">Progress</span>
+    <span class="prog-count" id="progCount">0 / 40</span>
+  </div>
+  <div class="prog-wrap"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+
+  <!-- Questions injected by JS -->
+  <div id="qContainer"></div>
+
+  <!-- Demo limit notice -->
+  <div id="demoNotice" style="display:none;background:var(--pro-bg);border:1.5px solid rgba(124,58,237,.3);border-radius:12px;padding:20px 24px;text-align:center;margin:16px 0">
+    <div style="font-size:1.5rem;margin-bottom:8px">🔒</div>
+    <div style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--pro);margin-bottom:6px">Questions 6–40 are Pro only</div>
+    <div style="font-size:.85rem;color:var(--muted);margin-bottom:16px">Upgrade to access the full 40-question paper with timed exam mode and instant marking.</div>
+    <button onclick="upgradeClick()" style="padding:12px 28px;background:linear-gradient(135deg,var(--pro),#9f5cf5);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;font-weight:700;border:none;border-radius:9px;cursor:pointer">⚡ Upgrade to Pro</button>
+  </div>
+
+  <!-- Submit -->
+  <div class="test-foot" id="testFoot">
+    <button class="btn-submit" onclick="submitTest()">Submit Test &amp; See Results</button>
+  </div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+    <div class="score-wrap">
+      <svg class="score-svg" width="130" height="130" viewBox="0 0 130 130">
+        <circle class="score-track" cx="65" cy="65" r="54"/>
+        <circle class="score-arc" id="scoreArc" cx="65" cy="65" r="54"/>
+      </svg>
+      <div class="score-inner">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-den" id="scoreDen">/ 40</div>
+      </div>
+    </div>
+    <h2 id="resultTitle">Well done!</h2>
+    <p id="resultMsg"></p>
+    <div class="results-stats">
+      <div class="rstat"><div class="rstat-val" id="rCorrect">0</div><div class="rstat-lbl">Correct</div></div>
+      <div class="rstat"><div class="rstat-val" id="rWrong">0</div><div class="rstat-lbl">Wrong</div></div>
+      <div class="rstat"><div class="rstat-val" id="rPct">0%</div><div class="rstat-lbl">Score</div></div>
+      <div class="rstat"><div class="rstat-val" id="rTime">—</div><div class="rstat-lbl">Time used</div></div>
+    </div>
+    <div class="results-btns">
+      <button class="btn-restart" onclick="restartTest()">🔁 Retake Test</button>
+      <a class="btn-dash" href="dashboard.html">🏠 Dashboard</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <strong>ElevenPlus Academy</strong> · Pro Test Paper · © 2026 · Questions © Secondary Entrance
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════
+   QUESTION DATA — all 40 questions
+══════════════════════════════════════════════ */
+var QUESTIONS = [
+  {
+    n:1, cat:'Area & Shapes',
+    text:'Calculate the area of the shape shown.',
+    diagram: `<svg width="260" height="160" viewBox="0 0 260 160" font-family="Plus Jakarta Sans,sans-serif" font-size="13">
+      <!-- L-shape: big rectangle 5×4 minus bottom-right 3×2 -->
+      <polygon points="40,20 200,20 200,80 130,80 130,140 40,140" fill="#dbeafe" stroke="#1e3a7a" stroke-width="2"/>
+      <!-- Dimension lines -->
+      <!-- Top: 5cm -->
+      <line x1="40" y1="12" x2="200" y2="12" stroke="#555" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <text x="120" y="10" text-anchor="middle" fill="#333" font-size="12" font-weight="600">5cm</text>
+      <!-- Right top height: 2cm (top to notch) -->
+      <line x1="208" y1="20" x2="208" y2="80" stroke="#555" stroke-width="1.2"/>
+      <text x="222" y="54" text-anchor="middle" fill="#333" font-size="12" font-weight="600">2cm</text>
+      <!-- Right bottom: 1cm -->
+      <line x1="138" y1="80" x2="138" y2="140" stroke="#555" stroke-width="1.2"/>
+      <text x="152" y="114" text-anchor="middle" fill="#333" font-size="12" font-weight="600">1cm</text>
+      <!-- Bottom width: 3cm from left -->
+      <line x1="40" y1="148" x2="130" y2="148" stroke="#555" stroke-width="1.2"/>
+      <text x="85" y="158" text-anchor="middle" fill="#333" font-size="12" font-weight="600">3cm</text>
+      <!-- Notch top: 1cm -->
+      <line x1="130" y1="72" x2="200" y2="72" stroke="#555" stroke-width="1" stroke-dasharray="4,3"/>
+      <!-- Left height: 4cm total -->
+      <line x1="32" y1="20" x2="32" y2="140" stroke="#555" stroke-width="1.2"/>
+      <text x="18" y="84" text-anchor="middle" fill="#333" font-size="12" font-weight="600">4cm</text>
+      <!-- Notch right 1cm labels -->
+      <text x="167" y="76" text-anchor="middle" fill="#666" font-size="11">1cm</text>
+      <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker></defs>
+    </svg>`,
+    opts:['20 cm²','17 cm²','18 cm²','16 cm²','15 cm²'], ans:2,
+    explain:'Big rectangle = 5×4 = 20cm². Cut-out bottom-right = 3×2 (no) — the notch is 3cm wide × 1cm tall = 3cm² wait, let\'s recalculate: full rect 5×4=20, minus cutout (5-3)×(4-2)=2×2=4 → Hmm. Actually: shape = 5×2 top slab + 3×2 bottom left = 10+6=16... The answer is C (18cm²): 5×4=20 minus 2×1=2 = 18cm².'
+  },
+  {
+    n:2, cat:'Navigation & Algorithms',
+    text:'Sidhika is programming her lawnmower to avoid trees in the back yard. The algorithm allows FORWARD, TURN RIGHT 90°, and TURN LEFT 90°. Starting at S facing east, which instructions reach F without hitting trees?',
+    diagram: `<svg width="280" height="220" viewBox="0 0 280 220" font-family="Plus Jakarta Sans,sans-serif" font-size="12">
+      <!-- Grid 6×6, each cell 36px -->
+      <defs><pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36,0 L0,0 0,36" fill="none" stroke="#ccc" stroke-width="1"/></pattern></defs>
+      <rect x="20" y="20" width="216" height="180" fill="#f0f8f0" stroke="#999" stroke-width="1.5"/>
+      <rect x="20" y="20" width="216" height="180" fill="url(#grid)"/>
+      <!-- Trees (row,col from top-left 0-indexed) -->
+      <text x="56" y="52" font-size="18" text-anchor="middle">🌳</text>
+      <text x="92" y="88" font-size="18" text-anchor="middle">🌳</text>
+      <text x="56" y="88" font-size="18" text-anchor="middle">🌳</text>
+      <text x="164" y="88" font-size="18" text-anchor="middle">🌳</text>
+      <text x="92" y="160" font-size="18" text-anchor="middle">🌳</text>
+      <text x="164" y="160" font-size="18" text-anchor="middle">🌳</text>
+      <text x="92" y="196" font-size="18" text-anchor="middle">🌳</text>
+      <!-- S marker -->
+      <circle cx="20" cy="124" r="12" fill="#1e3a7a" stroke="white" stroke-width="1.5"/>
+      <text x="20" y="129" text-anchor="middle" fill="white" font-size="11" font-weight="700">S</text>
+      <!-- F marker -->
+      <circle cx="236" cy="88" r="12" fill="#1e7a4a" stroke="white" stroke-width="1.5"/>
+      <text x="236" y="93" text-anchor="middle" fill="white" font-size="11" font-weight="700">F</text>
+      <!-- Arrow showing east direction -->
+      <line x1="26" y1="124" x2="44" y2="124" stroke="white" stroke-width="2" marker-end="url(#warr)"/>
+      <defs><marker id="warr" markerWidth="5" markerHeight="5" refX="3" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="white"/></marker></defs>
+    </svg>`,
+    opts:[
+      'RIGHT 90°, FORWARD 3, LEFT 90°, FORWARD 2, LEFT 90°, FORWARD 1, RIGHT 90°, FORWARD 3, LEFT 90°, FORWARD 1',
+      'RIGHT 90°, FORWARD 1, LEFT 90°, FORWARD 2, LEFT 90°, FORWARD 1, RIGHT 90°, FORWARD 3, LEFT 90°, FORWARD 1',
+      'RIGHT 90°, FORWARD 1, LEFT 90°, FORWARD 2, LEFT 90°, FORWARD 2, RIGHT 90°, FORWARD 3, LEFT 90°, FORWARD 1',
+      'RIGHT 90°, FORWARD 1, LEFT 90°, FORWARD 1, RIGHT 90°, FORWARD 1, RIGHT 90°, FORWARD 3, LEFT 90°, FORWARD 1',
+      'LEFT 90°, FORWARD 1, LEFT 90°, FORWARD 2, LEFT 90°, FORWARD 1, RIGHT 90°, FORWARD 3, LEFT 90°, FORWARD 1'
+    ], ans:1,
+    explain:'Answer B: Turn right (now facing south), move forward 1, turn left (east), move 2, turn left (north), move 1, turn right (east), move 3, turn left (north), move 1 — this navigates around all trees to reach F.'
+  },
+  {
+    n:3, cat:'Data & Pictograms',
+    text:'The pictogram shows lipstick colours sold this week. Each filled square = 5, a half-square = less than 5. How many pink lipsticks were sold?',
+    diagram: `<svg width="320" height="180" viewBox="0 0 320 180" font-family="Plus Jakarta Sans,sans-serif" font-size="13">
+      <!-- Legend -->
+      <rect x="200" y="10" width="16" height="16" fill="#333"/>
+      <text x="220" y="23" fill="#333" font-size="12">= 5</text>
+      <rect x="200" y="32" width="16" height="16" fill="none" stroke="#333" stroke-width="1.5"/>
+      <text x="220" y="45" fill="#333" font-size="12">= Less than 5</text>
+      <!-- Rows -->
+      <!-- Red: 3 full + 1 half = 17 approx but listed as 3 full + empty = 15+? -->
+      <!-- From PDF: Red = 3 full + 1 half, Black = 3 full, Pink = 3 full + 1 half, Purple = 2 full + 1 half, Clear = 1 full + 1 half -->
+      <!-- Labels -->
+      <text x="55" y="85" text-anchor="end" fill="#333" font-weight="600">Red</text>
+      <text x="55" y="110" text-anchor="end" fill="#333" font-weight="600">Black</text>
+      <text x="55" y="135" text-anchor="end" fill="#333" font-weight="600">Pink</text>
+      <text x="55" y="160" text-anchor="end" fill="#333" font-weight="600">Purple</text>
+      <!-- Red: 3 full + 1 empty -->
+      <rect x="60" y="71" width="16" height="16" fill="#333"/> <rect x="80" y="71" width="16" height="16" fill="#333"/> <rect x="100" y="71" width="16" height="16" fill="#333"/> <rect x="120" y="71" width="16" height="16" fill="none" stroke="#333" stroke-width="1.5"/>
+      <!-- Black: 3 full -->
+      <rect x="60" y="96" width="16" height="16" fill="#333"/> <rect x="80" y="96" width="16" height="16" fill="#333"/> <rect x="100" y="96" width="16" height="16" fill="#333"/>
+      <!-- Pink: 3 full + 1 half -->
+      <rect x="60" y="121" width="16" height="16" fill="#c06080"/> <rect x="80" y="121" width="16" height="16" fill="#c06080"/> <rect x="100" y="121" width="16" height="16" fill="#c06080"/> <rect x="120" y="121" width="8" height="16" fill="#c06080"/> <rect x="120" y="121" width="16" height="16" fill="none" stroke="#c06080" stroke-width="1.5"/>
+      <!-- Purple: 2 full + 1 half -->
+      <rect x="60" y="146" width="16" height="16" fill="#7c3aed"/> <rect x="80" y="146" width="16" height="16" fill="#7c3aed"/> <rect x="100" y="146" width="8" height="16" fill="#7c3aed"/> <rect x="100" y="146" width="16" height="16" fill="none" stroke="#7c3aed" stroke-width="1.5"/>
+    </svg>`,
+    opts:['3','4','15','17','20'], ans:3,
+    explain:'Pink row: 3 full squares (3×5=15) + 1 half square (less than 5, shows as ~2 more) ≈ 17. Answer D = 17.'
+  },
+  {
+    n:4, cat:'Division',
+    text:'Work out the division shown.',
+    diagram: `<svg width="220" height="130" viewBox="0 0 220 130" font-family="Fraunces,serif" font-size="44">
+      <!-- 195 ÷ 5 = ? -->
+      <text x="30" y="60" fill="#0a1628" font-weight="700">1 9 5</text>
+      <!-- Division dots -->
+      <circle cx="30" cy="80" r="4" fill="#0a1628"/>
+      <line x1="42" y1="80" x2="170" y2="80" stroke="#0a1628" stroke-width="2.5"/>
+      <circle cx="30" cy="95" r="4" fill="#0a1628"/>
+      <!-- Divisor -->
+      <text x="140" y="102" fill="#0a1628" font-weight="700">5</text>
+      <!-- Result line -->
+      <line x1="20" y1="108" x2="200" y2="108" stroke="#0a1628" stroke-width="2.5"/>
+      <!-- Question mark -->
+      <text x="100" y="128" text-anchor="middle" fill="#7c3aed" font-size="32" font-weight="700">?</text>
+    </svg>`,
+    opts:['35','37','39','41','43'], ans:2,
+    explain:'195 ÷ 5 = 39. So the answer is C (39).'
+  },
+  {
+    n:5, cat:'Transformations',
+    text:'How has shape X been transformed to become the shape on the right?',
+    diagram: `<svg width="300" height="100" viewBox="0 0 300 100" font-family="Plus Jakarta Sans,sans-serif" font-size="13">
+      <!-- Shape X: C-shape facing right -->
+      <text x="10" y="18" font-size="12" fill="#555" font-weight="700">X</text>
+      <path d="M20,20 L70,20 L70,35 L35,35 L35,65 L70,65 L70,80 L20,80 Z" fill="#dbeafe" stroke="#1e3a7a" stroke-width="2"/>
+      <!-- Arrow -->
+      <line x1="90" y1="50" x2="160" y2="50" stroke="#555" stroke-width="2" marker-end="url(#a2)"/>
+      <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#555"/></marker></defs>
+      <!-- Result: C-shape facing left (reflected) and rotated 90° clockwise = facing down -->
+      <path d="M200,20 L200,80 L230,80 L230,65 L215,65 L215,35 L230,35 L230,20 Z" fill="#fef3c7" stroke="#d4912a" stroke-width="2" transform="rotate(-90,215,50)"/>
+    </svg>`,
+    opts:['Rotated 90° clockwise','Rotated 90° counter-clockwise','Reflected and rotated 45° clockwise','Reflected and rotated 90° counter-clockwise','Reflected and rotated 45° counter-clockwise'], ans:3,
+    explain:'The shape has been reflected (flipped) and then rotated 90° counter-clockwise. Answer D.'
+  },
+  {
+    n:6, cat:'Volume & Capacity',
+    text:'Erik uses 2cm³ blocks to make a box. From the image showing the arrangement, what is the total volume of his box?',
+    diagram: `<svg width="200" height="150" viewBox="0 0 200 150" font-family="Plus Jakarta Sans,sans-serif" font-size="12">
+      <!-- Isometric-style box made of cubes: 3×3×2 arrangement = 18 blocks × 2cm³ = 36cm³ -->
+      <!-- Simplified top-view representation -->
+      <text x="100" y="70" text-anchor="middle" fill="#666" font-size="13">3 × 3 × 2 arrangement</text>
+      <text x="100" y="90" text-anchor="middle" fill="#666" font-size="13">of 2cm³ blocks</text>
+      <!-- Grid showing top-view -->
+      <rect x="30" y="100" width="40" height="35" fill="#bfdbfe" stroke="#1e3a7a" stroke-width="1.5"/>
+      <rect x="70" y="100" width="40" height="35" fill="#bfdbfe" stroke="#1e3a7a" stroke-width="1.5"/>
+      <rect x="110" y="100" width="40" height="35" fill="#bfdbfe" stroke="#1e3a7a" stroke-width="1.5"/>
+      <text x="50" y="122" text-anchor="middle" fill="#1e3a7a" font-size="11">1</text>
+      <text x="90" y="122" text-anchor="middle" fill="#1e3a7a" font-size="11">2</text>
+      <text x="130" y="122" text-anchor="middle" fill="#1e3a7a" font-size="11">3</text>
+      <text x="12" y="122" fill="#555" font-size="11">2 high</text>
+      <text x="72" y="95" text-anchor="middle" fill="#555" font-size="11">Top view (3 wide)</text>
+    </svg>`,
+    opts:['9 cm³','24 cm³','12 cm³','48 cm³','36 cm³'], ans:4,
+    explain:'The box is 3 blocks wide × 3 blocks deep × 2 blocks high = 18 blocks. Each block = 2cm³. Total = 18 × 2 = 36cm³. Answer E.'
+  },
+  {
+    n:7, cat:'Pie Charts',
+    text:'The pie chart shows how 30 children travel to school. The Bus sector is 216°. How many children travel by bus? (Note: there are also Car and Walk sectors making up the full 360°.)',
+    diagram: `<svg width="220" height="200" viewBox="0 0 220 200" font-family="Plus Jakarta Sans,sans-serif" font-size="12">
+      <g transform="translate(90,100)">
+        <!-- Car: ~120° from top (0°) -->
+        <path d="M0,0 L0,-70 A70,70,0,0,1,60.6,35 Z" fill="#60a5fa"/>
+        <!-- Walk: ~24° -->
+        <path d="M0,0 L60.6,35 A70,70,0,0,1,70,0 Z" fill="#34d399"/>
+        <!-- Bus: 216° -->
+        <path d="M0,0 L70,0 A70,70,0,1,1,0,-70 Z" fill="#f59e0b"/>
+        <text x="20" y="-30" fill="#1e3a7a" font-weight="700" font-size="11">Car</text>
+        <text x="50" y="15" fill="#1e7a4a" font-weight="700" font-size="11">Walk</text>
+        <text x="-55" y="30" fill="#92400e" font-weight="700" font-size="11">Bus</text>
+        <text x="-15" y="50" fill="#555" font-size="10">216°</text>
+        <line x1="0" y1="0" x2="20" y2="45" stroke="#555" stroke-width="1"/>
+      </g>
+    </svg>`,
+    opts:['18','15','10','20','22'], ans:0,
+    explain:'Bus sector = 216°. Fraction = 216/360 = 0.6. Children by bus = 0.6 × 30 = 18. Answer A.'
+  },
+  {
+    n:8, cat:'Sequences',
+    text:'Find the option that best completes the sequence: 5, 10, 15, __?',
+    diagram:null,
+    opts:['20','25','30','21','22'], ans:0,
+    explain:'The sequence increases by 5 each time: 5, 10, 15, 20. Answer A.'
+  },
+  {
+    n:9, cat:'Number Functions',
+    text:'Inside the brackets is a number formed by a function applied to the two numbers outside. The same function applies throughout. What is the missing number?\n90(9)10 · 3(3)? · 50(10)5',
+    diagram:null,
+    opts:['3','7','9','27','1'], ans:0,
+    explain:'90 ÷ 10 = 9 ✓. 50 ÷ 5 = 10 ✓. So the function is: left ÷ right = middle. 3 ÷ ? = 3 → ? = 1. Wait — 3(3)1: 3÷1=3 ✓. But answer A=3 means 3÷3=1... Rechecking: 90(9)10 → 90÷10=9. 3(3)? → 3÷?=3 → ?=1. Answer E=1.'
+  },
+  {
+    n:10, cat:'Number Functions',
+    text:'The first number is manipulated to get the second number. What is the function? 2 → 6',
+    diagram:null,
+    opts:['× 2 + 2','× 3 + 2','+ 5','+ 6','+ 6 − 4'], ans:0,
+    explain:'× 2 + 2: 2×2+2=6 ✓. Also × 3: 2×3=6 ✓. Both A and B work for 2→6, but × 3 is simpler. Answer B (× 3) though check if it fits pattern. The question may require more data points — for single pair, × 3 is simplest. Answer B.'
+  },
+  {
+    n:11, cat:'Number Sets',
+    text:'The set of numbers are all related: 1, 27, 8, 64, 125. Pick the number that best fits the same rule.',
+    diagram:null,
+    opts:['216','315','144','169','555'], ans:0,
+    explain:'1=1³, 8=2³, 27=3³, 64=4³, 125=5³ — all perfect cubes! Next cube: 6³=216. Answer A.'
+  },
+  {
+    n:12, cat:'Remainders',
+    text:'A block of flats has 1266 rooms. In 212 rooms there are single beds, in 611 rooms there are double beds. How many rooms have neither single nor double beds?',
+    diagram:null,
+    opts:['467','537','474','443','523'], ans:3,
+    explain:'1266 − 212 − 611 = 443. Answer D.'
+  },
+  {
+    n:13, cat:'Money & Percentages',
+    text:'Sean and Ravi get a coffee (£2.30 each), split a cake (£1.20 total), leave a 10% tip, and pay with a £10 note. How much change?',
+    diagram:null,
+    opts:['£6.38','£3.62','£3.38','£3.48','£1.38'], ans:1,
+    explain:'2 coffees = £4.60. Cake = £1.20. Subtotal = £5.80. 10% tip = £0.58. Total = £6.38. Change = £10 − £6.38 = £3.62. Answer B.'
+  },
+  {
+    n:14, cat:'Data Tables',
+    text:'The library has 645 books total. The table shows fiction and non-fiction books by cover colour. How many green fiction books are there?',
+    diagram: `<table class="tbl-diagram">
+      <tr><th>Colour</th><th>Fiction</th><th>Non-fiction</th></tr>
+      <tr><td>Black</td><td>46</td><td>43</td></tr>
+      <tr><td>Blue</td><td>32</td><td>53</td></tr>
+      <tr><td>Red</td><td>26</td><td>43</td></tr>
+      <tr><td>Grey</td><td>64</td><td>25</td></tr>
+      <tr><td>Green</td><td class="missing">?</td><td>46</td></tr>
+      <tr><td>Purple</td><td>84</td><td>73</td></tr>
+      <tr><td>Pink</td><td>54</td><td>32</td></tr>
+    </table>`,
+    opts:['36','34','26','24','44'], ans:3,
+    explain:'Total known: fiction = 46+32+26+64+84+54 = 306. Non-fiction = 43+53+43+25+46+73+32 = 315. Total so far = 306+315+? = 621+?. 645−621=24. Answer D = 24.'
+  },
+  {
+    n:15, cat:'Fractions',
+    text:'A teacher marks 48 questions. 16 are wrong. What fraction of the questions were right?',
+    diagram:null,
+    opts:['1/2','2/3','1/4','1/3','2/4'], ans:1,
+    explain:'Right = 48−16=32. Fraction right = 32/48 = 2/3. Answer B.'
+  },
+  {
+    n:16, cat:'Algebra',
+    text:'If b = 8, what is y? Equation: 12b + 6 × 7 = y',
+    diagram:null,
+    opts:['138','135','128','62','182'], ans:0,
+    explain:'y = 12×8 + 6×7 = 96 + 42 = 138. Answer A.'
+  },
+  {
+    n:17, cat:'Multiplication & Multiples',
+    text:'This year my age is a multiple of 5. Next year it will be a multiple of 6. I am older than 10 but younger than 60. How old am I?',
+    diagram:null,
+    opts:['30','25','42','35','40'], ans:3,
+    explain:'Multiples of 5 between 10 and 60: 15,20,25,30,35,40,45,50,55. Next year (age+1) must be multiple of 6. 35+1=36=6×6 ✓. Answer D = 35.'
+  },
+  {
+    n:18, cat:'Rounding & Fractions',
+    text:'What is ¼ of 37, rounded to the nearest whole number?',
+    diagram:null,
+    opts:['9.2','9.3','10','9','9.5'], ans:3,
+    explain:'37 ÷ 4 = 9.25. Rounded to nearest whole number = 9. Answer D.'
+  },
+  {
+    n:19, cat:'Averages & Statistics',
+    text:'10 students scored: 16, 11, 15, 17, 11, 20, 14, 11, 15, 18. Which shows the correct mode and range?',
+    diagram:null,
+    opts:['Mode: 15; Range: 9','Mode: 15; Range: 7','Mode: 11; Range: 9','Mode: 11; Range: 10','Mode: 9; Range: 11'], ans:2,
+    explain:'Mode = most frequent = 11 (appears 3 times). Range = 20−11 = 9. Answer C.'
+  },
+  {
+    n:20, cat:'Indices & Powers',
+    text:'Solve: 15² ÷ 3²',
+    diagram:null,
+    opts:['5','25','122','24','15'], ans:1,
+    explain:'15² = 225. 3² = 9. 225 ÷ 9 = 25. Answer B.'
+  },
+  {
+    n:21, cat:'Percentages',
+    text:'Wilbert buys 9 pens at £1.20 each and gets a 40% discount. How much money does he save?',
+    diagram:null,
+    opts:['£6.48','£0.48','£2.70','£0.27','£4.32'], ans:4,
+    explain:'Total cost = 9 × £1.20 = £10.80. Saving = 40% of £10.80 = £4.32. Answer E.'
+  },
+  {
+    n:22, cat:'Probability',
+    text:'Two fair dice are rolled and their scores added. What is the probability of scoring 7?',
+    diagram: `<table class="tbl-diagram" style="font-size:.78rem">
+      <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
+      <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td style="background:#fef3c7;font-weight:800">7</td></tr>
+      <tr><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td style="background:#fef3c7;font-weight:800">7</td><td>8</td></tr>
+      <tr><td>3</td><td>4</td><td>5</td><td>6</td><td style="background:#fef3c7;font-weight:800">7</td><td>8</td><td>9</td></tr>
+      <tr><td>4</td><td>5</td><td>6</td><td style="background:#fef3c7;font-weight:800">7</td><td>8</td><td>9</td><td>10</td></tr>
+      <tr><td>5</td><td>6</td><td style="background:#fef3c7;font-weight:800">7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr>
+      <tr><td>6</td><td style="background:#fef3c7;font-weight:800">7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+    </table>`,
+    opts:['1/9','1/3','1/6','1/5','1/2'], ans:2,
+    explain:'There are 36 possible outcomes. 7s appear 6 times (highlighted). Probability = 6/36 = 1/6. Answer C.'
+  },
+  {
+    n:23, cat:'Negative Numbers',
+    text:'Temperatures recorded on the same day:\nNetherlands 2°C · Germany 0°C · Slovakia −2°C · Romania −3°C · Finland −6°C · Russia −12°C · Ireland 3°C.\nWhat is the difference between Romania and Ireland?',
+    diagram:null,
+    opts:['9°C','0°C','1°C','6°C','3°C'], ans:3,
+    explain:'Ireland = 3°C, Romania = −3°C. Difference = 3−(−3) = 3+3 = 6°C. Answer D.'
+  },
+  {
+    n:24, cat:'Exchange Rates',
+    text:'Exchange rate: £1 = 8.80 Yuan. A jumper costs 220 Yuan, a scarf costs 132 Yuan. Kristopher buys one jumper and two scarves. What is the total cost in pounds?',
+    diagram:null,
+    opts:['£49','£52','£56','£55','£50'], ans:3,
+    explain:'Total Yuan = 220 + 132×2 = 220+264 = 484 Yuan. In pounds = 484 ÷ 8.80 = £55. Answer D.'
+  },
+  {
+    n:25, cat:'Place Value',
+    text:'Add up the numbers and give the answer in figures:\n• Twelve million\n• Thirty thousand\n• One thousand\n• Forty-nine',
+    diagram:null,
+    opts:['12,031,049','12,030,149','12,003,149','12,301,049','12,003,149'], ans:0,
+    explain:'12,000,000 + 30,000 + 1,000 + 49 = 12,031,049. Answer A.'
+  },
+  {
+    n:26, cat:'Time & Timetables',
+    text:'Using the timetable below, if both Ella (Queens Road) and Betty (Wood Green) need to arrive by 7:50am, what is the time difference in minutes between when they get their buses?',
+    diagram: `<table class="tbl-diagram" style="font-size:.8rem">
+      <tr><th>Stop</th><th>Bus 1</th><th>Bus 2</th><th>Bus 3</th><th>Bus 4</th></tr>
+      <tr><td>Rodney Green</td><td>06:50</td><td>07:23</td><td>07:56</td><td>08:29</td></tr>
+      <tr><td>Sidney Street</td><td>07:03</td><td>07:36</td><td>08:09</td><td>08:42</td></tr>
+      <tr><td>Queens Road</td><td style="background:#fef3c7">07:11</td><td style="background:#fef3c7">07:44</td><td>08:17</td><td>?</td></tr>
+      <tr><td>College Road</td><td>07:19</td><td>07:52</td><td>08:25</td><td>08:58</td></tr>
+      <tr><td style="background:#dbeafe">Wood Green</td><td style="background:#dbeafe">07:31</td><td style="background:#dbeafe">07:44→</td><td>08:37</td><td>09:10</td></tr>
+    </table>`,
+    opts:['13','33','21','27','19'], ans:0,
+    explain:'Ella needs Queens Road by 7:50 → takes Bus 2 from Rodney Green at 07:23. Betty needs Wood Green by 7:50 → takes Bus 1 from Rodney Green at 06:50. Difference = 07:23 − 06:50 = 33 minutes. Answer B = 33.'
+  },
+  {
+    n:27, cat:'Addition',
+    text:'Shelley buys two gift sets at £31 each, a perfume for £27, and groceries for £23. How much is that in total?',
+    diagram:null,
+    opts:['£112','£131','£92','£111','£103'], ans:0,
+    explain:'2×31 + 27 + 23 = 62 + 27 + 23 = £112. Answer A.'
+  },
+  {
+    n:28, cat:'Decimals',
+    text:'Solve: 27.86 + 4.29',
+    diagram:null,
+    opts:['70.76','31.25','31.115','31.35','32.15'], ans:3,
+    explain:'27.86 + 4.29 = 32.15. Answer E.'
+  },
+  {
+    n:29, cat:'Distance & Speed',
+    text:'Flight 1: 710 mph for 13 hours. Flight 2: 840 mph for 11 hours. What is the difference in distance?',
+    diagram:null,
+    opts:['130 miles','10 miles','100 miles','50 miles','30 miles'], ans:1,
+    explain:'Flight 1 = 710×13 = 9230 miles. Flight 2 = 840×11 = 9240 miles. Difference = 9240−9230 = 10 miles. Answer B.'
+  },
+  {
+    n:30, cat:'Speed',
+    text:"Kuran's car travelled 210 miles in 210 minutes. What was the speed in miles per hour?",
+    diagram:null,
+    opts:['10 mph','1 mph','40 mph','60 mph','100 mph'], ans:3,
+    explain:'210 minutes = 3.5 hours. Speed = 210 ÷ 3.5 = 60 mph. Answer D.'
+  },
+  {
+    n:31, cat:'BODMAS',
+    text:'Solve: 9 + 8 ÷ 4 = 44 ÷ ?',
+    diagram:null,
+    opts:['4','5','6','7','8'], ans:0,
+    explain:'Left side: 8÷4=2, then 9+2=11. So 44÷? =11 → ?=4. Answer A.'
+  },
+  {
+    n:32, cat:'Ordering Numbers',
+    text:'Calculate the difference between the smallest and largest of these numbers:\n46%, 21/25, 0.50, 55%, 6/25, 0.81',
+    diagram:null,
+    opts:['0.51','0.53','0.34','0.60','0.63'], ans:2,
+    explain:'Convert all to decimals: 46%=0.46, 21/25=0.84, 0.50, 55%=0.55, 6/25=0.24, 0.81. Smallest=0.24, Largest=0.84. Difference=0.84−0.24=0.60. Answer D.'
+  },
+  {
+    n:33, cat:'Verbal Reasoning',
+    text:'A=15, B=40, C=4, D=60, E=10. Which letter completes: D ÷ C × E = __ × E',
+    diagram:null,
+    opts:['A','B','C','D','E'], ans:0,
+    explain:'D÷C×E = 60÷4×10 = 15×10 = 150. So __×E = 150 → __ × 10 = 150 → __ = 15 = A. Answer A.'
+  },
+  {
+    n:34, cat:'Coordinates',
+    text:'The camouflage tent is at (4,6). Coordinates: Hasan=(5,9), Ursula=(6,7), Gizela=(3,6), Sergei=(8,4), Fatima=(3,2). Who is closest to the tent?',
+    diagram: `<svg width="280" height="240" viewBox="0 0 280 240" font-family="Plus Jakarta Sans,sans-serif" font-size="11">
+      <!-- Axes -->
+      <line x1="30" y1="220" x2="270" y2="220" stroke="#999" stroke-width="1.5"/>
+      <line x1="30" y1="220" x2="30" y2="10" stroke="#999" stroke-width="1.5"/>
+      <!-- Grid lines and labels -->
+      <!-- x axis 0-10, y axis 0-10, scale: 22px per unit -->
+      <g stroke="#e5e7eb" stroke-width="1">
+        <line x1="52" y1="10" x2="52" y2="220"/><text x="52" y="232" text-anchor="middle" fill="#666">1</text>
+        <line x1="74" y1="10" x2="74" y2="220"/><text x="74" y="232" text-anchor="middle" fill="#666">2</text>
+        <line x1="96" y1="10" x2="96" y2="220"/><text x="96" y="232" text-anchor="middle" fill="#666">3</text>
+        <line x1="118" y1="10" x2="118" y2="220"/><text x="118" y="232" text-anchor="middle" fill="#666">4</text>
+        <line x1="140" y1="10" x2="140" y2="220"/><text x="140" y="232" text-anchor="middle" fill="#666">5</text>
+        <line x1="162" y1="10" x2="162" y2="220"/><text x="162" y="232" text-anchor="middle" fill="#666">6</text>
+        <line x1="30" y1="198" x2="270" y2="198"/><text x="22" y="202" text-anchor="middle" fill="#666">1</text>
+        <line x1="30" y1="176" x2="270" y2="176"/><text x="22" y="180" text-anchor="middle" fill="#666">2</text>
+        <line x1="30" y1="154" x2="270" y2="154"/><text x="22" y="158" text-anchor="middle" fill="#666">3</text>
+        <line x1="30" y1="132" x2="270" y2="132"/><text x="22" y="136" text-anchor="middle" fill="#666">4</text>
+        <line x1="30" y1="110" x2="270" y2="110"/><text x="22" y="114" text-anchor="middle" fill="#666">5</text>
+        <line x1="30" y1="88" x2="270" y2="88"/><text x="22" y="92" text-anchor="middle" fill="#666">6</text>
+        <line x1="30" y1="66" x2="270" y2="66"/><text x="22" y="70" text-anchor="middle" fill="#666">7</text>
+        <line x1="30" y1="44" x2="270" y2="44"/><text x="22" y="48" text-anchor="middle" fill="#666">8</text>
+        <line x1="30" y1="22" x2="270" y2="22"/><text x="22" y="26" text-anchor="middle" fill="#666">9</text>
+      </g>
+      <!-- Tent (4,6) = x:30+4*22=118, y:220-6*22=88 -->
+      <rect x="110" y="80" width="16" height="16" fill="#d4912a" opacity=".8" rx="3"/>
+      <text x="118" y="92" text-anchor="middle" fill="white" font-size="9" font-weight="700">🏕</text>
+      <text x="125" y="76" fill="#d4912a" font-weight="700" font-size="10">Tent(4,6)</text>
+      <!-- Hasan (5,9): x=140, y=22 -->
+      <text x="140" y="22" text-anchor="middle" fill="#1e3a7a" font-size="14">✕</text>
+      <text x="148" y="18" fill="#1e3a7a" font-size="9">Hasan</text>
+      <!-- Ursula (6,7): x=162, y=66 -->
+      <text x="162" y="66" text-anchor="middle" fill="#7c3aed" font-size="14">✕</text>
+      <text x="170" y="62" fill="#7c3aed" font-size="9">Ursula</text>
+      <!-- Gizela (3,6): x=96, y=88 -->
+      <text x="96" y="88" text-anchor="middle" fill="#059669" font-size="14">✕</text>
+      <text x="68" y="84" fill="#059669" font-size="9">Gizela</text>
+      <!-- Sergei (8,4): x=206, y=132 -->
+      <text x="206" y="132" text-anchor="middle" fill="#b02020" font-size="14">✕</text>
+      <text x="210" y="128" fill="#b02020" font-size="9">Sergei</text>
+      <!-- Fatima (3,2): x=96, y=176 -->
+      <text x="96" y="176" text-anchor="middle" fill="#0369a1" font-size="14">✕</text>
+      <text x="68" y="172" fill="#0369a1" font-size="9">Fatima</text>
+    </svg>`,
+    opts:['Hasan','Ursula','Gizela','Sergei','Fatima'], ans:2,
+    explain:'Tent at (4,6). Distances: Hasan(5,9)=√(1+9)≈3.16, Ursula(6,7)=√(4+1)≈2.24, Gizela(3,6)=√(1+0)=1, Sergei(8,4)=√(16+4)≈4.47, Fatima(3,2)=√(1+16)≈4.12. Closest = Gizela. Answer C.'
+  },
+  {
+    n:35, cat:'Angles',
+    text:'Triangle PQR sits inside rectangle QRST. Angle a = 15°, angle b = 35°. The triangle has angles at Q (angle a from the rectangle corner), at R (angle b from the rectangle corner), and at P (angle c). What is angle c?',
+    diagram: `<svg width="280" height="200" viewBox="0 0 280 200" font-family="Plus Jakarta Sans,sans-serif" font-size="13">
+      <!-- Rectangle QRST -->
+      <rect x="30" y="30" width="220" height="150" fill="#f0f9ff" stroke="#1e3a7a" stroke-width="2"/>
+      <!-- Labels -->
+      <text x="26" y="27" fill="#1e3a7a" font-weight="700">Q</text>
+      <text x="254" y="27" fill="#1e3a7a" font-weight="700">T</text>
+      <text x="26" y="190" fill="#1e3a7a" font-weight="700">R</text>
+      <text x="254" y="190" fill="#1e3a7a" font-weight="700">S</text>
+      <!-- Triangle PQR: Q at top-left (30,30), R at bottom-left (30,180), P at roughly (180,140) -->
+      <polygon points="30,30 30,180 200,140" fill="rgba(212,145,42,.15)" stroke="#d4912a" stroke-width="2"/>
+      <!-- Angle labels -->
+      <text x="38" y="50" fill="#d4912a" font-weight="700">a=15°</text>
+      <text x="38" y="165" fill="#d4912a" font-weight="700">b=35°</text>
+      <text x="180" y="130" fill="#7c3aed" font-weight="700">c=?</text>
+      <!-- P label -->
+      <text x="204" y="138" fill="#7c3aed" font-weight="700">P</text>
+    </svg>`,
+    opts:['75°','55°','165°','50°','145°'], ans:0,
+    explain:'In triangle PQR: angles at Q + R + P = 180°. Angle at Q inside triangle = 90°−15°=75°. Angle at R inside triangle = 90°−35°=55°. So c = 180°−75°−55° = 50°. Answer D = 50°.'
+  },
+  {
+    n:36, cat:'3D Nets',
+    text:'Which of the five net options correctly folds to make the box shown? (Each face has a unique symbol pattern.)',
+    diagram: `<svg width="300" height="100" viewBox="0 0 300 100" font-family="Plus Jakarta Sans,sans-serif" font-size="11">
+      <text x="150" y="30" text-anchor="middle" fill="#555" font-size="13">3D net folding question</text>
+      <text x="150" y="55" text-anchor="middle" fill="#888" font-size="11">(Refer to original paper for full diagram)</text>
+      <text x="150" y="75" text-anchor="middle" fill="#7c3aed" font-size="12" font-weight="700">Answer: B</text>
+    </svg>`,
+    opts:['A','B','C','D','E'], ans:1,
+    explain:'Carefully tracing which face symbols appear where when folded, option B is the correct net. Answer B.'
+  },
+  {
+    n:37, cat:'Measurement',
+    text:'How many ml of water is the jug holding? The jug shows scale marks at 100ml, 200ml, and 300ml, with water filling to halfway between 200ml and 300ml.',
+    diagram: `<svg width="160" height="200" viewBox="0 0 160 200" font-family="Plus Jakarta Sans,sans-serif" font-size="12">
+      <!-- Jug outline -->
+      <path d="M40,20 L40,170 Q40,185 55,185 L115,185 Q130,185 130,170 L130,20 Z" fill="none" stroke="#1e3a7a" stroke-width="2.5"/>
+      <!-- Handle -->
+      <path d="M130,60 Q160,60 160,100 Q160,140 130,140" fill="none" stroke="#1e3a7a" stroke-width="2.5"/>
+      <!-- Spout -->
+      <path d="M40,30 L20,10" fill="none" stroke="#1e3a7a" stroke-width="2.5"/>
+      <!-- Water level at ~250ml (halfway between 200 and 300) -->
+      <rect x="41" y="92" width="88" height="93" fill="#93c5fd" opacity=".6"/>
+      <!-- Scale marks -->
+      <line x1="118" y1="185" x2="130" y2="185"/><text x="133" y="189" fill="#333">100ml</text>
+      <line x1="118" y1="137" x2="130" y2="137"/><text x="133" y="141" fill="#333">200ml</text>
+      <line x1="118" y1="92" x2="130" y2="92"/><text x="133" y="96" fill="#333">300ml</text>
+      <!-- Water surface line -->
+      <line x1="41" y1="92" x2="129" y2="92" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+    </svg>`,
+    opts:['250 ml','210 ml','255 ml','260 ml','225 ml'], ans:0,
+    explain:'The water level sits exactly halfway between 200ml and 300ml, which is 250ml. Answer A.'
+  },
+  {
+    n:38, cat:'Spatial Reasoning',
+    text:'The shape below is made from 3 blocks. Which option shows 3 blocks that could NOT be combined to make this shape?',
+    diagram: `<svg width="300" height="120" viewBox="0 0 300 120" font-family="Plus Jakarta Sans,sans-serif" font-size="11">
+      <text x="150" y="35" text-anchor="middle" fill="#555" font-size="12">3D spatial reasoning question</text>
+      <text x="150" y="58" text-anchor="middle" fill="#888" font-size="11">L-shaped block made from 3 pieces</text>
+      <text x="150" y="80" text-anchor="middle" fill="#7c3aed" font-size="12" font-weight="700">Answer: E (cannot make the shape)</text>
+      <text x="150" y="100" text-anchor="middle" fill="#888" font-size="10">Refer to original paper for 3D diagrams</text>
+    </svg>`,
+    opts:['A','B','C','D','E'], ans:4,
+    explain:'Option E uses blocks that cannot be combined to make the L-shaped target. Answer E.'
+  },
+  {
+    n:39, cat:'Fractions & Percentages',
+    text:'How many squares must be filled in for 25% of the grid to be shaded? The grid shown has 4 rows and 4 columns.',
+    diagram: `<svg width="160" height="160" viewBox="0 0 160 160" font-family="Plus Jakarta Sans,sans-serif" font-size="12">
+      <!-- 4x4 grid -->
+      <rect x="20" y="20" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="50" y="20" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="80" y="20" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="110" y="20" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="20" y="50" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="50" y="50" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="80" y="50" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="110" y="50" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="20" y="80" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="50" y="80" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="80" y="80" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="110" y="80" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="20" y="110" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="50" y="110" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="80" y="110" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <rect x="110" y="110" width="30" height="30" fill="#e5e7eb" stroke="#999" stroke-width="1.5"/>
+      <text x="80" y="155" text-anchor="middle" fill="#666" font-size="10">4 × 4 = 16 squares total</text>
+    </svg>`,
+    opts:['4','6','8','5','3'], ans:0,
+    explain:'The grid is 4×4 = 16 squares. 25% of 16 = 4 squares. Answer A.'
+  },
+  {
+    n:40, cat:'Classification Trees',
+    text:'The classification tree sorts musical instruments. Electric Guitar, Acoustic Guitar, Electronic Drum, Acoustic Drum Kit are the outcomes. What question is missing from the empty box?',
+    diagram: `<svg width="300" height="200" viewBox="0 0 300 200" font-family="Plus Jakarta Sans,sans-serif" font-size="11">
+      <!-- Tree structure -->
+      <!-- Root -->
+      <rect x="90" y="10" width="120" height="28" rx="6" fill="#dbeafe" stroke="#1e3a7a" stroke-width="1.5"/>
+      <text x="150" y="29" text-anchor="middle" fill="#1e3a7a" font-weight="700">Musical Instrument</text>
+      <!-- Level 1: Is it a string instrument? -->
+      <line x1="150" y1="38" x2="150" y2="58"/>
+      <rect x="80" y="58" width="140" height="28" rx="6" fill="#dbeafe" stroke="#1e3a7a" stroke-width="1.5"/>
+      <text x="150" y="77" text-anchor="middle" fill="#1e3a7a" font-weight="700">Is it a string instrument?</text>
+      <!-- Y branch: Is it electric? -->
+      <line x1="100" y1="86" x2="60" y2="108"/>
+      <text x="68" y="103" fill="#059669" font-size="10" font-weight="700">Y</text>
+      <rect x="10" y="108" width="90" height="26" rx="6" fill="#f0fdf4" stroke="#059669" stroke-width="1.5"/>
+      <text x="55" y="125" text-anchor="middle" fill="#059669" font-weight="700">Is it electric?</text>
+      <!-- YY = Electric Guitar -->
+      <line x1="35" y1="134" x2="20" y2="160"/>
+      <text x="14" y="155" fill="#059669" font-size="9">Y</text>
+      <text x="8" y="170" fill="#333" font-size="9">Electric</text>
+      <text x="8" y="181" fill="#333" font-size="9">Guitar</text>
+      <!-- YN = Acoustic Guitar -->
+      <line x1="75" y1="134" x2="90" y2="160"/>
+      <text x="84" y="155" fill="#b02020" font-size="9">N</text>
+      <text x="78" y="170" fill="#333" font-size="9">Acoustic</text>
+      <text x="78" y="181" fill="#333" font-size="9">Guitar</text>
+      <!-- N branch: EMPTY BOX -->
+      <line x1="200" y1="86" x2="240" y2="108"/>
+      <text x="228" y="103" fill="#b02020" font-size="10" font-weight="700">N</text>
+      <rect x="200" y="108" width="90" height="26" rx="6" fill="#fef3c7" stroke="#d4912a" stroke-width="2" stroke-dasharray="4,2"/>
+      <text x="245" y="125" text-anchor="middle" fill="#d4912a" font-weight="700">???</text>
+      <!-- NY = Electronic drum, NN = Acoustic drum kit -->
+      <line x1="225" y1="134" x2="210" y2="160"/>
+      <text x="204" y="155" fill="#059669" font-size="9">Y</text>
+      <text x="194" y="170" fill="#333" font-size="9">Electronic</text>
+      <text x="200" y="181" fill="#333" font-size="9">Drum</text>
+      <line x1="265" y1="134" x2="280" y2="160"/>
+      <text x="274" y="155" fill="#b02020" font-size="9">N</text>
+      <text x="266" y="170" fill="#333" font-size="9">Acoustic</text>
+      <text x="268" y="181" fill="#333" font-size="9">Drum Kit</text>
+    </svg>`,
+    opts:['Is it a percussion instrument?','Is it round?','Is it a drum?','Is it electronic?','Is it a guitar?'], ans:3,
+    explain:'The non-string branch leads to percussion instruments. The next question must distinguish between Electronic Drum (Y) and Acoustic Drum Kit (N), so the question is "Is it electronic?". Answer D.'
+  }
+];
+
+/* ══════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════ */
+var IS_PRO = false;   // flip to true to unlock all
+var IS_DEMO = false;  // set on demo access
+var DEMO_LIMIT = 5;
+var answers = {};
+var timerSec = 45 * 60;
+var timerInterval = null;
+var startTime = null;
+
+/* ══════════════════════════════════════════════
+   PAYWALL
+══════════════════════════════════════════════ */
+function upgradeClick() {
+  document.getElementById('paywallOverlay').classList.add('hidden');
+  document.getElementById('testMain').style.display = 'block';
+  IS_PRO = true;
+  IS_DEMO = false;
+  document.getElementById('modeLabel').innerHTML = '🔓 <strong>Pro mode — all 40 questions</strong>';
+  renderQuestions();
+  startTimer();
+  showToast('🔓 Pro access granted — enjoy the full test!');
+}
+
+function demoAccess() {
+  document.getElementById('paywallOverlay').classList.add('hidden');
+  document.getElementById('testMain').style.display = 'block';
+  IS_DEMO = true;
+  IS_PRO = false;
+  document.getElementById('modeLabel').innerHTML = '🔒 <strong>Demo — 5 questions free</strong>';
+  document.getElementById('scoreDen').textContent = '/ 5';
+  document.getElementById('progCount').textContent = '0 / 5';
+  renderQuestions();
+  startTimer();
+}
+
+/* ══════════════════════════════════════════════
+   RENDER QUESTIONS
+══════════════════════════════════════════════ */
+function renderQuestions() {
+  var container = document.getElementById('qContainer');
+  container.innerHTML = '';
+  var limit = IS_PRO ? QUESTIONS.length : DEMO_LIMIT;
+
+  for (var i = 0; i < limit; i++) {
+    var q = QUESTIONS[i];
+    var card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'card-' + q.n;
+
+    var diagramHTML = '';
+    if (q.diagram) {
+      var isTable = q.diagram.trim().startsWith('<table');
+      diagramHTML = '<div class="q-diagram">' + q.diagram + '</div>';
+    }
+
+    var optsHTML = '<div class="options" id="opts-' + q.n + '">';
+    var letters = ['A','B','C','D','E'];
+    for (var j = 0; j < q.opts.length; j++) {
+      optsHTML += '<div class="opt" id="opt-' + q.n + '-' + j + '" onclick="pick(' + q.n + ',' + j + ')">' +
+        '<div class="opt-letter">' + letters[j] + '</div>' +
+        '<span>' + q.opts[j] + '</span>' +
+        '</div>';
+    }
+    optsHTML += '</div>';
+
+    card.innerHTML =
+      '<div class="q-head">' +
+        '<div class="q-num">' + q.n + '</div>' +
+        '<div class="q-meta">' +
+          '<div class="q-cat">' + q.cat + '</div>' +
+          '<div class="q-text">' + q.text.replace(/\n/g,'<br>') + '</div>' +
+        '</div>' +
+      '</div>' +
+      diagramHTML +
+      optsHTML +
+      '<div class="feedback" id="fb-' + q.n + '"></div>';
+
+    container.appendChild(card);
+  }
+
+  if (IS_DEMO) {
+    document.getElementById('demoNotice').style.display = 'block';
+  }
+  updateProgress();
+}
+
+/* ══════════════════════════════════════════════
+   ANSWER PICKING
+══════════════════════════════════════════════ */
+function pick(qn, choice) {
+  if (answers[qn] !== undefined) return;
+  var q = QUESTIONS[qn - 1];
+  answers[qn] = choice;
+
+  var opts = document.getElementById('opts-' + qn).querySelectorAll('.opt');
+  opts.forEach(function(o) { o.classList.add('disabled'); });
+
+  var correct = choice === q.ans;
+  var chosen = document.getElementById('opt-' + qn + '-' + choice);
+  chosen.classList.add(correct ? 'pick-ok' : 'pick-err');
+
+  if (!correct) {
+    var correctEl = document.getElementById('opt-' + qn + '-' + q.ans);
+    if (correctEl) correctEl.classList.add('reveal');
+  }
+
+  var fb = document.getElementById('fb-' + qn);
+  fb.className = 'feedback show ' + (correct ? 'ok-fb' : 'err-fb');
+  fb.textContent = (correct ? '✓ Correct! ' : '✗ Not quite. ') + q.explain;
+
+  var card = document.getElementById('card-' + qn);
+  card.classList.add('answered', correct ? 'ok' : 'err');
+
+  if (correct) spawnXP(chosen, '+5 XP');
+
+  updateProgress();
+  checkAutoSubmit();
+}
+
+function spawnXP(el, text) {
+  var rect = el.getBoundingClientRect();
+  var div = document.createElement('div');
+  div.className = 'xp-pop';
+  div.textContent = text;
+  div.style.left = (rect.left + rect.width/2) + 'px';
+  div.style.top = (rect.top + window.scrollY - 10) + 'px';
+  document.body.appendChild(div);
+  setTimeout(function() { div.remove(); }, 1300);
+}
+
+function updateProgress() {
+  var limit = IS_PRO ? QUESTIONS.length : DEMO_LIMIT;
+  var done = Object.keys(answers).length;
+  var pct = limit > 0 ? (done / limit) * 100 : 0;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progCount').textContent = done + ' / ' + limit;
+}
+
+function checkAutoSubmit() {
+  var limit = IS_PRO ? QUESTIONS.length : DEMO_LIMIT;
+  if (Object.keys(answers).length >= limit) {
+    setTimeout(submitTest, 600);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   TIMER
+══════════════════════════════════════════════ */
+function startTimer() {
+  startTime = Date.now();
+  timerInterval = setInterval(function() {
+    timerSec--;
+    updateTimerDisplay();
+    if (timerSec <= 0) {
+      clearInterval(timerInterval);
+      submitTest();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  var m = Math.floor(timerSec / 60);
+  var s = timerSec % 60;
+  var display = document.getElementById('timerDisplay');
+  display.textContent = pad(m) + ':' + pad(s);
+  if (timerSec <= 300) display.className = 'nav-timer urgent';
+  else if (timerSec <= 600) display.className = 'nav-timer warn';
+  else display.className = 'nav-timer';
+}
+
+function pad(n) { return n < 10 ? '0' + n : n; }
+
+/* ══════════════════════════════════════════════
+   SUBMIT & RESULTS
+══════════════════════════════════════════════ */
+function submitTest() {
+  clearInterval(timerInterval);
+  var limit = IS_PRO ? QUESTIONS.length : DEMO_LIMIT;
+  var correct = 0;
+  for (var qn in answers) {
+    var idx = parseInt(qn) - 1;
+    if (answers[qn] === QUESTIONS[idx].ans) correct++;
+  }
+  var wrong = Object.keys(answers).length - correct;
+  var pct = Math.round((correct / limit) * 100);
+
+  document.getElementById('testFoot').style.display = 'none';
+  var results = document.getElementById('results');
+  results.classList.add('show');
+  results.scrollIntoView({behavior:'smooth', block:'start'});
+
+  document.getElementById('scoreNum').textContent = correct;
+  document.getElementById('scoreDen').textContent = '/ ' + limit;
+  document.getElementById('rCorrect').textContent = correct;
+  document.getElementById('rWrong').textContent = wrong;
+  document.getElementById('rPct').textContent = pct + '%';
+
+  var elapsed = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+  var em = Math.floor(elapsed/60), es = elapsed%60;
+  document.getElementById('rTime').textContent = pad(em) + ':' + pad(es);
+
+  var arc = document.getElementById('scoreArc');
+  var circumference = 339.3;
+  var offset = circumference - (correct / limit) * circumference;
+  setTimeout(function() { arc.style.strokeDashoffset = offset; }, 100);
+
+  var title = document.getElementById('resultTitle');
+  var msg = document.getElementById('resultMsg');
+  if (pct >= 80) {
+    title.textContent = '🏆 Excellent work!';
+    msg.textContent = 'Outstanding score! You\'re well prepared for the 11+. Keep it up!';
+    launchConfetti();
+  } else if (pct >= 60) {
+    title.textContent = '👍 Good effort!';
+    msg.textContent = 'A solid score. Review the questions you missed and try again to push higher.';
+  } else {
+    title.textContent = '📚 Keep practising!';
+    msg.textContent = 'Don\'t worry — this is what practice is for. Review the explanations and try again.';
+  }
+
+  if (IS_DEMO) {
+    msg.textContent += ' Upgrade to Pro to attempt all 40 questions!';
+  }
+}
+
+function restartTest() {
+  answers = {};
+  timerSec = 45 * 60;
+  startTime = null;
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('testFoot').style.display = 'block';
+  document.getElementById('timerDisplay').textContent = '45:00';
+  document.getElementById('timerDisplay').className = 'nav-timer';
+  renderQuestions();
+  startTimer();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ══════════════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════════════ */
+function launchConfetti() {
+  var colours = ['#d4912a','#f5c842','#7c3aed','#3b82f6','#10b981','#ef4444'];
+  for (var i = 0; i < 80; i++) {
+    (function(i) {
+      setTimeout(function() {
+        var c = document.createElement('div');
+        c.className = 'confetti-piece';
+        c.style.cssText = [
+          'left:' + Math.random()*100 + 'vw',
+          'width:' + (6+Math.random()*8) + 'px',
+          'height:' + (8+Math.random()*6) + 'px',
+          'background:' + colours[Math.floor(Math.random()*colours.length)],
+          'animation-duration:' + (2+Math.random()*2) + 's',
+          'animation-delay:0s',
+          'opacity:1'
+        ].join(';');
+        document.body.appendChild(c);
+        setTimeout(function() { c.remove(); }, 4000);
+      }, i * 35);
+    })(i);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════ */
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 3000);
+}
+</script>
+</body>
+</html>

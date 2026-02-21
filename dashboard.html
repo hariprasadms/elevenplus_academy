@@ -210,6 +210,44 @@ header{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 1px
   .sc-btn { width:100%; justify-content:center; }
 }
 
+/* ─── PREMIUM TESTS SECTION ─────────────── */
+.premium-section { margin-bottom: 32px; }
+.premium-header { display:flex; align-items:center; justify-content:space-between; margin-bottom: 14px; }
+.premium-title-wrap { display:flex; align-items:center; gap:10px; }
+.prem-badge { display:inline-flex; align-items:center; gap:5px; background:linear-gradient(135deg,#7c3aed,#9f5cf5); color:#fff; font-size:.62rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:3px 9px; border-radius:20px; }
+.premium-section .section-title { margin:0; }
+.paper-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:640px){ .paper-grid { grid-template-columns:1fr; } }
+.paper-card { position:relative; overflow:hidden; background:var(--white); border:1px solid var(--line); border-radius:var(--r); padding:16px 18px; box-shadow:var(--shadow-sm); cursor:pointer; transition:all .2s ease; display:flex; flex-direction:column; gap:10px; text-decoration:none; color:inherit; }
+.paper-card:hover { box-shadow:var(--shadow-md); transform:translateY(-2px); }
+.paper-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#7c3aed,#a78bfa); }
+.paper-card.maths::before { background:linear-gradient(90deg,#2563eb,#60a5fa); }
+.paper-card.english::before { background:linear-gradient(90deg,#059669,#34d399); }
+.pc-top { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
+.pc-tags { display:flex; gap:5px; flex-wrap:wrap; }
+.pc-tag { font-size:.6rem; font-weight:700; letter-spacing:.8px; text-transform:uppercase; padding:2px 7px; border-radius:4px; }
+.pc-tag-subj { background:#eff6ff; color:#1d4ed8; }
+.paper-card.english .pc-tag-subj { background:#ecfdf5; color:#065f46; }
+.pc-tag-yr { background:var(--surface); color:var(--ink-3); }
+.pc-lock { width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,#7c3aed,#9f5cf5); color:#fff; font-size:.8rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.pc-lock.open { background:linear-gradient(135deg,#059669,#34d399); font-size:.7rem; }
+.pc-name { font-family:'Fraunces',serif; font-size:.95rem; font-weight:700; color:var(--ink); line-height:1.25; }
+.pc-meta { display:flex; gap:12px; flex-wrap:wrap; }
+.pc-m { font-size:.72rem; font-weight:600; color:var(--ink-3); }
+.pc-foot { display:flex; align-items:center; justify-content:space-between; margin-top:2px; }
+.pc-score-pill { font-size:.68rem; font-weight:700; padding:2px 8px; border-radius:10px; }
+.pc-score-pill.done { background:#ecfdf5; color:#065f46; }
+.pc-score-pill.not-started { background:var(--surface); color:var(--ink-3); }
+.pc-action { font-size:.75rem; font-weight:700; display:flex; align-items:center; gap:4px; color:#7c3aed; }
+.upgrade-banner { background:linear-gradient(135deg,#1e1245,#3b1d8c,#4c1d95); border-radius:var(--r); padding:20px 22px; display:flex; align-items:center; gap:16px; box-shadow:0 4px 20px rgba(124,58,237,.25); margin-top:12px; }
+.ub-icon { font-size:2rem; flex-shrink:0; }
+.ub-text { flex:1; min-width:0; }
+.ub-text h4 { font-family:'Fraunces',serif; font-size:.95rem; font-weight:700; color:#fff; margin-bottom:3px; }
+.ub-text p { font-size:.75rem; color:rgba(255,255,255,.55); line-height:1.5; }
+.ub-btn { flex-shrink:0; padding:10px 18px; background:linear-gradient(135deg,#f5c842,#d4912a); color:#1e1245; font-family:'Plus Jakarta Sans',sans-serif; font-size:.8rem; font-weight:700; border:none; border-radius:8px; cursor:pointer; white-space:nowrap; transition:all .18s; text-decoration:none; display:inline-block; }
+.ub-btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+@media(max-width:480px){ .upgrade-banner { flex-direction:column; text-align:center; } .ub-btn { width:100%; } }
+
 /* ─── ACTIVITY ───────────────────────────── */
 .act-list { display:flex; flex-direction:column; gap:8px; }
 .act-row {
@@ -322,7 +360,7 @@ footer strong { color:var(--gold-lt); }
       <div class="nav-avatar-wrap">
         <button class="nav-avatar" onclick="document.getElementById('navDd').classList.toggle('open')" aria-label="Account">D</button>
         <div class="nav-dd" id="navDd">
-          <div class="nav-dd-head"><div class="dd-name">Demo User</div><div class="dd-email">demo@elevenplus.ac.uk</div></div>
+          <div class="nav-dd-head"><div class="dd-name">Demo User</div><div class="dd-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8febeae2e0cfeae3eaf9eae1ffe3fafca1eeeca1fae4">[email&#160;protected]</a></div></div>
           <a class="active" href="dashboard.html">🏠 Dashboard</a>
           <a href="practice.html">📝 Practice</a>
           <a href="index.html#pricing">💳 Upgrade to Pro</a>
@@ -432,6 +470,111 @@ footer strong { color:var(--gold-lt); }
 
       </div>
     </div><!-- /practice sets -->
+
+    <!-- Premium Tests -->
+    <div class="premium-section">
+      <div class="premium-header">
+        <div class="premium-title-wrap">
+          <div class="section-title">Premium Test Papers</div>
+          <div class="prem-badge">🔒 Pro</div>
+        </div>
+        <a class="section-link" href="#" onclick="showUpgradeToast();return false;">View all →</a>
+      </div>
+
+      <div class="paper-grid">
+
+        <!-- Maths 2020 — DEMO ACCESSIBLE -->
+        <a class="paper-card maths" href="test-maths-2020.html">
+          <div class="pc-top">
+            <div class="pc-tags">
+              <span class="pc-tag pc-tag-subj">Maths</span>
+              <span class="pc-tag pc-tag-yr">2020</span>
+            </div>
+            <div class="pc-lock open">✓</div>
+          </div>
+          <div class="pc-name">Secondary Entrance<br>Sample Test 2020</div>
+          <div class="pc-meta">
+            <span class="pc-m">📋 40 questions</span>
+            <span class="pc-m">⏱ 45 min</span>
+          </div>
+          <div class="pc-foot">
+            <span class="pc-score-pill not-started">Not attempted</span>
+            <span class="pc-action">Start test →</span>
+          </div>
+        </a>
+
+        <!-- Maths 2021 — LOCKED -->
+        <div class="paper-card maths locked" onclick="showPaywall('Maths Sample Test 2021')">
+          <div class="pc-top">
+            <div class="pc-tags">
+              <span class="pc-tag pc-tag-subj">Maths</span>
+              <span class="pc-tag pc-tag-yr">2021</span>
+            </div>
+            <div class="pc-lock">🔒</div>
+          </div>
+          <div class="pc-name">Secondary Entrance<br>Sample Test 2021</div>
+          <div class="pc-meta">
+            <span class="pc-m">📋 40 questions</span>
+            <span class="pc-m">⏱ 45 min</span>
+          </div>
+          <div class="pc-foot">
+            <span class="pc-score-pill not-started">Pro only</span>
+            <span class="pc-action">🔒 Unlock →</span>
+          </div>
+        </div>
+
+        <!-- English 2020 — LOCKED -->
+        <div class="paper-card english locked" onclick="showPaywall('English Sample Test 2020')">
+          <div class="pc-top">
+            <div class="pc-tags">
+              <span class="pc-tag pc-tag-subj" style="background:#ecfdf5;color:#065f46">English</span>
+              <span class="pc-tag pc-tag-yr">2020</span>
+            </div>
+            <div class="pc-lock">🔒</div>
+          </div>
+          <div class="pc-name">Secondary Entrance<br>English Test 2020</div>
+          <div class="pc-meta">
+            <span class="pc-m">📋 35 questions</span>
+            <span class="pc-m">⏱ 40 min</span>
+          </div>
+          <div class="pc-foot">
+            <span class="pc-score-pill not-started">Pro only</span>
+            <span class="pc-action">🔒 Unlock →</span>
+          </div>
+        </div>
+
+        <!-- Verbal Reasoning — LOCKED -->
+        <div class="paper-card locked" onclick="showPaywall('Verbal Reasoning Test 2020')">
+          <div class="pc-top">
+            <div class="pc-tags">
+              <span class="pc-tag pc-tag-subj" style="background:#fef3c7;color:#92400e">Verbal</span>
+              <span class="pc-tag pc-tag-yr">2020</span>
+            </div>
+            <div class="pc-lock">🔒</div>
+          </div>
+          <div class="pc-name">Secondary Entrance<br>Verbal Reasoning 2020</div>
+          <div class="pc-meta">
+            <span class="pc-m">📋 50 questions</span>
+            <span class="pc-m">⏱ 50 min</span>
+          </div>
+          <div class="pc-foot">
+            <span class="pc-score-pill not-started">Pro only</span>
+            <span class="pc-action">🔒 Unlock →</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Upgrade banner -->
+      <div class="upgrade-banner">
+        <div class="ub-icon">⚡</div>
+        <div class="ub-text">
+          <h4>Unlock all 18 past papers with Pro</h4>
+          <p>Maths, English, Verbal &amp; Non-Verbal — timed, marked, with full explanations.</p>
+        </div>
+        <a class="ub-btn" href="#" onclick="showPaywall('Pro Plan');return false;">Upgrade — £9.99/mo</a>
+      </div>
+    </div><!-- /premium tests -->
 
     <!-- Recent Activity -->
     <div class="section">
@@ -549,12 +692,70 @@ footer strong { color:var(--gold-lt); }
 
 <script>
 // Shared nav interactions
-document.addEventListener('click', e => {
+document.addEventListener('click', function(e) {
   if (!e.target.closest('.nav-avatar-wrap'))
-    document.querySelectorAll('.nav-dd').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.nav-dd').forEach(function(d){ d.classList.remove('open'); });
   if (!e.target.closest('.mob-btn') && !e.target.closest('.nav-pub'))
-    document.querySelectorAll('.nav-pub').forEach(n => n.classList.remove('open'));
+    document.querySelectorAll('.nav-pub').forEach(function(n){ n.classList.remove('open'); });
+});
+document.querySelectorAll('.nav-avatar').forEach(function(av){
+  av.addEventListener('click', function(){
+    var dd = av.parentElement.querySelector('.nav-dd');
+    if(dd) dd.classList.toggle('open');
+  });
+});
+
+// Dashboard paywall functions
+function showPaywall(paperName) {
+  document.getElementById('pwTitle').textContent = 'Unlock: ' + paperName;
+  document.getElementById('paywallModal').style.display = 'flex';
+}
+function closePaywall() {
+  document.getElementById('paywallModal').style.display = 'none';
+}
+function simulateUpgrade() {
+  closePaywall();
+  showDashToast('🎉 Pro access granted! All test papers now unlocked.');
+}
+function showUpgradeToast() {
+  showDashToast('⚡ Upgrade to Pro to access all 18 test papers');
+}
+function showDashToast(msg) {
+  var t = document.getElementById('dashToast');
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(function(){
+    t.style.opacity = '0';
+    t.style.transform = 'translateX(-50%) translateY(60px)';
+  }, 3400);
+}
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') closePaywall();
 });
 </script>
+
+<!-- PAYWALL MODAL -->
+<div id="paywallModal" style="display:none;position:fixed;inset:0;z-index:800;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.72);backdrop-filter:blur(6px)" onclick="if(event.target===this)closePaywall()">
+  <style>@keyframes pwIn{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}</style>
+  <div style="background:#fff;border-radius:20px;max-width:480px;width:100%;padding:clamp(28px,5vw,44px) clamp(20px,4vw,36px);text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.32);animation:pwIn .32s cubic-bezier(.22,1,.36,1)">
+    <div style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#7c3aed,#9f5cf5);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:18px">🔒 Pro Feature</div>
+    <h2 id="pwTitle" style="font-family:'Fraunces',serif;font-size:clamp(1.3rem,4vw,1.7rem);font-weight:900;color:#0a1628;margin-bottom:10px;line-height:1.2">Unlock This Test Paper</h2>
+    <p style="font-size:.88rem;color:#7a7060;line-height:1.7;margin-bottom:22px;max-width:360px;margin-left:auto;margin-right:auto">Get instant access to full past papers with timed exam mode, instant marking, and detailed explanations — all included in Pro.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px;text-align:left">
+      <div style="display:flex;align-items:center;gap:8px;font-size:.8rem;color:#1a1612;background:#faf7f0;border-radius:8px;padding:9px 12px"><span>📝</span> 18 past papers</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:.8rem;color:#1a1612;background:#faf7f0;border-radius:8px;padding:9px 12px"><span>⏱️</span> Timed exam mode</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:.8rem;color:#1a1612;background:#faf7f0;border-radius:8px;padding:9px 12px"><span>✅</span> Instant marking</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:.8rem;color:#1a1612;background:#faf7f0;border-radius:8px;padding:9px 12px"><span>📊</span> Score analytics</div>
+    </div>
+    <button onclick="simulateUpgrade()" style="display:block;width:100%;padding:15px;background:linear-gradient(135deg,#7c3aed,#9f5cf5);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;border:none;border-radius:10px;cursor:pointer;box-shadow:0 4px 18px rgba(124,58,237,.35);margin-bottom:10px">⚡ Upgrade to Pro — £9.99/mo</button>
+    <button onclick="closePaywall()" style="display:block;width:100%;padding:12px;background:transparent;color:#0a1628;font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:600;border:2px solid #e2d9c8;border-radius:10px;cursor:pointer">Maybe later</button>
+    <p style="font-size:.7rem;color:#b0a898;margin-top:12px">Cancel anytime · No commitment · Instant access</p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="dashToast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:#0a1628;color:#fff;padding:11px 24px;border-radius:10px;font-size:.84rem;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.25);transition:transform .35s,opacity .35s;opacity:0;pointer-events:none;z-index:999;white-space:nowrap;max-width:90vw;text-align:center"></div>
+
 </body>
 </html>
