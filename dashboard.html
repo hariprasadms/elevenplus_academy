@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — ElevenPlus Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ─────────────────────────────── */
+:root {
+  --ink:     #111827;
+  --ink-2:   #374151;
+  --ink-3:   #6B7280;
+  --ink-4:   #9CA3AF;
+  --line:    #E5E7EB;
+  --surface: #F9FAFB;
+  --white:   #FFFFFF;
+
+  --navy:    #0F1F3D;
+  --gold:    #D4881A;
+  --gold-lt: #F5C842;
+
+  --a:   #D4881A;   /* amber  */
+  --a-bg:#FEF3C7;
+  --b:   #2563EB;   /* blue   */
+  --b-bg:#DBEAFE;
+  --c:   #7C3AED;   /* violet */
+  --c-bg:#EDE9FE;
+
+  --ok:     #059669;
+  --ok-bg:  #D1FAE5;
+  --warn:   #D97706;
+  --err:    #DC2626;
+
+  --r: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.14), 0 4px 12px rgba(0,0,0,.08);
+}
+
+/* ─── RESET ──────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--ink); min-height: 100vh; }
+a { text-decoration: none; color: inherit; }
+
+/* ─── HEADER ─────────────────────────────── */
+header {
+  background: var(--navy);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 1px 0 rgba(255,255,255,.06), 0 4px 20px rgba(0,0,0,.3);
+}
+.hdr {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 clamp(16px,3vw,40px);
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem; font-weight: 800;
+  color: var(--gold-lt); letter-spacing: -.2px;
+}
+.logo span { color: rgba(255,255,255,.7); font-weight: 400; }
+.hdr-nav { display: flex; align-items: center; gap: 20px; }
+.hdr-pill {
+  display: flex; align-items: center; gap: 6px;
+  font-size: .78rem; font-weight: 600;
+  color: rgba(255,255,255,.55);
+}
+.hdr-pill strong { font-family: 'Fraunces', serif; font-size: .95rem; color: var(--gold-lt); }
+.avatar-wrap { position: relative; }
+.avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, #B45309, var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-weight: 700; font-size: .85rem;
+  color: #fff; border: none; cursor: pointer;
+}
+.menu {
+  position: absolute; top: calc(100% + 8px); right: 0;
+  background: #fff; border: 1px solid var(--line);
+  border-radius: var(--r); box-shadow: var(--shadow-lg);
+  min-width: 176px; overflow: hidden;
+  display: none; animation: pop .15s ease;
+}
+.menu.open { display: block; }
+@keyframes pop { from { opacity:0; transform:translateY(4px) scale(.98); } to { opacity:1; transform:none; } }
+.menu-head { padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.menu-head .name { font-size: .84rem; font-weight: 600; color: var(--ink); }
+.menu-head .email { font-size: .73rem; color: var(--ink-4); margin-top: 1px; }
+.menu-item {
+  display: block; padding: 10px 14px; font-size: .84rem; color: var(--ink-2);
+  transition: background .12s; border: none; background: none; width: 100%; text-align: left; cursor: pointer;
+}
+.menu-item:hover { background: var(--surface); }
+.menu-item.red { color: var(--err); }
+.menu-div { height: 1px; background: var(--line); }
+@media(max-width:500px){ .hdr-pill { display:none; } }
+
+/* ─── WELCOME ────────────────────────────── */
+.welcome {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a3460 60%, #1e4080 100%);
+  padding: clamp(24px,4vw,44px) clamp(16px,3vw,40px);
+  position: relative; overflow: hidden;
+}
+.welcome::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(ellipse 600px 400px at 90% 50%, rgba(245,200,66,.07), transparent);
+}
+.welcome-inner {
+  max-width:1200px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:20px; flex-wrap:wrap; position:relative;
+}
+.welcome-text h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.3rem,3vw,1.9rem); font-weight: 800;
+  color: #fff; margin-bottom: 4px;
+}
+.welcome-text h1 em {
+  font-style:normal;
+  background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.welcome-text p { font-size: .88rem; color: rgba(255,255,255,.55); line-height: 1.6; }
+.w-stats { display:flex; gap:10px; flex-wrap:wrap; }
+.wstat {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px; padding: 12px 16px; text-align:center; min-width:80px;
+}
+.wstat-v { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:900; color:var(--gold-lt); line-height:1; }
+.wstat-l { font-size:.67rem; font-weight:600; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,255,255,.38); margin-top:3px; }
+
+/* ─── PAGE BODY ──────────────────────────── */
+.body {
+  max-width:1200px; margin:0 auto;
+  padding: clamp(24px,3vw,36px) clamp(16px,3vw,40px) 80px;
+  display: grid;
+  grid-template-columns: 1fr 288px;
+  gap: 24px;
+  align-items: start;
+}
+@media(max-width:880px){ .body { grid-template-columns:1fr; } }
+
+/* ─── SECTION LABEL ──────────────────────── */
+.section { margin-bottom: 32px; }
+.section-head {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: 12px;
+}
+.section-title { font-family:'Fraunces',serif; font-size:1.05rem; font-weight:700; color:var(--ink); }
+.section-link { font-size:.78rem; font-weight:600; color:var(--gold); }
+.section-link:hover { text-decoration:underline; }
+
+/* ═══════════════════════════════════════════
+   SET CARDS  — the one thing we're fixing
+═══════════════════════════════════════════ */
+.set-list { display:flex; flex-direction:column; gap:10px; }
+
+.set-card {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .18s, transform .18s;
+  cursor: pointer;
+}
+.set-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* Icon */
+.sc-icon {
+  width: 52px; height: 52px; border-radius: 10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size: 1.4rem; flex-shrink:0;
+}
+.set-a .sc-icon { background: var(--a-bg); }
+.set-b .sc-icon { background: var(--b-bg); }
+.set-c .sc-icon { background: var(--c-bg); }
+
+/* Middle: text + progress */
+.sc-mid { min-width:0; }
+.sc-top { display:flex; align-items:baseline; gap:8px; margin-bottom:3px; }
+.sc-badge {
+  font-size:.62rem; font-weight:700; letter-spacing:1.2px;
+  text-transform:uppercase; padding:2px 7px; border-radius:4px;
+  flex-shrink:0;
+}
+.set-a .sc-badge { background:var(--a-bg); color:var(--a); }
+.set-b .sc-badge { background:var(--b-bg); color:var(--b); }
+.set-c .sc-badge { background:var(--c-bg); color:var(--c); }
+.sc-name { font-family:'Fraunces',serif; font-size:1rem; font-weight:700; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sc-desc { font-size:.78rem; color:var(--ink-3); line-height:1.5; margin-bottom:10px; }
+
+/* Progress bar row */
+.sc-prog { display:flex; align-items:center; gap:10px; }
+.sc-bar-wrap { flex:1; height:5px; background:var(--line); border-radius:3px; overflow:hidden; min-width:0; }
+.sc-bar-fill { height:100%; border-radius:3px; transition:width .5s ease; }
+.set-a .sc-bar-fill { background: linear-gradient(90deg, var(--a), #FBBF24); }
+.set-b .sc-bar-fill { background: linear-gradient(90deg, var(--b), #60A5FA); }
+.set-c .sc-bar-fill { background: linear-gradient(90deg, var(--c), #A78BFA); }
+.sc-prog-text { font-size:.72rem; font-weight:600; color:var(--ink-3); white-space:nowrap; flex-shrink:0; }
+
+/* Right: button */
+.sc-right { flex-shrink:0; }
+.sc-btn {
+  display:inline-flex; align-items:center; gap:5px;
+  padding: 9px 16px; border-radius:8px;
+  font-family:'DM Sans',sans-serif; font-size:.82rem; font-weight:600;
+  border:none; cursor:pointer; white-space:nowrap;
+  transition: filter .15s, transform .15s;
+}
+.set-a .sc-btn { background:var(--a); color:#fff; }
+.set-b .sc-btn { background:var(--b); color:#fff; }
+.set-c .sc-btn { background:var(--c); color:#fff; }
+.sc-btn:hover { filter:brightness(1.1); transform:translateY(-1px); }
+
+/* Mobile: 2-col, button moves below */
+@media(max-width:560px){
+  .set-card {
+    grid-template-columns: 44px 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .sc-icon { width:44px; height:44px; font-size:1.25rem; }
+  .sc-right { grid-column:1/-1; }
+  .sc-btn { width:100%; justify-content:center; }
+}
+
+/* ─── ACTIVITY ───────────────────────────── */
+.act-list { display:flex; flex-direction:column; gap:8px; }
+.act-row {
+  display:flex; align-items:center; gap:12px;
+  background:var(--white); border:1px solid var(--line);
+  border-radius:var(--r); padding:12px 16px;
+  box-shadow:var(--shadow-sm);
+}
+.act-icon {
+  width:34px; height:34px; border-radius:8px;
+  background: var(--a-bg);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1rem; flex-shrink:0;
+}
+.act-info { flex:1; min-width:0; }
+.act-name { font-size:.84rem; font-weight:600; color:var(--ink); margin-bottom:1px; }
+.act-meta { font-size:.72rem; color:var(--ink-4); }
+.act-score { font-family:'Fraunces',serif; font-size:.95rem; font-weight:700; }
+.ok  { color: var(--ok);   }
+.mid { color: var(--warn); }
+.bad { color: var(--err);  }
+
+/* ─── SIDEBAR ────────────────────────────── */
+.sidebar { display:flex; flex-direction:column; gap:14px; }
+.card {
+  background:var(--white); border:1px solid var(--line);
+  border-radius:var(--r); padding:18px 20px;
+  box-shadow:var(--shadow-sm);
+}
+.card-title { font-family:'Fraunces',serif; font-size:.92rem; font-weight:700; color:var(--ink); margin-bottom:14px; }
+
+/* xp */
+.xp-card { background:var(--navy); border-color:transparent; }
+.xp-card .card-title { color:var(--gold-lt); }
+.xp-lv { display:flex; align-items:baseline; gap:6px; margin-bottom:4px; }
+.xp-lv-n { font-family:'Fraunces',serif; font-size:1.9rem; font-weight:900; color:var(--gold-lt); }
+.xp-lv-l { font-size:.74rem; color:rgba(255,255,255,.38); }
+.xp-bar { height:6px; background:rgba(255,255,255,.1); border-radius:3px; overflow:hidden; margin-bottom:5px; }
+.xp-bar-f { height:100%; width:18%; background:linear-gradient(90deg,#B45309,var(--gold-lt)); border-radius:3px; }
+.xp-note { font-size:.71rem; color:rgba(255,255,255,.32); }
+
+/* streak */
+.streak-card { background:linear-gradient(135deg,#92400E,var(--gold)); border-color:transparent; }
+.streak-card .card-title { color:#fff; }
+.streak-n { font-family:'Fraunces',serif; font-size:2.8rem; font-weight:900; color:#fff; line-height:1; margin-bottom:2px; }
+.streak-sub { font-size:.77rem; color:rgba(255,255,255,.7); margin-bottom:12px; }
+.streak-days { display:flex; gap:5px; }
+.sd {
+  flex:1; height:28px; border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:.6rem; font-weight:700;
+  background:rgba(255,255,255,.15); color:rgba(255,255,255,.5);
+}
+.sd.done  { background:rgba(255,255,255,.88); color:#92400E; }
+.sd.today { background:#fff; color:#92400E; box-shadow:0 2px 6px rgba(0,0,0,.12); }
+
+/* subject bars */
+.bk { display:flex; flex-direction:column; gap:9px; }
+.bk-row { display:flex; align-items:center; gap:10px; }
+.bk-l { font-size:.73rem; font-weight:600; color:var(--ink-3); width:74px; flex-shrink:0; }
+.bk-track { flex:1; height:5px; background:var(--line); border-radius:3px; overflow:hidden; }
+.bk-fill { height:100%; border-radius:3px; }
+.bk-fill.m  { background:var(--a); }
+.bk-fill.e  { background:var(--ok); }
+.bk-fill.v  { background:var(--b); }
+.bk-fill.nv { background:var(--c); }
+.bk-p { font-size:.72rem; font-weight:700; color:var(--ink); width:28px; text-align:right; }
+
+/* upgrade */
+.up-card { background:linear-gradient(135deg,#1E3A8A,#2563EB); border-color:transparent; text-align:center; }
+.up-card .card-title { color:var(--gold-lt); }
+.up-card p { font-size:.79rem; color:rgba(255,255,255,.55); line-height:1.6; margin-bottom:14px; }
+.up-btn {
+  display:block; background:linear-gradient(135deg,var(--gold),#FBBF24);
+  color:var(--navy); font-family:'DM Sans',sans-serif; font-weight:700; font-size:.84rem;
+  padding:10px; border-radius:8px; transition:filter .15s;
+}
+.up-btn:hover { filter:brightness(1.07); }
+
+/* ─── FOOTER ─────────────────────────────── */
+footer {
+  background:var(--navy);
+  text-align:center; font-size:.73rem;
+  color:rgba(255,255,255,.3);
+  padding:18px;
+}
+footer strong { color:var(--gold-lt); }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ───────────────────────────── -->
+<header>
+  <div class="hdr">
+    <a class="logo" href="index.html">ElevenPlus <span>Academy</span></a>
+    <div class="hdr-nav">
+      <div class="hdr-pill hide">⚡ <strong>180 XP</strong></div>
+      <div class="hdr-pill hide">🔥 <strong>3</strong></div>
+      <div class="avatar-wrap">
+        <button class="avatar" onclick="document.getElementById('menu').classList.toggle('open')" aria-label="Account">D</button>
+        <div class="menu" id="menu">
+          <div class="menu-head">
+            <div class="name">Demo User</div>
+            <div class="email">demo@elevenplus.ac.uk</div>
+          </div>
+          <a class="menu-item" href="dashboard.html">🏠  Dashboard</a>
+          <a class="menu-item" href="practice.html">📝  Practice</a>
+          <a class="menu-item" href="index.html#pricing">💳  Upgrade</a>
+          <div class="menu-div"></div>
+          <a class="menu-item red" href="index.html">🚪  Log out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── WELCOME ──────────────────────────── -->
+<div class="welcome">
+  <div class="welcome-inner">
+    <div class="welcome-text">
+      <h1>Welcome back, <em>Demo!</em> 👋</h1>
+      <p>3-day streak — keep it up! Set A is 30% complete.</p>
+    </div>
+    <div class="w-stats">
+      <div class="wstat"><div class="wstat-v">3</div><div class="wstat-l">Streak 🔥</div></div>
+      <div class="wstat"><div class="wstat-v">180</div><div class="wstat-l">XP ⚡</div></div>
+      <div class="wstat"><div class="wstat-v">18</div><div class="wstat-l">Correct ✅</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PAGE BODY ─────────────────────────── -->
+<div class="body">
+
+  <!-- LEFT COLUMN -->
+  <div>
+
+    <!-- Practice Sets -->
+    <div class="section">
+      <div class="section-head">
+        <div class="section-title">Practice Sets</div>
+        <a class="section-link" href="practice.html">Open practice →</a>
+      </div>
+
+      <div class="set-list">
+
+        <!-- Set A -->
+        <a class="set-card set-a" href="practice.html">
+          <div class="sc-icon">📖</div>
+          <div class="sc-mid">
+            <div class="sc-top">
+              <span class="sc-badge">Set A</span>
+              <span class="sc-name">Core Foundations</span>
+            </div>
+            <div class="sc-desc">Maths, English, Verbal &amp; Non-Verbal Reasoning — the essential 11+ building blocks.</div>
+            <div class="sc-prog">
+              <div class="sc-bar-wrap"><div class="sc-bar-fill" style="width:30%"></div></div>
+              <span class="sc-prog-text">30% · 12 / 40 done</span>
+            </div>
+          </div>
+          <div class="sc-right">
+            <button class="sc-btn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21"/></svg>
+              Continue
+            </button>
+          </div>
+        </a>
+
+        <!-- Set B -->
+        <a class="set-card set-b" href="practice.html">
+          <div class="sc-icon">🎯</div>
+          <div class="sc-mid">
+            <div class="sc-top">
+              <span class="sc-badge">Set B</span>
+              <span class="sc-name">CGP Assessment</span>
+            </div>
+            <div class="sc-desc">Authentic CGP-style 11+ Maths questions — serious exam-level practice.</div>
+            <div class="sc-prog">
+              <div class="sc-bar-wrap"><div class="sc-bar-fill" style="width:0%"></div></div>
+              <span class="sc-prog-text">Not started · 30 questions</span>
+            </div>
+          </div>
+          <div class="sc-right">
+            <button class="sc-btn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21"/></svg>
+              Start
+            </button>
+          </div>
+        </a>
+
+        <!-- Set C -->
+        <a class="set-card set-c" href="practice.html">
+          <div class="sc-icon">🏆</div>
+          <div class="sc-mid">
+            <div class="sc-top">
+              <span class="sc-badge">Set C</span>
+              <span class="sc-name">Mixed Challenge</span>
+            </div>
+            <div class="sc-desc">Advanced mixed questions across all subjects — the ultimate 11+ challenge.</div>
+            <div class="sc-prog">
+              <div class="sc-bar-wrap"><div class="sc-bar-fill" style="width:0%"></div></div>
+              <span class="sc-prog-text">Not started · 30 questions</span>
+            </div>
+          </div>
+          <div class="sc-right">
+            <button class="sc-btn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21"/></svg>
+              Start
+            </button>
+          </div>
+        </a>
+
+      </div>
+    </div><!-- /practice sets -->
+
+    <!-- Recent Activity -->
+    <div class="section">
+      <div class="section-head">
+        <div class="section-title">Recent Activity</div>
+      </div>
+      <div class="act-list">
+        <div class="act-row">
+          <div class="act-icon">📝</div>
+          <div class="act-info">
+            <div class="act-name">Set A — Practice Test</div>
+            <div class="act-meta">Today · 10 questions · 8 min</div>
+          </div>
+          <div class="act-score ok">8 / 10</div>
+        </div>
+        <div class="act-row">
+          <div class="act-icon">📝</div>
+          <div class="act-info">
+            <div class="act-name">Set A — Practice Test</div>
+            <div class="act-meta">Yesterday · 10 questions · 9 min</div>
+          </div>
+          <div class="act-score mid">6 / 10</div>
+        </div>
+        <div class="act-row">
+          <div class="act-icon">📝</div>
+          <div class="act-info">
+            <div class="act-name">Set A — Practice Test</div>
+            <div class="act-meta">2 days ago · 10 questions · 11 min</div>
+          </div>
+          <div class="act-score ok">7 / 10</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /left col -->
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="card xp-card">
+      <div class="card-title">⚡ Your Level</div>
+      <div class="xp-lv">
+        <div class="xp-lv-n">2</div>
+        <div class="xp-lv-l">Apprentice Scholar</div>
+      </div>
+      <div class="xp-bar"><div class="xp-bar-f"></div></div>
+      <div class="xp-note">180 / 1,000 XP to Level 3</div>
+    </div>
+
+    <div class="card streak-card">
+      <div class="card-title">🔥 Streak</div>
+      <div class="streak-n">3</div>
+      <div class="streak-sub">days in a row — brilliant!</div>
+      <div class="streak-days">
+        <div class="sd done">M</div>
+        <div class="sd done">T</div>
+        <div class="sd today">W</div>
+        <div class="sd">T</div>
+        <div class="sd">F</div>
+        <div class="sd">S</div>
+        <div class="sd">S</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📊 Subject Performance</div>
+      <div class="bk">
+        <div class="bk-row"><div class="bk-l">Maths</div><div class="bk-track"><div class="bk-fill m" style="width:75%"></div></div><div class="bk-p">75%</div></div>
+        <div class="bk-row"><div class="bk-l">English</div><div class="bk-track"><div class="bk-fill e" style="width:60%"></div></div><div class="bk-p">60%</div></div>
+        <div class="bk-row"><div class="bk-l">Verbal</div><div class="bk-track"><div class="bk-fill v" style="width:80%"></div></div><div class="bk-p">80%</div></div>
+        <div class="bk-row"><div class="bk-l">Non-Verbal</div><div class="bk-track"><div class="bk-fill nv" style="width:50%"></div></div><div class="bk-p">50%</div></div>
+      </div>
+    </div>
+
+    <div class="card up-card">
+      <div class="card-title">🚀 Unlock Pro</div>
+      <p>PDF papers, progress analytics and full parent dashboard.</p>
+      <a class="up-btn" href="index.html#pricing">View plans →</a>
+    </div>
+
+  </div><!-- /sidebar -->
+
+</div><!-- /body -->
+
+<footer>
+  <strong>ElevenPlus Academy</strong> · MVP Demo · Practice use only · © 2026
+</footer>
+
+<script>
+document.addEventListener('click', e => {
+  if (!e.target.closest('.avatar-wrap'))
+    document.getElementById('menu').classList.remove('open');
+});
+</script>
+</body>
+</html>

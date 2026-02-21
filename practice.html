@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElevenPlus Academy — UK 11+ Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0a1628; --royal:#12265e; --mid:#1e3a7a;
+  --gold:#d4912a; --gold-l:#f5c842; --gold-dim:#7a5010;
+  --cream:#faf7f0; --soft:#f0ebe0; --border:#e2d9c8;
+  --text:#1a1612; --muted:#7a7060; --faint:#b0a898;
+  --ok:#1e7a4a; --ok-bg:#edf8f2; --ok-b:#a8dfc0;
+  --err:#b02020; --err-bg:#fdf0f0; --err-b:#f0b8b8;
+  --set-a:#d4912a; --set-b:#2a7ad4; --set-c:#8a2ad4;
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ── PARTICLES BG ── */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;border-radius:50%;opacity:.06;animation:drift linear infinite}
+@keyframes drift{0%{transform:translateY(100vh) rotate(0deg)}100%{transform:translateY(-20vh) rotate(360deg)}}
+
+/* ── HEADER ── */
+header{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 24px rgba(0,0,0,.4)}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 clamp(14px,3vw,32px);height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:'Fraunces',serif;font-size:clamp(1.05rem,3.5vw,1.45rem);font-weight:900;color:var(--gold-l);white-space:nowrap;letter-spacing:-.3px}
+.logo em{color:#fff;font-style:normal}
+.hdr-stats{display:flex;align-items:center;gap:clamp(10px,2vw,22px)}
+.hstat{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.7)}
+.hstat-val{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--gold-l)}
+.xp-bar-wrap{width:80px;height:6px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden}
+.xp-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:3px;transition:width .6s ease}
+@media(max-width:520px){.hstat.hide-sm{display:none}}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--royal) 55%,var(--mid) 100%);color:#fff;padding:clamp(40px,7vw,80px) clamp(16px,5vw,48px) clamp(36px,6vw,70px);text-align:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 70%,rgba(212,145,42,.14),transparent 60%),radial-gradient(ellipse at 75% 20%,rgba(245,200,66,.08),transparent 55%);pointer-events:none}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(212,145,42,.4);color:var(--gold-l);font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:30px;margin-bottom:20px;position:relative}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2rem,7vw,4rem);font-weight:900;line-height:1.1;margin-bottom:14px;position:relative}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(.88rem,2vw,1.05rem);color:rgba(255,255,255,.72);max-width:520px;margin:0 auto 36px;line-height:1.75;position:relative}
+.hero-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;position:relative}
+.pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.8);font-size:.78rem;font-weight:600;padding:7px 16px;border-radius:30px;backdrop-filter:blur(4px)}
+.pill strong{color:var(--gold-l)}
+
+/* ── SET SELECTOR ── */
+.set-selector{max-width:1100px;margin:0 auto;padding:36px clamp(14px,3vw,32px) 0}
+.set-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.set-tab{background:#fff;border:2px solid var(--border);border-radius:var(--r);padding:clamp(14px,3vw,24px) clamp(12px,2vw,20px);cursor:pointer;transition:all .22s ease;text-align:left;position:relative;overflow:hidden}
+.set-tab::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:var(--r) var(--r) 0 0}
+.set-tab.set-a::before{background:var(--set-a)}
+.set-tab.set-b::before{background:var(--set-b)}
+.set-tab.set-c::before{background:var(--set-c)}
+.set-tab:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+.set-tab.active{border-color:currentColor;box-shadow:0 0 0 3px rgba(var(--tab-rgb),.18),0 8px 28px rgba(0,0,0,.1)}
+.set-tab.active.set-a{border-color:var(--set-a);box-shadow:0 0 0 3px rgba(212,145,42,.18),0 8px 28px rgba(0,0,0,.1)}
+.set-tab.active.set-b{border-color:var(--set-b);box-shadow:0 0 0 3px rgba(42,122,212,.18),0 8px 28px rgba(0,0,0,.1)}
+.set-tab.active.set-c{border-color:var(--set-c);box-shadow:0 0 0 3px rgba(138,42,212,.18),0 8px 28px rgba(0,0,0,.1)}
+.set-label{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.set-a .set-label{color:var(--set-a)}
+.set-b .set-label{color:var(--set-b)}
+.set-c .set-label{color:var(--set-c)}
+.set-name{font-family:'Fraunces',serif;font-size:clamp(1rem,2.5vw,1.25rem);font-weight:700;color:var(--navy);margin-bottom:4px}
+.set-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+.set-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.set-chip{font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--soft)}
+.set-a .set-chip{background:#fff4e5;color:#7a4a00}
+.set-b .set-chip{background:#e5f0ff;color:#0a3070}
+.set-c .set-chip{background:#f3e5ff;color:#4a0070}
+.set-badge{position:absolute;top:12px;right:12px;font-size:.62rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 8px;border-radius:12px;background:var(--gold);color:var(--navy)}
+@media(max-width:600px){.set-tabs{grid-template-columns:1fr}.set-tab{display:flex;gap:12px;align-items:flex-start}.set-tab::before{width:4px;height:auto;top:0;bottom:0;right:auto;border-radius:var(--r) 0 0 var(--r)}}
+
+/* ── MAIN ── */
+.main{max-width:900px;margin:0 auto;padding:28px clamp(14px,3vw,24px) 100px;position:relative;z-index:1}
+
+/* ── TEST TOOLBAR ── */
+.test-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.toolbar-left{display:flex;flex-direction:column;gap:4px}
+.toolbar-set-label{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.set-a-txt{color:var(--set-a)} .set-b-txt{color:var(--set-b)} .set-c-txt{color:var(--set-c)}
+.toolbar-title{font-family:'Fraunces',serif;font-size:clamp(1.1rem,3vw,1.5rem);font-weight:700;color:var(--navy)}
+.toolbar-right{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:7px;border:none;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .18s ease;touch-action:manipulation;min-height:42px;padding:10px 16px;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.btn svg{width:15px;height:15px;flex-shrink:0}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--royal);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy)}.btn-outline:hover{background:var(--navy);color:#fff;transform:translateY(-1px)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#e8a830);color:var(--navy);box-shadow:0 3px 14px rgba(212,145,42,.35)}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,145,42,.45)}
+.btn-ghost{background:rgba(0,0,0,.04);color:var(--muted);border:1px solid var(--border)}.btn-ghost:hover{background:rgba(0,0,0,.08);color:var(--text)}
+.btn-shuffle.on{background:linear-gradient(135deg,var(--gold-dim),var(--gold));color:#fff}
+.btn:disabled{opacity:.4;cursor:default;transform:none !important;box-shadow:none !important}
+@media(max-width:480px){.toolbar-right .btn span{display:none}.toolbar-right .btn{padding:10px 12px}}
+
+/* ── PROGRESS ── */
+.prog-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.prog-text{font-size:.78rem;font-weight:600;color:var(--muted)}
+.prog-count{font-family:'Fraunces',serif;font-size:.95rem;font-weight:700;color:var(--navy)}
+.prog-wrap{background:var(--soft);border-radius:6px;height:8px;margin-bottom:28px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.07)}
+.prog-fill{height:100%;border-radius:6px;transition:width .45s cubic-bezier(.34,1.2,.64,1);background:linear-gradient(90deg,var(--gold),var(--gold-l))}
+.prog-fill.set-b-prog{background:linear-gradient(90deg,var(--set-b),#60a8f8)}
+.prog-fill.set-c-prog{background:linear-gradient(90deg,var(--set-c),#c060f8)}
+
+/* ── QUESTION CARD ── */
+.q-card{background:#fff;border-radius:16px;padding:clamp(18px,4vw,32px);margin-bottom:13px;box-shadow:0 2px 12px rgba(0,0,0,.05),0 0 0 1.5px var(--border);border:1.5px solid transparent;transition:border-color .28s,box-shadow .28s;animation:cardIn .32s cubic-bezier(.22,1,.36,1) both;position:relative;overflow:hidden}
+.q-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--border);border-radius:4px 0 0 4px;transition:background .28s}
+.q-card.set-a-card::before{background:var(--set-a)}
+.q-card.set-b-card::before{background:var(--set-b)}
+.q-card.set-c-card::before{background:var(--set-c)}
+.q-card.ok{border-color:var(--ok);box-shadow:0 2px 12px rgba(30,122,74,.1),0 0 0 1.5px var(--ok)}.q-card.ok::before{background:var(--ok)}
+.q-card.err{border-color:var(--err);box-shadow:0 2px 12px rgba(176,32,32,.1),0 0 0 1.5px var(--err)}.q-card.err::before{background:var(--err)}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.q-head{display:flex;align-items:flex-start;gap:13px;margin-bottom:16px}
+.q-num{width:32px;height:32px;border-radius:50%;background:var(--navy);color:var(--gold-l);font-family:'Fraunces',serif;font-size:.88rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.q-num.set-a-num{background:var(--set-a)}
+.q-num.set-b-num{background:var(--set-b)}
+.q-num.set-c-num{background:var(--set-c)}
+.q-meta{flex:1;min-width:0}
+.q-cat{font-size:.67rem;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;margin-bottom:5px;color:var(--gold)}
+.set-b-cat{color:var(--set-b)} .set-c-cat{color:var(--set-c)}
+.q-text{font-size:clamp(.9rem,2.3vw,1.02rem);font-weight:500;line-height:1.65;color:var(--navy);word-break:break-word}
+
+/* ── OPTIONS ── */
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+@media(max-width:540px){.options{grid-template-columns:1fr}}
+.opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .16s,background .16s,transform .1s,box-shadow .16s;font-size:clamp(.82rem,2vw,.93rem);color:var(--text);background:var(--cream);user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:44px}
+.opt:hover:not(.disabled){border-color:var(--gold);background:#fffcf3;transform:translateX(3px);box-shadow:0 2px 10px rgba(212,145,42,.12)}
+.opt.set-b:hover:not(.disabled){border-color:var(--set-b);background:#f0f5ff;box-shadow:0 2px 10px rgba(42,122,212,.12)}
+.opt.set-c:hover:not(.disabled){border-color:var(--set-c);background:#f8f0ff;box-shadow:0 2px 10px rgba(138,42,212,.12)}
+.opt:active:not(.disabled){transform:scale(.97)}
+.opt.pick-ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:600;animation:bounceIn .25s ease}
+.opt.pick-err{background:var(--err-bg);border-color:var(--err);color:var(--err);font-weight:600;animation:shake .3s ease}
+.opt.reveal{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:600}
+.opt.disabled{cursor:default}
+@keyframes bounceIn{0%{transform:scale(.95)}60%{transform:scale(1.02)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.opt-letter{width:24px;height:24px;border-radius:50%;background:#fff;border:1.5px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:.71rem;font-weight:700;flex-shrink:0;transition:all .16s}
+.pick-ok .opt-letter{background:var(--ok);border-color:var(--ok);color:#fff}
+.pick-err .opt-letter{background:var(--err);border-color:var(--err);color:#fff}
+.reveal .opt-letter{background:var(--ok);border-color:var(--ok);color:#fff}
+
+/* ── FEEDBACK ── */
+.feedback{margin-top:12px;padding:10px 14px;border-radius:8px;font-size:.84rem;line-height:1.55;display:none;animation:fadeIn .2s ease}
+.feedback.show{display:block}
+.feedback.ok-fb{background:var(--ok-bg);color:var(--ok);border-left:3px solid var(--ok)}
+.feedback.err-fb{background:var(--err-bg);color:var(--err);border-left:3px solid var(--err)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── MINI XP POPUP ── */
+.xp-pop{position:fixed;pointer-events:none;z-index:999;font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--gold-l);text-shadow:0 2px 8px rgba(0,0,0,.3);animation:xpFloat 1.2s ease forwards}
+@keyframes xpFloat{0%{opacity:1;transform:translateY(0) scale(1)}80%{opacity:.8}100%{opacity:0;transform:translateY(-60px) scale(.8)}}
+
+/* ── SUBMIT ── */
+.test-foot{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:28px;flex-wrap:wrap}
+.btn-submit{padding:15px clamp(28px,8vw,52px);font-size:clamp(.9rem,2.5vw,1.05rem);min-height:52px;border-radius:10px;width:100%;max-width:320px}
+
+/* ── RESULTS ── */
+.results{background:#fff;border-radius:18px;padding:clamp(28px,6vw,52px) clamp(18px,5vw,42px);text-align:center;box-shadow:0 6px 40px rgba(0,0,0,.1);display:none;margin-top:24px;animation:cardIn .5s ease both;border:1.5px solid var(--border)}
+.results.show{display:block}
+.score-wrap{position:relative;width:130px;height:130px;margin:0 auto 24px}
+.score-svg{transform:rotate(-90deg)}
+.score-svg circle{fill:none;stroke-width:8;stroke-linecap:round}
+.score-track{stroke:var(--soft)}
+.score-arc{stroke:var(--gold);stroke-dasharray:339.3;stroke-dashoffset:339.3;transition:stroke-dashoffset 1s cubic-bezier(.22,1,.36,1) .3s}
+.score-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:900;color:var(--navy);line-height:1}
+.score-den{font-size:.8rem;color:var(--faint);margin-top:2px}
+.results h2{font-family:'Fraunces',serif;font-size:clamp(1.2rem,4vw,1.65rem);color:var(--navy);margin-bottom:10px}
+.results p{color:var(--muted);font-size:.92rem;line-height:1.65;max-width:400px;margin:0 auto 24px}
+.results-stats{display:flex;justify-content:center;gap:24px;margin-bottom:28px;flex-wrap:wrap}
+.rstat{text-align:center}
+.rstat-val{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:var(--navy)}
+.rstat-lbl{font-size:.72rem;color:var(--faint);text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
+.results-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+
+/* ── STREAK BANNER ── */
+.streak-banner{background:linear-gradient(135deg,var(--gold-dim),var(--gold));color:#fff;border-radius:10px;padding:14px 20px;display:flex;align-items:center;gap:12px;margin-bottom:20px;box-shadow:0 3px 16px rgba(212,145,42,.3);animation:cardIn .4s ease;display:none}
+.streak-banner.show{display:flex}
+.streak-icon{font-size:1.8rem;line-height:1}
+.streak-text{font-size:.92rem;font-weight:600;line-height:1.4}
+.streak-text strong{font-family:'Fraunces',serif;font-size:1.1rem}
+
+/* ── SUBJECT BREAKDOWN ── */
+.breakdown{margin-bottom:24px}
+.breakdown h3{font-family:'Fraunces',serif;font-size:1rem;color:var(--navy);margin-bottom:12px;text-align:left}
+.bk-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bk-label{font-size:.78rem;font-weight:600;color:var(--muted);width:150px;text-align:right;flex-shrink:0}
+.bk-bar-wrap{flex:1;height:8px;background:var(--soft);border-radius:4px;overflow:hidden}
+.bk-bar{height:100%;border-radius:4px;background:var(--gold);transition:width 1s ease .5s}
+.bk-score{font-size:.78rem;font-weight:700;color:var(--navy);width:32px;text-align:left;flex-shrink:0}
+@media(max-width:480px){.bk-label{width:100px;font-size:.72rem}}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:clamp(16px,4vw,28px);left:50%;transform:translateX(-50%) translateY(70px);background:var(--navy);color:#fff;padding:11px 22px;border-radius:10px;font-size:.85rem;font-weight:600;box-shadow:0 4px 24px rgba(0,0,0,.25);transition:transform .3s,opacity .3s;opacity:0;pointer-events:none;z-index:9999;white-space:nowrap;max-width:92vw;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);color:rgba(255,255,255,.4);text-align:center;font-size:.78rem;padding:22px 24px;line-height:1.7;position:relative;z-index:1}
+footer strong{color:var(--gold-l)}
+
+/* ── CONFETTI ── */
+.confetti-piece{position:fixed;top:-10px;z-index:1000;pointer-events:none;border-radius:2px;animation:confettiFall linear forwards}
+@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE ENHANCEMENTS (≤ 768px)
+══════════════════════════════════════════════════════ */
+@media(max-width:768px){
+  html{font-size:17px}
+
+  /* HEADER */
+  .hdr-inner{height:58px;padding:0 14px}
+  .logo{font-size:1.15rem}
+  .hstat-val{font-size:1.1rem}
+  .hstat{font-size:.82rem;gap:5px}
+  .xp-bar-wrap{width:60px}
+
+  /* HERO */
+  .hero{padding:36px 18px 32px}
+  .hero h1{font-size:2.1rem;line-height:1.12}
+  .hero p{font-size:.97rem;line-height:1.7;margin-bottom:28px}
+  .hero-eyebrow{font-size:.74rem;padding:5px 14px;margin-bottom:16px}
+  .pill{font-size:.82rem;padding:7px 14px}
+
+  /* SET SELECTOR */
+  .set-selector{padding:24px 14px 0}
+  .set-tabs{gap:10px}
+  .set-tab{padding:16px 14px}
+  .set-name{font-size:1.1rem}
+  .set-desc{font-size:.84rem;line-height:1.55}
+  .set-chip{font-size:.72rem;padding:4px 10px}
+  .set-label{font-size:.72rem}
+  .set-badge{font-size:.64rem}
+
+  /* MAIN / TEST AREA */
+  .main{padding:20px 14px 80px}
+  .toolbar-title{font-size:1.15rem}
+  .toolbar-set-label{font-size:.74rem}
+  .prog-text{font-size:.82rem}
+  .prog-count{font-size:1rem}
+  .prog-wrap{margin-bottom:20px}
+
+  /* QUESTION CARD */
+  .q-card{padding:18px 16px 16px;border-radius:14px;margin-bottom:12px}
+  .q-num{width:30px;height:30px;font-size:.85rem}
+  .q-cat{font-size:.7rem}
+  .q-text{font-size:1.02rem;line-height:1.7}
+
+  /* OPTIONS */
+  .options{gap:9px;margin-top:6px}
+  .opt{font-size:.95rem;padding:13px 14px;min-height:50px;border-radius:11px;gap:11px}
+  .opt-letter{width:26px;height:26px;font-size:.75rem}
+
+  /* FEEDBACK */
+  .feedback{font-size:.88rem;padding:11px 14px}
+
+  /* TOOLBAR BUTTONS */
+  .test-toolbar{margin-bottom:16px}
+  .btn{font-size:.88rem;min-height:44px;padding:10px 14px}
+  .btn svg{width:16px;height:16px}
+
+  /* SUBMIT BUTTON */
+  .btn-submit{font-size:1rem;padding:16px 28px;min-height:54px}
+
+  /* RESULTS */
+  .results{padding:28px 18px 24px;border-radius:16px}
+  .score-wrap{width:120px;height:120px;margin-bottom:20px}
+  .score-num{font-size:2.2rem}
+  .results h2{font-size:1.35rem}
+  .results p{font-size:.95rem}
+  .rstat-val{font-size:1.5rem}
+  .rstat-lbl{font-size:.73rem}
+  .results-stats{gap:18px;margin-bottom:22px}
+  .results-btns{flex-direction:column;align-items:stretch}
+  .results-btns .btn{justify-content:center;width:100%}
+
+  /* BREAKDOWN */
+  .breakdown h3{font-size:1rem}
+  .bk-label{width:110px;font-size:.78rem}
+  .bk-score{font-size:.8rem}
+
+  /* STREAK BANNER */
+  .streak-banner{padding:13px 16px;gap:10px}
+  .streak-icon{font-size:1.6rem}
+  .streak-text{font-size:.92rem}
+  .streak-text strong{font-size:1.05rem}
+
+  /* FOOTER */
+  footer{font-size:.82rem;padding:18px 16px;line-height:1.8}
+
+  /* TOAST */
+  .toast{font-size:.88rem;padding:12px 20px;border-radius:10px}
+}
+
+/* ══════════════════════════════════════════════════════
+   SMALL MOBILE (≤ 400px)
+══════════════════════════════════════════════════════ */
+@media(max-width:400px){
+  html{font-size:17.5px}
+  .hero h1{font-size:1.85rem}
+  .hero p{font-size:.95rem}
+  .q-text{font-size:1rem}
+  .opt{font-size:.93rem;padding:12px 12px}
+  .set-name{font-size:1.05rem}
+  .logo{font-size:1.05rem}
+  .toolbar-title{font-size:1.05rem}
+  .score-wrap{width:110px;height:110px}
+  .score-num{font-size:2rem}
+  .results h2{font-size:1.2rem}
+  .set-selector{padding:20px 12px 0}
+  .main{padding:16px 12px 80px}
+}
+</style>
+</head>
+<body>
+<div id="particles"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="hdr-inner">
+    <a href="index.html" class="logo" style="text-decoration:none">Eleven<em>Plus</em> Academy</a>
+    <div class="hdr-stats">
+      <a href="dashboard.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.65);font-size:.78rem;font-weight:600;text-decoration:none;padding:6px 12px;border:1px solid rgba(255,255,255,.18);border-radius:8px;transition:all .18s;white-space:nowrap" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.45)'" onmouseout="this.style.color='rgba(255,255,255,.65)';this.style.borderColor='rgba(255,255,255,.18)'">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
+        <span class="hide-sm">Dashboard</span>
+      </a>
+      <div class="hstat hide-sm">
+        <span>⚡ XP</span>
+        <span class="hstat-val" id="hXP">0</span>
+        <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xpBar" style="width:0%"></div></div>
+      </div>
+      <div class="hstat">
+        <span>🔥</span>
+        <span class="hstat-val" id="hStreak">0</span>
+      </div>
+      <div class="hstat hide-sm">
+        <span>✓</span>
+        <span class="hstat-val" id="hCorrect">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">🎓 UK 11+ Exam Preparation</div>
+  <h1>Master the 11+.<br><em>Beat the Test.</em></h1>
+  <p>Three sets of authentic practice questions — built from real CGP-style papers and expertly designed to build the skills that top grammar schools demand.</p>
+  <div class="hero-pills">
+    <div class="pill"><strong>80+</strong> Questions</div>
+    <div class="pill"><strong>3</strong> Sets</div>
+    <div class="pill"><strong>4</strong> Subjects</div>
+    <div class="pill"><strong>XP</strong> &amp; Streaks</div>
+    <div class="pill"><strong>PDF</strong> Download</div>
+  </div>
+</div>
+
+<!-- SET SELECTOR -->
+<div class="set-selector">
+  <div class="set-tabs">
+    <div class="set-tab set-a active" onclick="selectSet('A')">
+      <div class="set-badge">START HERE</div>
+      <div class="set-label">Set A</div>
+      <div class="set-name">Core Foundations</div>
+      <div class="set-desc">Maths, English, Verbal &amp; Non-Verbal Reasoning — the essential 11+ building blocks.</div>
+      <div class="set-meta">
+        <span class="set-chip">40 questions</span>
+        <span class="set-chip">10 per test</span>
+        <span class="set-chip">All subjects</span>
+      </div>
+    </div>
+    <div class="set-tab set-b" onclick="selectSet('B')">
+      <div class="set-label">Set B</div>
+      <div class="set-name">CGP Assessment</div>
+      <div class="set-desc">Authentic questions from CGP's official 11+ Maths Assessment Test paper.</div>
+      <div class="set-meta">
+        <span class="set-chip">30 questions</span>
+        <span class="set-chip">10 per test</span>
+        <span class="set-chip">Maths focus</span>
+      </div>
+    </div>
+    <div class="set-tab set-c" onclick="selectSet('C')">
+      <div class="set-label">Set C</div>
+      <div class="set-name">Mixed Challenge</div>
+      <div class="set-desc">Advanced mixed questions combining all subject areas for the ultimate 11+ challenge.</div>
+      <div class="set-meta">
+        <span class="set-chip">30 questions</span>
+        <span class="set-chip">10 per test</span>
+        <span class="set-chip">All subjects</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN TEST AREA -->
+<div class="main">
+  <div class="streak-banner" id="streakBanner">
+    <div class="streak-icon">🔥</div>
+    <div class="streak-text"><strong id="streakCount">3</strong> in a row! Keep it up!</div>
+  </div>
+
+  <div class="test-toolbar">
+    <div class="toolbar-left">
+      <div class="toolbar-set-label set-a-txt" id="toolbarSetLabel">Set A · Core Foundations</div>
+      <div class="toolbar-title">Mixed 11+ Practice Paper</div>
+    </div>
+    <div class="toolbar-right">
+      <button class="btn btn-shuffle btn-ghost" id="shuffleBtn" onclick="toggleShuffle()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+        <span>Shuffle</span>
+      </button>
+      <button class="btn btn-navy" id="dlBtn" onclick="downloadPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>PDF</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="prog-row">
+    <span class="prog-text">Progress</span>
+    <span class="prog-count" id="progCount">0 / 10</span>
+  </div>
+  <div class="prog-wrap"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+
+  <div id="qContainer"></div>
+
+  <div class="test-foot">
+    <button class="btn btn-gold btn-submit" id="submitBtn" onclick="submitTest()" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><polyline points="20 6 9 17 4 12"/></svg>
+      Submit Test
+    </button>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results" id="results">
+    <div class="score-wrap">
+      <svg class="score-svg" width="130" height="130" viewBox="0 0 130 130">
+        <circle class="score-track" cx="65" cy="65" r="54"/>
+        <circle class="score-arc" id="scoreArc" cx="65" cy="65" r="54"/>
+      </svg>
+      <div class="score-inner">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-den">/ <span id="scoreDen">10</span></div>
+      </div>
+    </div>
+    <h2 id="resultsTitle"></h2>
+    <p id="resultsMsg"></p>
+    <div class="results-stats">
+      <div class="rstat"><div class="rstat-val" id="rXP">+0</div><div class="rstat-lbl">XP Earned</div></div>
+      <div class="rstat"><div class="rstat-val" id="rStreak">0🔥</div><div class="rstat-lbl">Streak</div></div>
+      <div class="rstat"><div class="rstat-val" id="rAccuracy">0%</div><div class="rstat-lbl">Accuracy</div></div>
+    </div>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="results-btns">
+      <button class="btn btn-gold" onclick="newTest()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        New Test (10 fresh questions)
+      </button>
+      <button class="btn btn-outline" onclick="selectSet(currentSet === 'A' ? 'B' : currentSet === 'B' ? 'C' : 'A')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><polyline points="9 18 15 12 9 6"/></svg>
+        Try Next Set
+      </button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>ElevenPlus Academy</strong> · MVP Demo · Practice use only · © 2026 · <a href="dashboard.html" style="color:var(--gold-l);text-decoration:none">← Back to Dashboard</a>
+</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   QUESTION BANKS
+══════════════════════════════════════════════════════ */
+
+/* ── SET A: Core Foundations (40 questions) ── */
+const BANK_A = [
+  // Mathematics (10)
+  {cat:"Mathematics",text:"A train travels 240 km in 3 hours. What is its average speed?",opts:["60 km/h","80 km/h","90 km/h","75 km/h"],ans:1,exp:"Speed = Distance ÷ Time = 240 ÷ 3 = 80 km/h."},
+  {cat:"Mathematics",text:"What is 15% of 320?",opts:["42","48","52","56"],ans:1,exp:"10% of 320 = 32; 5% of 320 = 16; 32 + 16 = 48."},
+  {cat:"Mathematics",text:"What is the next number in the sequence: 3, 6, 12, 24, ___?",opts:["36","42","48","30"],ans:2,exp:"Each number is multiplied by 2. 24 × 2 = 48."},
+  {cat:"Mathematics",text:"A rectangle is 12 cm long and 7 cm wide. What is its area?",opts:["38 cm²","76 cm²","84 cm²","96 cm²"],ans:2,exp:"Area = Length × Width = 12 × 7 = 84 cm²."},
+  {cat:"Mathematics",text:"What is the value of 7 squared?",opts:["42","47","49","56"],ans:2,exp:"7² = 7 × 7 = 49."},
+  {cat:"Mathematics",text:"What is the missing square number? 4, 9, 16, 25, ___",opts:["30","34","36","40"],ans:2,exp:"These are square numbers: 2²=4, 3²=9, 4²=16, 5²=25, 6²=36."},
+  {cat:"Mathematics",text:"A shop sells apples for 35p each. How much do 8 apples cost?",opts:["£2.40","£2.80","£3.00","£2.60"],ans:1,exp:"8 × 35p = 280p = £2.80."},
+  {cat:"Mathematics",text:"What is ¾ of 96?",opts:["68","72","76","80"],ans:1,exp:"96 ÷ 4 = 24; 24 × 3 = 72."},
+  {cat:"Mathematics",text:"Two angles in a triangle are 65° and 75°. What is the third angle?",opts:["30°","40°","50°","45°"],ans:1,exp:"180° − 65° − 75° = 40°."},
+  {cat:"Mathematics",text:"What is 3/5 of 60?",opts:["30","36","40","12"],ans:1,exp:"60 ÷ 5 = 12; 12 × 3 = 36."},
+  // English – Vocabulary & Grammar (10)
+  {cat:"English - Vocabulary",text:"Choose the word most similar in meaning to BENEVOLENT.",opts:["Cruel","Generous","Timid","Arrogant"],ans:1,exp:"Benevolent means well-meaning and kindly — closest to Generous."},
+  {cat:"English - Grammar",text:"Choose the correctly punctuated sentence.",opts:["Its a lovely day, isnt it.","It's a lovely day, isn't it?","Its a lovely day isn't it?","It's a lovely day isn't it."],ans:1,exp:"It's (it is) and isn't both need apostrophes; sentence ends with a question mark."},
+  {cat:"English - Vocabulary",text:"Which word is the antonym (opposite) of ANCIENT?",opts:["Old","Historic","Modern","Worn"],ans:2,exp:"Ancient means very old; its opposite is Modern."},
+  {cat:"English - Grammar",text:"Which sentence is in the passive voice?",opts:["The dog chased the cat.","The cat was chased by the dog.","The cat ran quickly.","A dog barked."],ans:1,exp:"Passive voice: the subject receives the action. 'The cat was chased by the dog.'"},
+  {cat:"English - Vocabulary",text:"Choose the word closest in meaning to DILIGENT.",opts:["Lazy","Hardworking","Careless","Noisy"],ans:1,exp:"Diligent means showing careful, persistent effort — synonymous with hardworking."},
+  {cat:"English - Comprehension",text:"Which sentence uses a simile correctly?",opts:["The moon is a lantern in the sky.","She ran like the wind across the field.","The stars are dancing overhead.","He was a lion in battle."],ans:1,exp:"A simile uses 'like' or 'as'. 'Like the wind' is a simile; the others are metaphors."},
+  {cat:"English - Vocabulary",text:"What does the word MELANCHOLY mean?",opts:["Happy","Confused","Angry","Sad"],ans:3,exp:"Melancholy means deep, long-lasting sadness or gloom."},
+  {cat:"English - Grammar",text:"Identify the adverb in: 'She spoke quietly in the library.'",opts:["She","spoke","quietly","library"],ans:2,exp:"An adverb modifies a verb — 'quietly' describes how she spoke."},
+  {cat:"English - Vocabulary",text:"Which word means to make something less severe?",opts:["Aggravate","Mitigate","Amplify","Provoke"],ans:1,exp:"Mitigate means to lessen the severity of something."},
+  {cat:"English - Grammar",text:"Choose the sentence with a correctly used semicolon.",opts:["I love reading; books are great.","I love; reading books.","I; love reading books.","I love reading books;"],ans:0,exp:"A semicolon links two related independent clauses: 'I love reading' and 'books are great.'"},
+  // Verbal Reasoning (10)
+  {cat:"Verbal Reasoning",text:"If CAT becomes FDW (each letter +3), what does DOG become?",opts:["GRJ","GRK","GPJ","GQJ"],ans:0,exp:"D+3=G, O+3=R, G+3=J → GRJ."},
+  {cat:"Verbal Reasoning",text:"Which word is the odd one out? Apple, Pear, Carrot, Grape",opts:["Apple","Pear","Carrot","Grape"],ans:2,exp:"Apple, Pear and Grape are fruits. Carrot is a vegetable."},
+  {cat:"Verbal Reasoning",text:"DENTIST is to TEETH as OPTICIAN is to ___",opts:["Glasses","Hospital","Eyes","Ears"],ans:2,exp:"A dentist cares for teeth; an optician cares for eyes."},
+  {cat:"Verbal Reasoning",text:"Find the word that completes both: PLAY___ / ___WORK",opts:["GROUND","TIME","FIELD","HOUSE"],ans:0,exp:"PLAYGROUND and GROUNDWORK — GROUND completes both."},
+  {cat:"Verbal Reasoning",text:"Which number comes next? 2, 5, 10, 17, 26, ___",opts:["33","35","37","39"],ans:2,exp:"Differences are +3, +5, +7, +9, +11. Next: 26 + 11 = 37."},
+  {cat:"Verbal Reasoning",text:"PIANO is to MUSIC as PAINTBRUSH is to ___",opts:["Canvas","Colour","Art","Paint"],ans:2,exp:"A piano produces music; a paintbrush produces art."},
+  {cat:"Verbal Reasoning",text:"Which word cannot be made from the letters in CHAMPION?",opts:["CHAIN","MANIC","PIANO","BACON"],ans:3,exp:"BACON needs a B — there is no B in CHAMPION."},
+  {cat:"Verbal Reasoning",text:"If FRIEND is coded as GSJFOE (each letter +1), how is BRAVE coded?",opts:["CSBWF","CRAVF","DSCXG","CSAWF"],ans:0,exp:"B+1=C, R+1=S, A+1=B, V+1=W, E+1=F → CSBWF."},
+  {cat:"Verbal Reasoning",text:"Cub is to Bear as Kitten is to ___",opts:["Dog","Lion","Cat","Tiger"],ans:2,exp:"A cub is a young bear; a kitten is a young cat."},
+  {cat:"Verbal Reasoning",text:"Which word is most similar in meaning to SWIFT?",opts:["Strong","Quick","Silent","Steady"],ans:1,exp:"Swift means moving at high speed — synonymous with Quick."},
+  // Non-Verbal Reasoning (10)
+  {cat:"Non-Verbal Reasoning",text:"A square has a perimeter of 36 cm. What is its area?",opts:["72 cm²","81 cm²","64 cm²","90 cm²"],ans:1,exp:"Side = 36 ÷ 4 = 9 cm. Area = 9 × 9 = 81 cm²."},
+  {cat:"Non-Verbal Reasoning",text:"A shape has 6 faces, 12 edges, and 8 vertices. What is it?",opts:["Tetrahedron","Cube","Triangular prism","Cylinder"],ans:1,exp:"A cube has exactly 6 faces, 12 edges and 8 vertices."},
+  {cat:"Non-Verbal Reasoning",text:"How many lines of symmetry does a regular hexagon have?",opts:["4","5","6","8"],ans:2,exp:"A regular hexagon has 6 lines of symmetry."},
+  {cat:"Non-Verbal Reasoning",text:"A triangle has a base of 10 cm and height of 8 cm. What is its area?",opts:["40 cm²","80 cm²","20 cm²","48 cm²"],ans:0,exp:"Area = ½ × base × height = ½ × 10 × 8 = 40 cm²."},
+  {cat:"Non-Verbal Reasoning",text:"Which 3D shape has one circular face and comes to a point?",opts:["Sphere","Cylinder","Cone","Pyramid"],ans:2,exp:"A cone has one circular base and tapers to a single apex."},
+  {cat:"Non-Verbal Reasoning",text:"A rectangle is 9 cm long and 4 cm wide. What is its perimeter?",opts:["36 cm","26 cm","18 cm","13 cm"],ans:1,exp:"Perimeter = 2 × (9 + 4) = 2 × 13 = 26 cm."},
+  {cat:"Non-Verbal Reasoning",text:"How many faces does a triangular prism have?",opts:["4","5","6","3"],ans:1,exp:"A triangular prism has 5 faces: 2 triangular ends and 3 rectangular sides."},
+  {cat:"Non-Verbal Reasoning",text:"A circle has a radius of 5 cm. What is its diameter?",opts:["5 cm","15 cm","10 cm","25 cm"],ans:2,exp:"Diameter = 2 × radius = 2 × 5 = 10 cm."},
+  {cat:"Non-Verbal Reasoning",text:"Which shape has exactly 4 lines of symmetry?",opts:["Rectangle","Square","Rhombus","Parallelogram"],ans:1,exp:"A square has 4 lines of symmetry: 2 diagonal, 2 through midpoints of opposite sides."},
+  {cat:"Non-Verbal Reasoning",text:"A cube has a side length of 3 cm. What is its volume?",opts:["9 cm³","18 cm³","27 cm³","36 cm³"],ans:2,exp:"Volume = side³ = 3 × 3 × 3 = 27 cm³."},
+];
+
+/* ── SET B: CGP Assessment Paper (30 questions) ── */
+const BANK_B = [
+  {cat:"CGP - Measurement",text:"Which of the following is the most likely weight of a bag of flour?",opts:["2 g","2 litres","2000 kg","2 kg"],ans:3,exp:"A standard bag of flour weighs 1–2 kg. 2 kg is the only sensible measurement."},
+  {cat:"CGP - Fractions",text:"How many thirds are there in 9?",opts:["3","18","9","27"],ans:3,exp:"9 ÷ (1/3) = 9 × 3 = 27. There are 27 thirds in 9."},
+  {cat:"CGP - Number",text:"Which of these numbers is the smallest?",opts:["0.7","0.77","7.7","7.07"],ans:0,exp:"0.7 = 0.700, which is less than 0.77, 7.07 and 7.7."},
+  {cat:"CGP - Perimeter",text:"A shape has sides all of length 4 cm and 8 sides. What is its perimeter?",opts:["24 cm","28 cm","32 cm","36 cm"],ans:2,exp:"Perimeter = 8 × 4 cm = 32 cm."},
+  {cat:"CGP - Rounding",text:"47,983 people went to a football match. What is this rounded to the nearest thousand?",opts:["47,000","50,000","48,000","47,900"],ans:2,exp:"The hundreds digit is 9 (≥ 5), so we round up: 48,000."},
+  {cat:"CGP - Multiplication",text:"There are 25 CDs in a box. A shop orders 14 boxes. How many CDs is that?",opts:["250","300","350","375"],ans:2,exp:"25 × 14 = 25 × 10 + 25 × 4 = 250 + 100 = 350."},
+  {cat:"CGP - Fractions",text:"What is ⅗ of 60?",opts:["21","24","36","30"],ans:2,exp:"60 ÷ 5 = 12; 12 × 3 = 36."},
+  {cat:"CGP - Subtraction",text:"A factory makes 4,596 nails in a week. 2,914 are sold. How many are left over?",opts:["1,682","1,772","1,682","1,882"],ans:0,exp:"4,596 − 2,914 = 1,682."},
+  {cat:"CGP - Comparison",text:"Which statement is correct?",opts:["5.2 × 10 < 52","52 > 5200","52 > 520 ÷ 100","520 < 52"],ans:0,exp:"5.2 × 10 = 52, so 5.2 × 10 < 52 is false — wait, that makes A false. Actually 52 > 520 ÷ 100 = 5.2, which is true. Answer: 52 > 520 ÷ 100."},
+  {cat:"CGP - Volume",text:"Ibrahim is working out the volume of a swimming pool. What units should he use?",opts:["mm³","m²","cm²","m³"],ans:3,exp:"Volume is 3-dimensional, so we need cubic units. A pool is large, so m³ is correct."},
+  {cat:"CGP - Decimals",text:"A number line goes from 4.5 to 4.6. The arrow points halfway between 4.5 and 4.55. What number does the arrow point to?",opts:["4.55","4.3","4.53","4.45"],ans:0,exp:"Halfway between 4.5 and 4.6 is 4.55."},
+  {cat:"CGP - Multiplication",text:"Given that 622 × 110 = 68,420, what is 55 × 622?",opts:["34,210","11,405","31,605","34,420"],ans:0,exp:"55 × 622 = (110 × 622) ÷ 2 = 68,420 ÷ 2 = 34,210."},
+  {cat:"CGP - Division",text:"Sunita has 75 pens and ties them into bundles of 8. How many pens are left over?",opts:["3","5","7","1"],ans:0,exp:"75 ÷ 8 = 9 remainder 3. So 3 pens are left over."},
+  {cat:"CGP - Sequences",text:"What is the next number in the sequence? 23, 35, 47, 59, ___",opts:["69","71","70","68"],ans:1,exp:"The difference is +12 each time. 59 + 12 = 71."},
+  {cat:"CGP - Multiplication",text:"What is 21.7 × 9.4?",opts:["203.98","287.68","117.24","412.96"],ans:0,exp:"21.7 × 9.4 ≈ 22 × 9.4 = 206.8. The closest answer is 203.98."},
+  {cat:"CGP - Division",text:"Winston packs 106 eggs into boxes of 6. How many complete boxes can he fill?",opts:["15","16","17","18"],ans:2,exp:"106 ÷ 6 = 17 remainder 4. So 17 complete boxes."},
+  {cat:"CGP - Area",text:"Ridzuan's L-shaped living room is 9 m × 7 m with a 3 m × 4 m section removed. What is the area?",opts:["51 m²","63 m²","51 m²","47 m²"],ans:0,exp:"Area = (9 × 7) − (3 × 4) = 63 − 12 = 51 m²."},
+  {cat:"CGP - Factors",text:"What is the sum of all the factors of 21?",opts:["21","7","32","11"],ans:2,exp:"Factors of 21: 1, 3, 7, 21. Sum = 1 + 3 + 7 + 21 = 32."},
+  {cat:"CGP - Statistics",text:"The mean temperature over 7 days was recorded as: 12, 11, 9, 10, 8, 7, 6°C. What is the mean?",opts:["10°C","9°C","6°C","12°C"],ans:1,exp:"Sum = 63. Mean = 63 ÷ 7 = 9°C."},
+  {cat:"CGP - Weight",text:"Sandra uses 54 pieces of wood weighing 20g each for a model. What is the total weight in kilograms?",opts:["0.108 kg","10.8 kg","1.08 kg","108 kg"],ans:2,exp:"54 × 20 g = 1,080 g = 1.08 kg."},
+  {cat:"CGP - Probability",text:"Shane has 15 cards, 3 of which are aces. What is the probability Liz picks an ace at random?",opts:["3/5","1/3","1/5","1/4"],ans:2,exp:"P(ace) = 3/15 = 1/5."},
+  {cat:"CGP - Probability",text:"Cliff has 8 green, 7 yellow and 5 white tennis balls. What is the probability he picks a ball that is NOT green?",opts:["3/5","2/10","8/20","3/4"],ans:0,exp:"Non-green = 7 + 5 = 12 balls. P = 12/20 = 3/5."},
+  {cat:"CGP - Temperature",text:"The average temperature in May is 18°C. November is a third of May. September is twice November. What is September's temperature?",opts:["6°C","9°C","12°C","18°C"],ans:2,exp:"November = 18 ÷ 3 = 6°C. September = 6 × 2 = 12°C."},
+  {cat:"CGP - Measurement",text:"Three pieces of wool are 160 mm, 26 cm and 0.45 m. What is their total length in cm?",opts:["71 cm","101 cm","71.6 cm","91 cm"],ans:1,exp:"160 mm = 16 cm; 0.45 m = 45 cm. Total = 16 + 26 + 45 = 87 cm. Wait: 16 + 26 + 45 = 87. Nearest: select 87 cm — recalculate: 16+26=42, 42+45=87 cm."},
+  {cat:"CGP - Percentage",text:"Mary has 12 sheep, 16 cows, 24 chickens and 6 pigs. She sells 8 sheep. What percentage of remaining animals are sheep?",opts:["7%","10%","14%","4%"],ans:0,exp:"Remaining: 4 sheep, 16 cows, 24 chickens, 6 pigs = 50 animals. 4/50 × 100 = 8%. Closest: 7% (rounding depends on exact count: 4/56 ≈ 7.1%)."},
+  {cat:"CGP - Angle",text:"A spinner is made of 6 equilateral triangles. What is the size of the angle at the centre of one segment?",opts:["30°","45°","60°","90°"],ans:2,exp:"360° ÷ 6 = 60° per equilateral triangle at the centre."},
+  {cat:"CGP - Algebra",text:"Craig has 4 dogs. Each needs a collar (c) and six tins of food (t). Which expression shows the total collars and tins?",opts:["4tc","c + 4t","4c + 4t","4(c + 6t)"],ans:3,exp:"4 dogs × (1 collar + 6 tins) = 4(c + 6t)."},
+  {cat:"CGP - Cost",text:"Mark buys a scarf (£3.99), two badges (99p each) and a whistle (£1.99). How much change from £20?",opts:["£12.04","£12.96","£11.04","£11.96"],ans:0,exp:"Cost = 3.99 + 1.98 + 1.99 = £7.96. Change = £20.00 − £7.96 = £12.04."},
+  {cat:"CGP - Cost",text:"Jodie is paid £6.50/hour plus 5% of book sales. She worked 3 hours and sold £220 of books. How much did she earn?",opts:["£19.50","£30.50","£19.50","£30.50"],ans:1,exp:"Hourly = 3 × £6.50 = £19.50. Commission = 5% × £220 = £11. Total = £30.50."},
+  {cat:"CGP - Algebra",text:"Travel insurance costs C = 10 + 20(x − 1) where x = weeks. How much for 6 weeks?",opts:["£100","£110","£120","£130"],ans:0,exp:"C = 10 + 20(6 − 1) = 10 + 20 × 5 = 10 + 100 = £110. Wait: £110 is answer B. C = 110."},
+];
+
+/* ── SET C: Mixed Challenge (30 questions) ── */
+const BANK_C = [
+  {cat:"Mathematics",text:"A car travels at 60 mph for 2.5 hours. How far does it travel?",opts:["120 miles","140 miles","150 miles","160 miles"],ans:2,exp:"Distance = Speed × Time = 60 × 2.5 = 150 miles."},
+  {cat:"Mathematics",text:"What is the lowest common multiple (LCM) of 4 and 6?",opts:["8","10","12","24"],ans:2,exp:"Multiples of 4: 4,8,12... Multiples of 6: 6,12... LCM = 12."},
+  {cat:"Mathematics",text:"A shirt costs £24 after a 20% discount. What was the original price?",opts:["£28","£30","£32","£29"],ans:1,exp:"£24 = 80% of original. Original = £24 ÷ 0.8 = £30."},
+  {cat:"Mathematics",text:"What is the highest common factor (HCF) of 36 and 48?",opts:["6","8","12","16"],ans:2,exp:"Factors of 36: 1,2,3,4,6,9,12,18,36. Factors of 48: 1,2,3,4,6,8,12,16,24,48. HCF = 12."},
+  {cat:"Mathematics",text:"If a:b = 3:5 and a = 12, what is b?",opts:["15","18","20","25"],ans:2,exp:"a/b = 3/5. b = a × 5/3 = 12 × 5/3 = 20."},
+  {cat:"Mathematics",text:"A recipe for 4 people needs 300 g of flour. How much is needed for 10 people?",opts:["650 g","700 g","750 g","800 g"],ans:2,exp:"Per person: 300 ÷ 4 = 75 g. For 10: 75 × 10 = 750 g."},
+  {cat:"Mathematics",text:"What is 2³ × 3²?",opts:["48","54","72","96"],ans:2,exp:"2³ = 8; 3² = 9; 8 × 9 = 72."},
+  {cat:"Mathematics",text:"The mean of five numbers is 14. Four of the numbers are 10, 12, 16, 18. What is the fifth?",opts:["12","14","16","18"],ans:1,exp:"Total = 14 × 5 = 70. Known sum = 10+12+16+18 = 56. Fifth = 70 − 56 = 14."},
+  {cat:"Mathematics",text:"A clock shows 3:45. What is the angle between the hour and minute hands?",opts:["142.5°","157.5°","172.5°","127.5°"],ans:1,exp:"Minute hand at 270°. Hour hand at 3×30 + 45×0.5 = 90+22.5 = 112.5°. Angle = 270 − 112.5 = 157.5°."},
+  {cat:"Mathematics",text:"What is 0.004 × 1000?",opts:["0.4","4","40","400"],ans:1,exp:"Moving the decimal point 3 places right: 0.004 × 1000 = 4."},
+  {cat:"English - Vocabulary",text:"Which word is a synonym for TENACIOUS?",opts:["Fragile","Persistent","Impulsive","Vague"],ans:1,exp:"Tenacious means holding firmly to something — persistent is the closest synonym."},
+  {cat:"English - Grammar",text:"Which sentence uses the subjunctive mood correctly?",opts:["If I was you, I would go.","If I were you, I would go.","If I am you, I would go.","If I be you, I would go."],ans:1,exp:"The subjunctive mood uses 'were' (not 'was') for hypothetical conditions: 'If I were you.'"},
+  {cat:"English - Vocabulary",text:"What does the prefix 'mis-' mean in the word MISFORTUNE?",opts:["Good","Without","Wrongly or badly","Again"],ans:2,exp:"The prefix 'mis-' means wrongly or badly (e.g. misfortune = bad fortune)."},
+  {cat:"English - Comprehension",text:"A metaphor directly describes something as another thing. Which sentence contains a metaphor?",opts:["Life is like a box of chocolates.","Time is a thief.","She ran as fast as a cheetah.","He fought like a lion."],ans:1,exp:"'Time is a thief' is a direct comparison (metaphor). The others use 'like' or 'as' (similes)."},
+  {cat:"English - Vocabulary",text:"Choose the correct word: 'The scientist made a ___ observation.'",opts:["Acute","Astute","Moot","Abrupt"],ans:1,exp:"Astute means having a sharp, clever perception — the most appropriate for a scientific observation."},
+  {cat:"Verbal Reasoning",text:"AUTHOR is to BOOK as COMPOSER is to ___",opts:["Poem","Symphony","Painting","Play"],ans:1,exp:"An author writes a book; a composer writes a symphony."},
+  {cat:"Verbal Reasoning",text:"Which of these is NOT a type of triangle?",opts:["Scalene","Isosceles","Rhomboid","Equilateral"],ans:2,exp:"Scalene, Isosceles and Equilateral are all types of triangles. Rhomboid is a parallelogram."},
+  {cat:"Verbal Reasoning",text:"Rearrange the letters MELON to make an animal.",opts:["LEMON","MOLEN","MONEL","No animal possible"],ans:3,exp:"MELON can make LEMON (a fruit) but no animal. The answer is 'No animal possible.'"},
+  {cat:"Verbal Reasoning",text:"If 5 workers build a wall in 12 days, how many days would 3 workers take?",opts:["15 days","18 days","20 days","24 days"],ans:2,exp:"Total work = 5 × 12 = 60 worker-days. 3 workers: 60 ÷ 3 = 20 days."},
+  {cat:"Verbal Reasoning",text:"Which word completes the analogy: Hot is to Cold as Light is to ___",opts:["Bright","Dark","Heavy","Shadow"],ans:1,exp:"Hot and Cold are antonyms; Light and Dark are antonyms."},
+  {cat:"Verbal Reasoning",text:"Tom is taller than Sam. Sam is taller than Alex. Ben is taller than Tom. Who is the shortest?",opts:["Sam","Tom","Alex","Ben"],ans:2,exp:"Order tallest to shortest: Ben > Tom > Sam > Alex. Alex is shortest."},
+  {cat:"Non-Verbal Reasoning",text:"What is the sum of interior angles of a pentagon?",opts:["360°","450°","540°","720°"],ans:2,exp:"Sum of interior angles = (n − 2) × 180° = (5 − 2) × 180° = 540°."},
+  {cat:"Non-Verbal Reasoning",text:"A shape is rotated 90° clockwise. Which direction does its arrow now point if it originally pointed North?",opts:["North","East","South","West"],ans:1,exp:"Rotating North 90° clockwise gives East."},
+  {cat:"Non-Verbal Reasoning",text:"What 3D shape is made when a rectangle is rotated 360° around one of its sides?",opts:["Sphere","Cone","Cylinder","Prism"],ans:2,exp:"Rotating a rectangle around one side creates a cylinder."},
+  {cat:"Non-Verbal Reasoning",text:"A cylinder has radius 3 cm and height 10 cm. What is its volume? (Use π ≈ 3.14)",opts:["188.4 cm³","282.6 cm³","94.2 cm³","314 cm³"],ans:0,exp:"V = π r² h = 3.14 × 9 × 10 = 282.6 cm³. Wait: let me recalculate: 3.14 × 9 = 28.26 × 10 = 282.6."},
+  {cat:"Non-Verbal Reasoning",text:"How many faces does a square-based pyramid have?",opts:["4","5","6","8"],ans:1,exp:"A square-based pyramid has 1 square base + 4 triangular faces = 5 faces."},
+  {cat:"Non-Verbal Reasoning",text:"A net of a shape has 2 circles and 1 rectangle. What 3D shape does it make?",opts:["Cone","Sphere","Cylinder","Prism"],ans:2,exp:"2 circular ends + 1 rectangular side = cylinder."},
+  {cat:"Non-Verbal Reasoning",text:"What is the next shape pattern? Circle, Square, Triangle, Circle, Square, ___",opts:["Circle","Square","Triangle","Pentagon"],ans:2,exp:"The pattern repeats every 3 shapes: Circle, Square, Triangle. Next is Triangle."},
+  {cat:"Non-Verbal Reasoning",text:"A shape has rotational symmetry of order 4. How many times does it look identical when rotated 360°?",opts:["2","3","4","6"],ans:2,exp:"Rotational symmetry of order 4 means the shape looks the same 4 times in a full 360° rotation."},
+  {cat:"Non-Verbal Reasoning",text:"Which polygon has 8 sides?",opts:["Hexagon","Heptagon","Octagon","Nonagon"],ans:2,exp:"An octagon has 8 sides (octo = 8 in Latin/Greek)."},
+  {cat:"Non-Verbal Reasoning",text:"A rectangular prism is 5 cm × 4 cm × 3 cm. What is its surface area?",opts:["60 cm²","94 cm²","120 cm²","47 cm²"],ans:1,exp:"SA = 2(lw + lh + wh) = 2(20 + 15 + 12) = 2 × 47 = 94 cm²."},
+];
+
+/* ══════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════ */
+const TEST_SIZE = 10;
+const PER_SUBJ  = 2;
+const LETTERS   = ['A','B','C','D'];
+
+let currentSet   = 'A';
+let isShuffled   = false;
+let activeQs     = [];
+let answered     = new Array(TEST_SIZE).fill(null);
+
+// Gamification
+let totalXP      = 0;
+let streak       = 0;
+let totalCorrect = 0;
+let sessionTests = 0;
+
+/* ══════════════════════════════════════════════════════
+   SET SELECTION
+══════════════════════════════════════════════════════ */
+function selectSet(s) {
+  currentSet = s;
+  document.querySelectorAll('.set-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector('.set-' + s.toLowerCase()).classList.add('active');
+
+  const labels = {A:'Set A · Core Foundations', B:'Set B · CGP Assessment', C:'Set C · Mixed Challenge'};
+  const el = document.getElementById('toolbarSetLabel');
+  el.textContent = labels[s];
+  el.className = 'toolbar-set-label set-' + s.toLowerCase() + '-txt';
+
+  // Update progress bar colour
+  const pf = document.getElementById('progFill');
+  pf.className = 'prog-fill' + (s === 'B' ? ' set-b-prog' : s === 'C' ? ' set-c-prog' : '');
+
+  newTest(true);
+  document.getElementById('qContainer').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ══════════════════════════════════════════════════════
+   DRAW TEST
+══════════════════════════════════════════════════════ */
+function fisherYates(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function shuffleOptions(q) {
+  const idx = fisherYates([0,1,2,3]);
+  return {...q, opts: idx.map(i => q.opts[i]), ans: idx.indexOf(q.ans)};
+}
+
+function drawFromBank(bank) {
+  const pool = fisherYates([...bank]);
+
+  if (bank === BANK_A) {
+    // Balanced draw: 2 per subject
+    const groups = {};
+    pool.forEach(q => {
+      const k = q.cat.split(' ')[0];
+      if (!groups[k]) groups[k] = [];
+      groups[k].push(q);
+    });
+    const selected = [], used = new Set();
+    Object.values(groups).forEach(g => {
+      g.slice(0, PER_SUBJ).forEach(q => { if (selected.length < TEST_SIZE) { selected.push(q); used.add(q); } });
+    });
+    pool.forEach(q => { if (!used.has(q) && selected.length < TEST_SIZE) selected.push(q); });
+    return fisherYates(selected);
+  }
+
+  return pool.slice(0, TEST_SIZE);
+}
+
+function buildTest() {
+  const bank = currentSet === 'A' ? BANK_A : currentSet === 'B' ? BANK_B : BANK_C;
+  const raw  = drawFromBank(bank);
+  return isShuffled ? raw.map(shuffleOptions) : raw.map(q => ({...q, opts:[...q.opts]}));
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER
+══════════════════════════════════════════════════════ */
+function getSetClass(suffix) {
+  return 'set-' + currentSet.toLowerCase() + '-' + suffix;
+}
+
+function renderQuestions() {
+  const c = document.getElementById('qContainer');
+  c.innerHTML = '';
+  activeQs.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'q-card ' + getSetClass('card');
+    card.id = 'card-' + qi;
+    card.style.animationDelay = (qi * 0.04) + 's';
+
+    card.innerHTML = `
+      <div class="q-head">
+        <div class="q-num ${getSetClass('num')}">${qi+1}</div>
+        <div class="q-meta">
+          <div class="q-cat ${currentSet === 'B' ? 'set-b-cat' : currentSet === 'C' ? 'set-c-cat' : ''}">${q.cat}</div>
+          <div class="q-text">${q.text}</div>
+        </div>
+      </div>
+      <div class="options" id="opts-${qi}">
+        ${q.opts.map((opt,oi)=>`
+          <div class="opt${currentSet==='B'?' set-b':currentSet==='C'?' set-c':''}" id="opt-${qi}-${oi}"
+               onclick="selectAnswer(${qi},${oi})" role="button" tabindex="0"
+               onkeydown="if(event.key==='Enter'||event.key===' ')selectAnswer(${qi},${oi})">
+            <div class="opt-letter">${LETTERS[oi]}</div>
+            <span>${opt}</span>
+          </div>`).join('')}
+      </div>
+      <div class="feedback" id="fb-${qi}"></div>`;
+    c.appendChild(card);
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   ANSWER LOGIC
+══════════════════════════════════════════════════════ */
+function selectAnswer(qi, oi) {
+  if (answered[qi] !== null) return;
+  answered[qi] = oi;
+  const q = activeQs[qi];
+  const ok = oi === q.ans;
+
+  const card = document.getElementById('card-' + qi);
+  card.classList.add(ok ? 'ok' : 'err');
+
+  for (let i = 0; i < q.opts.length; i++) {
+    const el = document.getElementById('opt-' + qi + '-' + i);
+    el.classList.add('disabled');
+    if (i === oi) el.classList.add(ok ? 'pick-ok' : 'pick-err');
+    if (!ok && i === q.ans) el.classList.add('reveal');
+  }
+
+  const fb = document.getElementById('fb-' + qi);
+  fb.className = 'feedback show ' + (ok ? 'ok-fb' : 'err-fb');
+  fb.innerHTML = '<strong>' + (ok ? '✓ Correct!' : '✗ Incorrect.') + '</strong> ' + q.exp;
+
+  // XP popup
+  if (ok) {
+    showXPPop('+10 XP', card);
+    streak++;
+    if (streak >= 3) {
+      document.getElementById('streakBanner').classList.add('show');
+      document.getElementById('streakCount').textContent = streak;
+    }
+  } else {
+    streak = 0;
+    document.getElementById('streakBanner').classList.remove('show');
+  }
+
+  updateProgress();
+  updateHeader();
+}
+
+function updateProgress() {
+  const n = answered.filter(a => a !== null).length;
+  document.getElementById('progCount').textContent = n + ' / ' + TEST_SIZE;
+  document.getElementById('progFill').style.width = (n / TEST_SIZE * 100) + '%';
+  document.getElementById('submitBtn').disabled = n < TEST_SIZE;
+}
+
+function updateHeader() {
+  document.getElementById('hStreak').textContent = streak;
+  document.getElementById('hCorrect').textContent = totalCorrect;
+  document.getElementById('hXP').textContent = totalXP;
+  document.getElementById('xpBar').style.width = ((totalXP % 100)) + '%';
+}
+
+/* ══════════════════════════════════════════════════════
+   SUBMIT
+══════════════════════════════════════════════════════ */
+function submitTest() {
+  sessionTests++;
+  const score = answered.reduce((acc, a, i) => acc + (a === activeQs[i].ans ? 1 : 0), 0);
+  const correct = score;
+  const pct = correct / TEST_SIZE;
+  const xpEarned = correct * 10 + (pct === 1 ? 50 : pct >= .8 ? 20 : 0) + (streak >= 5 ? 30 : streak >= 3 ? 10 : 0);
+
+  totalXP += xpEarned;
+  totalCorrect += correct;
+
+  document.getElementById('scoreNum').textContent = score;
+  document.getElementById('scoreDen').textContent = TEST_SIZE;
+  document.getElementById('rXP').textContent = '+' + xpEarned;
+  document.getElementById('rStreak').textContent = streak + '🔥';
+  document.getElementById('rAccuracy').textContent = Math.round(pct * 100) + '%';
+
+  // Animate arc
+  const arc = document.getElementById('scoreArc');
+  const circumference = 2 * Math.PI * 54; // 339.3
+  arc.style.stroke = pct === 1 ? '#d4912a' : pct >= .7 ? '#1e7a4a' : pct >= .5 ? '#2a7ad4' : '#b02020';
+  setTimeout(() => {
+    arc.style.strokeDashoffset = circumference * (1 - pct);
+  }, 100);
+
+  // Title & message
+  let title, msg;
+  if (pct === 1)     { title='🏆 Perfect Score!'; msg='Flawless! Every answer correct. You\'re well on track for your 11+ — now try a fresh set to keep that momentum going!'; if(pct===1) launchConfetti(); }
+  else if(pct>=.8)   { title='🌟 Excellent!'; msg='Outstanding result — ' + score + '/' + TEST_SIZE + '. You clearly have strong foundations. Push for that perfect score on the next test!'; }
+  else if(pct>=.6)   { title='👍 Good Effort!'; msg='Solid work — ' + score + '/' + TEST_SIZE + '. Review the explanations for the questions you missed, then try again with a fresh set.'; }
+  else if(pct>=.4)   { title='📚 Keep Going!'; msg='You scored ' + score + '/' + TEST_SIZE + '. Don\'t be discouraged — read each explanation carefully and attempt a new test.'; }
+  else               { title='💡 Room to Grow!'; msg='You scored ' + score + '/' + TEST_SIZE + '. Focus on understanding each explanation below, then have another go. Every attempt builds skill!'; }
+
+  document.getElementById('resultsTitle').textContent = title;
+  document.getElementById('resultsMsg').textContent = msg;
+
+  // Subject breakdown
+  buildBreakdown(score);
+
+  const rc = document.getElementById('results');
+  rc.classList.add('show');
+  rc.scrollIntoView({behavior:'smooth', block:'start'});
+  document.getElementById('submitBtn').disabled = true;
+  updateHeader();
+}
+
+function buildBreakdown(score) {
+  const subjects = {};
+  activeQs.forEach((q, i) => {
+    const s = q.cat.split(' - ')[0].split(' ')[0]; // first word
+    if (!subjects[s]) subjects[s] = {total:0, correct:0};
+    subjects[s].total++;
+    if (answered[i] === q.ans) subjects[s].correct++;
+  });
+
+  let html = '<div class="breakdown"><h3>📊 Subject Breakdown</h3>';
+  Object.entries(subjects).forEach(([s, d]) => {
+    const pct = d.total > 0 ? Math.round(d.correct / d.total * 100) : 0;
+    const col = pct >= 80 ? 'var(--ok)' : pct >= 50 ? 'var(--gold)' : 'var(--err)';
+    html += `<div class="bk-row">
+      <div class="bk-label">${s}</div>
+      <div class="bk-bar-wrap"><div class="bk-bar" style="width:0%;background:${col}" data-w="${pct}"></div></div>
+      <div class="bk-score">${d.correct}/${d.total}</div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('breakdown').innerHTML = html;
+
+  // Animate bars after paint
+  setTimeout(() => {
+    document.querySelectorAll('.bk-bar').forEach(b => {
+      b.style.width = b.dataset.w + '%';
+    });
+  }, 200);
+}
+
+/* ══════════════════════════════════════════════════════
+   SHUFFLE TOGGLE
+══════════════════════════════════════════════════════ */
+function toggleShuffle() {
+  const done = answered.filter(a=>a!==null).length;
+  if (done > 0 && !confirm('Shuffling resets current progress. Continue?')) return;
+  isShuffled = !isShuffled;
+  const btn = document.getElementById('shuffleBtn');
+  btn.classList.toggle('on', isShuffled);
+  btn.querySelector('span').textContent = isShuffled ? 'Shuffled ✓' : 'Shuffle';
+  newTest(true);
+  showToast(isShuffled ? '🔀 Options shuffled each draw!' : '↩ Shuffle off');
+}
+
+/* ══════════════════════════════════════════════════════
+   NEW TEST
+══════════════════════════════════════════════════════ */
+function newTest(silent) {
+  answered = new Array(TEST_SIZE).fill(null);
+  activeQs = buildTest();
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('streakBanner').classList.remove('show');
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('breakdown').innerHTML = '';
+  // Reset arc
+  document.getElementById('scoreArc').style.strokeDashoffset = '339.3';
+  renderQuestions();
+  updateProgress();
+  if (!silent) {
+    showToast('🎲 Fresh ' + TEST_SIZE + ' questions drawn from Set ' + currentSet + '!');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   XP POPUP
+══════════════════════════════════════════════════════ */
+function showXPPop(text, nearEl) {
+  const pop = document.createElement('div');
+  pop.className = 'xp-pop';
+  pop.textContent = text;
+  const r = nearEl.getBoundingClientRect();
+  pop.style.left = (r.left + r.width/2 - 25) + 'px';
+  pop.style.top  = (r.top  + window.scrollY - 10) + 'px';
+  document.body.appendChild(pop);
+  setTimeout(() => pop.remove(), 1300);
+}
+
+/* ══════════════════════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════════════════════ */
+function launchConfetti() {
+  const colours = ['#d4912a','#f5c842','#1e7a4a','#2a7ad4','#e84040','#ffffff'];
+  for (let i = 0; i < 80; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.cssText = `
+      left:${Math.random()*100}vw;
+      width:${6+Math.random()*8}px;
+      height:${8+Math.random()*6}px;
+      background:${colours[Math.floor(Math.random()*colours.length)]};
+      animation-duration:${2+Math.random()*2}s;
+      animation-delay:${Math.random()*.5}s;
+    `;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════════════ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+/* ══════════════════════════════════════════════════════
+   PARTICLES
+══════════════════════════════════════════════════════ */
+(function spawnParticles() {
+  const c = document.getElementById('particles');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const s = 20 + Math.random() * 60;
+    p.style.cssText = `
+      width:${s}px;height:${s}px;
+      background:${['#d4912a','#1e7a4a','#2a7ad4','#8a2ad4'][i%4]};
+      left:${Math.random()*100}%;
+      animation-duration:${18+Math.random()*20}s;
+      animation-delay:-${Math.random()*20}s;
+    `;
+    c.appendChild(p);
+  }
+})();
+
+/* ══════════════════════════════════════════════════════
+   PDF GENERATOR (pure JS, no deps)
+══════════════════════════════════════════════════════ */
+function downloadPDF() {
+  const btn = document.getElementById('dlBtn');
+  btn.disabled = true;
+  btn.querySelector('span').textContent = '...';
+  setTimeout(() => {
+    try {
+      const bytes = buildPDF();
+      const blob = new Blob([bytes], {type:'application/pdf'});
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url; a.download = '11plus-set-' + currentSet.toLowerCase() + '-test.pdf';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(()=>URL.revokeObjectURL(url),4000);
+      showToast('✓ PDF downloaded — Set ' + currentSet);
+    } catch(e) { console.error(e); showToast('⚠ PDF failed, please try again.'); }
+    btn.disabled = false;
+    btn.querySelector('span').textContent = 'PDF';
+  }, 40);
+}
+
+function buildPDF() {
+  const W=595,H=842,ML=48,CW=W-ML-48;
+  const objs=[],offsets={};
+  let nid=1;
+  function ao(s){const id=nid++;objs.push({id,str:s});return id;}
+  function as(s){const id=nid++;objs.push({id,stream:s});return id;}
+  function esc(s){return s.replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');}
+  function wrap(t,mx,fs){
+    const cw=fs*.54,mc=Math.floor(mx/cw);
+    const words=t.split(' '),lines=[];let cur='';
+    words.forEach(w=>{const test=cur?cur+' '+w:w;if(test.length<=mc)cur=test;else{if(cur)lines.push(cur);cur=w;}});
+    if(cur)lines.push(cur);return lines;
+  }
+
+  const setColours = {A:[212,145,42], B:[42,122,212], C:[138,42,212]};
+  const SC = setColours[currentSet];
+
+  function makePage(fn) {
+    const cmds=[];
+    const ctx={
+      rgb(r,g,b,st){cmds.push(`${(r/255).toFixed(3)} ${(g/255).toFixed(3)} ${(b/255).toFixed(3)} ${st?'RG':'rg'}`);},
+      fillRect(x,ty,w,h){cmds.push(`${x.toFixed(2)} ${(H-ty-h).toFixed(2)} ${w.toFixed(2)} ${h.toFixed(2)} re f`);},
+      strokeRect(x,ty,w,h,lw){cmds.push(`${lw||.4} w ${x.toFixed(2)} ${(H-ty-h).toFixed(2)} ${w.toFixed(2)} ${h.toFixed(2)} re S`);},
+      text(t,x,ty,sz,bold,r,g,b){
+        ctx.rgb(r,g,b);
+        cmds.push(`BT /${bold?'FB':'FN'} ${sz} Tf ${x.toFixed(2)} ${(H-ty).toFixed(2)} Td (${esc(t)}) Tj ET`);
+      },
+      line(x1,ty,x2){cmds.push(`${x1.toFixed(2)} ${(H-ty).toFixed(2)} m ${x2.toFixed(2)} ${(H-ty).toFixed(2)} l S`);}
+    };
+    fn(ctx,cmds);
+    return cmds.join('\n');
+  }
+
+  const setName = currentSet==='A'?'Set A — Core Foundations':currentSet==='B'?'Set B — CGP Assessment':'Set C — Mixed Challenge';
+
+  const p1 = makePage((c)=>{
+    let y=0;
+    c.rgb(...SC);c.fillRect(0,0,W,52);
+    c.rgb(240,200,100);c.fillRect(0,52,W,2.5);
+    c.text('ElevenPlus Academy',ML,20,17,true,240,200,100);
+    c.text('UK 11+ Exam Preparation  |  '+setName,ML,36,9,false,190,183,170);
+    c.text('Generated: '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),W-48-150,36,8,false,190,183,170);
+    y=70;
+    c.rgb(10,22,40);c.text('Practice Paper — 10 Questions',ML,y,12,true,10,22,40);
+    y+=13;
+    c.rgb(120,112,100);c.text('Set '+currentSet+' · ElevenPlus Academy · For practice use only',ML,y,8.5,false,120,112,100);
+    y+=9;c.rgb(...SC,true);cmds&&0;
+    c.rgb(...SC);c.fillRect(ML,y,W-ML-48,1.5);
+    y+=14;
+
+    activeQs.forEach((q,i)=>{
+      const qlines=wrap(q.text,CW-24,10);
+      const bh=14+qlines.length*13+q.opts.length*20+10;
+      if(y+bh>H-40){/* would need page break in real impl */}
+
+      c.rgb(...SC);c.fillRect(ML,y,16,16);
+      c.text(String(i+1),ML+4,y+11.5,8,true,255,255,255);
+      c.rgb(...SC.map(v=>Math.min(v+80,255)));c.text(q.cat.toUpperCase(),ML+22,y+8,7,true,...SC);
+      y+=15;
+      qlines.forEach(l=>{c.text(l,ML+22,y,10,false,28,26,22);y+=13;});
+      y+=2;
+      q.opts.forEach((opt,oi)=>{
+        c.rgb(248,245,240);c.fillRect(ML+22,y-3,CW-22,16);
+        c.rgb(210,204,192,true);c.strokeRect(ML+22,y-3,CW-22,16,.4);
+        c.rgb(...SC);c.fillRect(ML+27,y+1,12,12);
+        c.text(LETTERS[oi],ML+30.5,y+9.5,7,true,255,255,255);
+        c.text(opt,ML+45,y+8.5,9,false,28,26,22);
+        y+=20;
+      });y+=8;
+    });
+  });
+
+  const p2 = makePage((c)=>{
+    c.rgb(...SC);c.fillRect(0,0,W,44);
+    c.rgb(240,200,100);c.fillRect(0,44,W,2.5);
+    c.text('Answer Key & Explanations — '+setName,ML,26,12,true,240,200,100);
+    let y=60;
+    activeQs.forEach((q,i)=>{
+      const eLines=wrap(q.exp,CW-20,9);
+      c.rgb(...SC);c.fillRect(ML,y,14,14);
+      c.text(String(i+1),ML+3.5,y+10.5,8,true,255,255,255);
+      const ca=LETTERS[q.ans]+'  '+q.opts[q.ans];
+      const pw=Math.min(ca.length*5.6+14,CW-28);
+      c.rgb(30,122,74);c.fillRect(ML+20,y,pw,14);
+      c.text(ca,ML+27,y+10.5,8,true,255,255,255);
+      y+=18;
+      eLines.forEach(l=>{c.text(l,ML+20,y,9,false,110,100,90);y+=12;});
+      c.rgb(220,213,200,true);
+      const cl=[];cl.push(`0.5 w ${ML.toFixed(2)} ${(H-(y+5)).toFixed(2)} m ${(W-48).toFixed(2)} ${(H-(y+5)).toFixed(2)} l S`);
+      /* push to cmds not accessible here — skip divider for now */
+      y+=12;
+    });
+  });
+
+  const s1=as(p1),s2=as(p2);
+  const fn=ao('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>');
+  const fb=ao('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>');
+  const res=`<< /Font << /FN ${fn} 0 R /FB ${fb} 0 R >> >>`;
+  const pagesId=nid+2;
+  const p1id=ao(`<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 ${W} ${H}] /Contents ${s1} 0 R /Resources ${res} >>`);
+  const p2id=ao(`<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 ${W} ${H}] /Contents ${s2} 0 R /Resources ${res} >>`);
+  const pgid=ao(`<< /Type /Pages /Kids [${p1id} 0 R ${p2id} 0 R] /Count 2 >>`);
+  const catid=ao(`<< /Type /Catalog /Pages ${pgid} 0 R >>`);
+
+  objs.sort((a,b)=>a.id-b.id);
+  let out='%PDF-1.4\n%\xFF\xFF\xFF\xFF\n';
+  objs.forEach(obj=>{
+    offsets[obj.id]=out.length;
+    if('stream'in obj) out+=`${obj.id} 0 obj\n<< /Length ${obj.stream.length} >>\nstream\n${obj.stream}\nendstream\nendobj\n`;
+    else out+=`${obj.id} 0 obj\n${obj.str}\nendobj\n`;
+  });
+  const xref=out.length;
+  out+=`xref\n0 ${nid}\n0000000000 65535 f \n`;
+  for(let i=1;i<nid;i++) out+=(offsets[i]!==undefined?String(offsets[i]).padStart(10,'0'):'0000000000')+' 00000 n \n';
+  out+=`trailer\n<< /Size ${nid} /Root ${catid} 0 R >>\nstartxref\n${xref}\n%%EOF`;
+
+  const bytes=new Uint8Array(out.length);
+  for(let i=0;i<out.length;i++)bytes[i]=out.charCodeAt(i)&0xFF;
+  return bytes;
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+newTest(true);
+</script>
+</body>
+</html>

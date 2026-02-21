@@ -3,684 +3,573 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ElevenPlus Academy — UK 11+ Exam Prep</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>ElevenPlus Academy — UK 11+ Exam Preparation</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy:#0d1f3c; --royal:#1a3a6b; --gold:#c9973a; --gold-light:#f0c96e;
-    --cream:#faf8f3; --soft:#f0ede5; --muted:#8a8070; --text:#1c1a16;
-    --correct:#2d7a4f; --wrong:#b83232; --correct-bg:#edf7f1; --wrong-bg:#fdeaea;
-  }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{font-size:16px}
-  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;-webkit-text-size-adjust:100%}
+:root{
+  --navy:#0a1628;--royal:#12265e;--mid:#1e3a7a;
+  --gold:#d4912a;--gold-l:#f5c842;--gold-dim:#7a5010;
+  --cream:#faf7f0;--soft:#f0ebe0;--border:#e2d9c8;
+  --text:#1a1612;--muted:#7a7060;--faint:#b0a898;
+  --ok:#1e7a4a;--ok-bg:#edf8f2;
+  --set-a:#d4912a;--set-b:#2a7ad4;--set-c:#8a2ad4;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
 
-  /* HEADER */
-  header{background:var(--navy);padding:0 clamp(14px,4vw,40px);display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.35)}
-  .logo{font-family:'Playfair Display',serif;color:var(--gold-light);font-size:clamp(1rem,4vw,1.5rem);font-weight:700;white-space:nowrap}
-  .logo span{color:#fff}
-  .header-badge{background:var(--gold);color:var(--navy);font-size:.67rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:5px 11px;border-radius:20px;white-space:nowrap}
+/* ── HEADER ── */
+header{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 24px rgba(0,0,0,.4)}
+.hdr-inner{max-width:1160px;margin:0 auto;padding:0 clamp(14px,3vw,40px);height:66px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-family:'Fraunces',serif;font-size:clamp(1.1rem,3vw,1.5rem);font-weight:900;color:var(--gold-l);text-decoration:none;letter-spacing:-.3px;white-space:nowrap}
+.logo em{color:#fff;font-style:normal}
+nav{display:flex;align-items:center;gap:clamp(12px,2.5vw,28px)}
+.nav-a{color:rgba(255,255,255,.72);font-size:.87rem;font-weight:600;text-decoration:none;transition:color .18s;white-space:nowrap}
+.nav-a:hover{color:#fff}
+.btn-login{background:transparent;color:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.25);padding:8px 18px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .18s;white-space:nowrap}
+.btn-login:hover{border-color:rgba(255,255,255,.6);color:#fff}
+.btn-cta-sm{background:linear-gradient(135deg,var(--gold),#e8a830);color:var(--navy);padding:9px 20px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;text-decoration:none;border:none;white-space:nowrap;box-shadow:0 3px 12px rgba(212,145,42,.3);transition:all .18s}
+.btn-cta-sm:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(212,145,42,.42)}
+.mob-menu{display:none;background:none;border:none;cursor:pointer;padding:6px;color:#fff}
 
-  /* HERO */
-  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--royal) 60%,#2a4a7f 100%);color:#fff;padding:clamp(36px,7vw,80px) clamp(16px,5vw,48px);text-align:center;position:relative;overflow:hidden}
-  .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 80%,rgba(201,151,58,.15) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(201,151,58,.1) 0%,transparent 50%);pointer-events:none}
-  .hero-tag{display:inline-block;border:1px solid rgba(201,151,58,.5);color:var(--gold-light);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;padding:5px 15px;border-radius:20px;margin-bottom:16px;position:relative}
-  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.75rem,6vw,3.4rem);font-weight:900;line-height:1.15;margin-bottom:12px;position:relative}
-  .hero h1 em{font-style:normal;color:var(--gold-light)}
-  .hero p{font-size:clamp(.88rem,2.3vw,1.05rem);color:rgba(255,255,255,.75);max-width:540px;margin:0 auto 28px;line-height:1.7;position:relative}
-  .hero-stats{display:flex;justify-content:center;gap:clamp(20px,5vw,56px);flex-wrap:wrap;position:relative}
-  .stat{text-align:center}
-  .stat-num{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;color:var(--gold-light)}
-  .stat-label{font-size:.76rem;color:rgba(255,255,255,.6);margin-top:2px}
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--royal) 52%,var(--mid) 100%);color:#fff;padding:clamp(60px,9vw,110px) clamp(16px,5vw,48px) clamp(60px,8vw,100px);text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(212,145,42,.16),transparent 55%),radial-gradient(ellipse at 80% 15%,rgba(245,200,66,.09),transparent 50%);pointer-events:none}
+/* floating orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;opacity:.18}
+.orb1{width:400px;height:400px;background:var(--gold);top:-120px;right:-100px}
+.orb2{width:300px;height:300px;background:#2a7ad4;bottom:-80px;left:-60px}
+.hero-inner{position:relative;max-width:780px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(212,145,42,.45);color:var(--gold-l);font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 18px;border-radius:30px;margin-bottom:24px;animation:fadeUp .5s ease both}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2.2rem,7vw,4.4rem);font-weight:900;line-height:1.08;margin-bottom:18px;animation:fadeUp .5s .1s ease both}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(.92rem,2.2vw,1.12rem);color:rgba(255,255,255,.72);max-width:560px;margin:0 auto 38px;line-height:1.78;animation:fadeUp .5s .18s ease both}
+.hero-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:44px;animation:fadeUp .5s .26s ease both}
+.btn-hero-primary{background:linear-gradient(135deg,var(--gold),#e8a830);color:var(--navy);padding:16px clamp(28px,5vw,44px);border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(.95rem,2.2vw,1.05rem);font-weight:700;text-decoration:none;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(212,145,42,.4);transition:all .2s;white-space:nowrap}
+.btn-hero-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,145,42,.52)}
+.btn-hero-secondary{background:rgba(255,255,255,.09);color:#fff;padding:16px clamp(24px,4vw,36px);border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(.95rem,2.2vw,1.05rem);font-weight:600;text-decoration:none;border:1.5px solid rgba(255,255,255,.22);cursor:pointer;backdrop-filter:blur(6px);transition:all .2s;white-space:nowrap}
+.btn-hero-secondary:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.45)}
+.hero-stats{display:flex;justify-content:center;gap:clamp(20px,5vw,52px);flex-wrap:wrap;animation:fadeUp .5s .34s ease both}
+.hstat{text-align:center}
+.hstat-num{font-family:'Fraunces',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;color:var(--gold-l)}
+.hstat-lbl{font-size:.75rem;color:rgba(255,255,255,.55);font-weight:600;letter-spacing:.5px;margin-top:2px}
+.hero-divider{width:1px;background:rgba(255,255,255,.15);align-self:stretch;margin:4px 0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
-  /* MAIN */
-  .main{max-width:900px;margin:0 auto;padding:clamp(24px,5vw,52px) clamp(14px,4vw,24px) 80px}
+/* ── TRUST BAR ── */
+.trust-bar{background:var(--soft);border-bottom:1px solid var(--border);padding:14px 20px}
+.trust-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(12px,3vw,36px)}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600;color:var(--muted);white-space:nowrap}
+.trust-icon{font-size:1rem}
 
-  /* SECTION HEADER */
-  .section-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:12px}
-  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,4vw,1.7rem);font-weight:700;color:var(--navy)}
-  .section-title span{display:block;font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+/* ── SECTION SHARED ── */
+section{padding:clamp(52px,7vw,90px) clamp(16px,4vw,40px)}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:var(--navy);line-height:1.15;margin-bottom:14px}
+.section-sub{font-size:clamp(.88rem,2vw,1rem);color:var(--muted);max-width:520px;line-height:1.7;margin-bottom:44px}
+.text-center{text-align:center}
+.section-sub.centered{margin:0 auto 44px}
 
-  /* BUTTON ROW */
-  .btn-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex-shrink:0}
+/* ── FEATURES ── */
+.features-bg{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,3vw,28px)}
+@media(max-width:720px){.features-grid{grid-template-columns:1fr}}
+.feat-card{background:var(--cream);border:1.5px solid var(--border);border-radius:16px;padding:clamp(20px,3.5vw,30px);transition:transform .22s,box-shadow .22s}
+.feat-card:hover{transform:translateY(-4px);box-shadow:0 10px 32px rgba(0,0,0,.07)}
+.feat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:16px}
+.fi-gold{background:linear-gradient(135deg,#fff4e0,#fde8b0)}
+.fi-blue{background:linear-gradient(135deg,#e5eeff,#c8d8ff)}
+.fi-purple{background:linear-gradient(135deg,#f0e5ff,#dbc0ff)}
+.fi-green{background:linear-gradient(135deg,#e5f8ee,#b8e8cc)}
+.fi-red{background:linear-gradient(135deg,#ffeaea,#ffc8c8)}
+.fi-teal{background:linear-gradient(135deg,#e0f8f8,#b0e8e8)}
+.feat-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+.feat-desc{font-size:.84rem;color:var(--muted);line-height:1.65}
 
-  /* DOWNLOAD BUTTON */
-  .btn-download{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;border:none;padding:12px 20px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap;flex-shrink:0;touch-action:manipulation;min-height:44px;-webkit-tap-highlight-color:transparent}
-  .btn-download:hover{background:var(--royal);transform:translateY(-1px)}
-  .btn-download:active{transform:translateY(0)}
-  .btn-download svg{width:16px;height:16px;flex-shrink:0}
+/* ── HOW IT WORKS ── */
+.how-bg{background:var(--cream)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative}
+@media(max-width:680px){.steps{grid-template-columns:1fr;gap:16px}}
+.steps::before{content:'';position:absolute;top:36px;left:calc(16.67% + 12px);right:calc(16.67% + 12px);height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:2px}
+@media(max-width:680px){.steps::before{display:none}}
+.step{text-align:center;position:relative}
+.step-num{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dim),var(--gold));color:#fff;font-family:'Fraunces',serif;font-size:1.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 4px 18px rgba(212,145,42,.35);position:relative;z-index:1}
+.step-title{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+.step-desc{font-size:.83rem;color:var(--muted);line-height:1.65;max-width:220px;margin:0 auto}
 
-  /* SHUFFLE BUTTON */
-  .btn-shuffle{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--navy);border:2px solid var(--navy);padding:10px 18px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s,color .2s,transform .15s,border-color .2s;white-space:nowrap;flex-shrink:0;touch-action:manipulation;min-height:44px;-webkit-tap-highlight-color:transparent;position:relative}
-  .btn-shuffle:hover{background:var(--navy);color:#fff;transform:translateY(-1px)}
-  .btn-shuffle:active{transform:translateY(0) rotate(180deg)}
-  .btn-shuffle svg{width:16px;height:16px;flex-shrink:0;transition:transform .5s ease}
-  .btn-shuffle:hover svg{transform:rotate(180deg)}
-  .btn-shuffle.shuffled{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-  .btn-shuffle.shuffled:hover{background:#d4a030;border-color:#d4a030;color:var(--navy)}
+/* ── SUBJECTS ── */
+.subjects-bg{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.subjects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:600px){.subjects-grid{grid-template-columns:1fr}}
+.subj-card{border-radius:14px;padding:clamp(18px,3vw,26px);border:1.5px solid var(--border);display:flex;gap:16px;align-items:flex-start;transition:transform .2s,box-shadow .2s}
+.subj-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.07)}
+.subj-card.sA{border-left:4px solid var(--set-a);background:linear-gradient(to right,#fff9f0,#fff)}
+.subj-card.sB{border-left:4px solid var(--set-b);background:linear-gradient(to right,#f0f5ff,#fff)}
+.subj-card.sC{border-left:4px solid var(--set-c);background:linear-gradient(to right,#f5f0ff,#fff)}
+.subj-card.sD{border-left:4px solid var(--ok);background:linear-gradient(to right,#f0fff6,#fff)}
+.subj-emoji{font-size:1.8rem;line-height:1;flex-shrink:0;margin-top:2px}
+.subj-title{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+.subj-desc{font-size:.82rem;color:var(--muted);line-height:1.6}
+.subj-tag{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-top:8px}
+.tagA{background:#fff0d8;color:#7a4a00}
+.tagB{background:#e0ecff;color:#0a3070}
+.tagC{background:#ede0ff;color:#4a0070}
+.tagD{background:#d8f5e8;color:#0a4020}
 
-  /* SHUFFLE MODE BADGE */
-  .shuffle-badge{display:none;align-items:center;gap:6px;background:linear-gradient(135deg,#fff8ec,#fef3d7);border:1.5px solid var(--gold);color:#7a5a10;font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:5px 12px;border-radius:20px;animation:badgePop .3s cubic-bezier(.34,1.56,.64,1) both}
-  .shuffle-badge.show{display:inline-flex}
-  @keyframes badgePop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
-  .shuffle-badge svg{width:12px;height:12px;flex-shrink:0}
+/* ── TESTIMONIALS ── */
+.testi-bg{background:linear-gradient(135deg,var(--navy),var(--royal));color:#fff;padding:clamp(52px,7vw,90px) clamp(16px,4vw,40px)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:760px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:clamp(18px,3vw,26px);backdrop-filter:blur(6px);transition:background .2s}
+.testi-card:hover{background:rgba(255,255,255,.11)}
+.testi-stars{color:var(--gold-l);font-size:.9rem;letter-spacing:2px;margin-bottom:12px}
+.testi-text{font-size:.88rem;color:rgba(255,255,255,.82);line-height:1.7;margin-bottom:16px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dim),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:.9rem;font-weight:700;color:#fff;flex-shrink:0}
+.testi-name{font-size:.82rem;font-weight:700;color:#fff}
+.testi-role{font-size:.73rem;color:rgba(255,255,255,.5);margin-top:1px}
 
-  /* PROGRESS */
-  .progress-label{font-size:.79rem;color:var(--muted);margin-bottom:7px;font-weight:500}
-  .progress-bar-wrap{background:var(--soft);border-radius:6px;height:8px;margin-bottom:26px;overflow:hidden}
-  .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:6px;transition:width .4s ease}
+/* ── PRICING ── */
+.pricing-bg{background:var(--cream);border-top:1px solid var(--border)}
+.billing-toggle{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:44px}
+.toggle-lbl{font-size:.85rem;font-weight:600;color:var(--muted)}
+.toggle-lbl.on{color:var(--navy)}
+.tog-track{width:52px;height:28px;background:var(--border);border-radius:14px;position:relative;cursor:pointer;transition:background .25s;flex-shrink:0}
+.tog-track.active{background:linear-gradient(135deg,var(--gold-dim),var(--gold))}
+.tog-thumb{position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:transform .25s cubic-bezier(.34,1.2,.64,1);box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.tog-track.active .tog-thumb{transform:translateX(24px)}
+.save-pill{background:var(--ok-bg);color:var(--ok);font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #a8dfc0}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+@media(max-width:860px){.pricing-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+.p-card{background:#fff;border:1.5px solid var(--border);border-radius:18px;overflow:hidden;transition:transform .22s,box-shadow .22s;position:relative;display:flex;flex-direction:column}
+.p-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.09)}
+.p-card.popular{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,145,42,.15)}
+.p-card.popular:hover{transform:translateY(-6px);box-shadow:0 0 0 3px rgba(212,145,42,.2),0 18px 48px rgba(0,0,0,.12)}
+.p-accent{height:4px;width:100%}
+.acc-free{background:var(--border)}
+.acc-pop{background:linear-gradient(90deg,var(--gold),var(--gold-l))}
+.acc-pro{background:linear-gradient(90deg,var(--royal),#2a7ad4)}
+.p-pop-badge{position:absolute;top:0;right:0;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--navy);font-size:.62rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:5px 14px;border-radius:0 16px 0 12px}
+.p-body{padding:clamp(20px,3.5vw,28px);flex:1;display:flex;flex-direction:column}
+.p-icon{font-size:1.7rem;margin-bottom:10px}
+.p-name{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;color:var(--navy);margin-bottom:6px}
+.p-desc{font-size:.82rem;color:var(--muted);line-height:1.55;margin-bottom:20px}
+.p-price{display:flex;align-items:baseline;gap:3px;margin-bottom:6px}
+.p-curr{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--navy);margin-top:4px}
+.p-amt{font-family:'Fraunces',serif;font-size:2.8rem;font-weight:900;color:var(--navy);line-height:1}
+.p-per{font-size:.8rem;color:var(--muted);font-weight:600;padding-bottom:3px;align-self:flex-end}
+.p-note{font-size:.73rem;color:var(--faint);margin-bottom:20px}
+.p-save{font-size:.73rem;color:var(--ok);font-weight:700;margin-top:-14px;margin-bottom:18px;display:none}
+.p-cta{display:flex;align-items:center;justify-content:center;padding:13px;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;text-decoration:none;margin-bottom:22px;border:2px solid transparent;transition:all .18s;min-height:48px}
+.cta-free{color:var(--navy);border-color:var(--border)}.cta-free:hover{border-color:var(--navy);background:var(--soft)}
+.cta-pop{background:linear-gradient(135deg,var(--gold),#e8a830);color:var(--navy);box-shadow:0 3px 14px rgba(212,145,42,.32)}.cta-pop:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(212,145,42,.44)}
+.cta-pro{background:var(--navy);color:#fff}.cta-pro:hover{background:var(--royal);transform:translateY(-1px)}
+.p-features{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:auto}
+.p-features li{display:flex;align-items:flex-start;gap:8px;font-size:.82rem;line-height:1.45}
+.fchk{width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;flex-shrink:0;margin-top:1px}
+.fok{background:var(--ok-bg);color:var(--ok)}
+.fno{background:#f0f0f0;color:#bbb}
 
-  /* QUESTION CARD */
-  .question-card{background:#fff;border-radius:14px;padding:clamp(18px,4vw,34px);margin-bottom:14px;box-shadow:0 2px 16px rgba(0,0,0,.06);border:1.5px solid transparent;transition:border-color .3s,box-shadow .3s;animation:fadeUp .35s ease both}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-  .question-card.answered-correct{border-color:var(--correct);box-shadow:0 2px 16px rgba(45,122,79,.12)}
-  .question-card.answered-wrong{border-color:var(--wrong);box-shadow:0 2px 16px rgba(184,50,50,.12)}
-  .q-header{display:flex;align-items:flex-start;gap:13px;margin-bottom:16px}
-  .q-num{background:var(--navy);color:var(--gold-light);font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;width:33px;height:33px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-  .q-meta{flex:1;min-width:0}
-  .q-category{font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
-  .q-text{font-size:clamp(.9rem,2.4vw,1.04rem);font-weight:500;line-height:1.6;color:var(--navy);word-break:break-word}
+/* ── CTA BAND ── */
+.cta-band{background:linear-gradient(135deg,var(--navy),var(--royal) 60%,var(--mid) 100%);color:#fff;text-align:center;padding:clamp(56px,8vw,100px) 20px;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 130%,rgba(212,145,42,.2),transparent 60%);pointer-events:none}
+.cta-band h2{font-family:'Fraunces',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:900;margin-bottom:14px;position:relative}
+.cta-band p{color:rgba(255,255,255,.68);font-size:clamp(.9rem,2vw,1.05rem);max-width:460px;margin:0 auto 32px;line-height:1.75;position:relative}
+.cta-band-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;position:relative}
+.btn-white{background:#fff;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(.9rem,2vw,1rem);padding:15px clamp(24px,4vw,38px);border-radius:12px;text-decoration:none;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.2);transition:all .2s}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,0,0,.28)}
+.btn-ghost-white{background:transparent;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:clamp(.9rem,2vw,1rem);padding:15px clamp(20px,3.5vw,32px);border-radius:12px;text-decoration:none;border:2px solid rgba(255,255,255,.3);cursor:pointer;transition:all .2s}
+.btn-ghost-white:hover{border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.07)}
 
-  /* OPTIONS */
-  .options{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px}
-  @media(max-width:540px){.options{grid-template-columns:1fr}}
-  .option{display:flex;align-items:center;gap:11px;padding:12px 14px;border:1.5px solid #e5e0d5;border-radius:10px;cursor:pointer;transition:border-color .2s,background .2s;font-size:clamp(.83rem,2.2vw,.94rem);color:var(--text);background:var(--cream);user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:46px}
-  .option:hover:not(.disabled){border-color:var(--gold);background:#fdf9f1}
-  .option:active:not(.disabled){transform:scale(.98)}
-  .option.selected-correct{background:var(--correct-bg);border-color:var(--correct);color:var(--correct);font-weight:600}
-  .option.selected-wrong{background:var(--wrong-bg);border-color:var(--wrong);color:var(--wrong);font-weight:600}
-  .option.show-correct{background:var(--correct-bg);border-color:var(--correct);color:var(--correct);font-weight:600}
-  .option.disabled{cursor:default}
-  .opt-letter{width:25px;height:25px;border-radius:50%;background:#fff;border:1.5px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:.73rem;font-weight:700;flex-shrink:0;transition:background .2s,border-color .2s,color .2s}
-  .selected-correct .opt-letter,.show-correct .opt-letter{background:var(--correct);border-color:var(--correct);color:#fff}
-  .selected-wrong .opt-letter{background:var(--wrong);border-color:var(--wrong);color:#fff}
+/* ── FOOTER ── */
+footer{background:var(--navy);color:rgba(255,255,255,.4);padding:clamp(28px,4vw,44px) clamp(16px,4vw,40px)}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px}
+@media(max-width:700px){.footer-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.footer-inner{grid-template-columns:1fr}}
+.footer-brand .logo{display:block;margin-bottom:12px;font-size:1.2rem}
+.footer-tagline{font-size:.8rem;line-height:1.6;max-width:220px;color:rgba(255,255,255,.38)}
+.footer-col h4{font-size:.75rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:14px}
+.footer-col a{display:block;font-size:.82rem;color:rgba(255,255,255,.38);text-decoration:none;margin-bottom:8px;transition:color .18s}
+.footer-col a:hover{color:rgba(255,255,255,.75)}
+.footer-bottom{max-width:1100px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:.76rem;color:rgba(255,255,255,.3)}
+.footer-bottom strong{color:var(--gold-l)}
 
-  .feedback{margin-top:13px;padding:10px 14px;border-radius:8px;font-size:.85rem;line-height:1.5;display:none}
-  .feedback.show{display:block}
-  .feedback.correct-fb{background:var(--correct-bg);color:var(--correct)}
-  .feedback.wrong-fb{background:var(--wrong-bg);color:var(--wrong)}
-
-  /* SUBMIT */
-  .test-footer{text-align:center;margin-top:30px}
-  .btn-submit{background:linear-gradient(135deg,var(--gold) 0%,#e0a830 100%);color:var(--navy);border:none;padding:15px clamp(28px,8vw,52px);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:clamp(.9rem,2.5vw,1rem);font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .2s,opacity .2s;box-shadow:0 4px 20px rgba(201,151,58,.4);touch-action:manipulation;min-height:50px;width:100%;max-width:300px}
-  .btn-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,151,58,.5)}
-  .btn-submit:disabled{opacity:.45;cursor:default}
-
-  /* RESULTS */
-  .results-card{background:#fff;border-radius:16px;padding:clamp(26px,6vw,50px) clamp(18px,5vw,40px);text-align:center;box-shadow:0 4px 32px rgba(0,0,0,.1);display:none;margin-top:26px;animation:fadeUp .5s ease both}
-  .results-card.show{display:block}
-  .score-ring{width:108px;height:108px;border-radius:50%;border:5px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px;background:#fdf9f1}
-  .score-big{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:var(--navy);line-height:1}
-  .score-denom{font-size:.76rem;color:var(--muted)}
-  .results-card h2{font-family:'Playfair Display',serif;font-size:clamp(1.15rem,4vw,1.55rem);color:var(--navy);margin-bottom:9px}
-  .results-card p{color:var(--muted);font-size:.9rem;line-height:1.6;max-width:360px;margin:0 auto 24px}
-  .btn-retry{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;border:none;padding:12px 24px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s;touch-action:manipulation;min-height:44px}
-  .btn-retry:hover{background:var(--royal)}
-
-  /* TOAST */
-  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--navy);color:#fff;padding:11px 20px;border-radius:8px;font-size:.86rem;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.25);transition:transform .3s ease,opacity .3s ease;opacity:0;pointer-events:none;z-index:9999;white-space:nowrap;max-width:90vw;text-align:center}
-  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-
-  /* FOOTER */
-  footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;font-size:.79rem;padding:22px clamp(16px,4vw,40px);line-height:1.6}
-  footer strong{color:var(--gold-light)}
-
-  /* MOBILE EXTRAS */
-  @media(max-width:480px){
-    .section-header{flex-direction:column;align-items:flex-start}
-    .btn-row{width:100%}
-    .btn-download,.btn-shuffle{flex:1;justify-content:center}
-  }
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .hero-stats{gap:16px}.hero-divider{display:none}
+  .mob-menu{display:block}
+  .nav-links{display:none}
+  .btn-hero-primary,.btn-hero-secondary{width:100%;justify-content:center;text-align:center}
+  .hero-btns{flex-direction:column;align-items:stretch;max-width:300px;margin-left:auto;margin-right:auto}
+}
+@media(max-width:520px){
+  .btn-login{display:none}
+}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
-  <div class="logo">Eleven<span>Plus</span> Academy</div>
-  <div class="header-badge">MVP Preview</div>
-</header>
-
-<div class="hero">
-  <div class="hero-tag">UK 11+ Exam Preparation</div>
-  <h1>Prepare Smarter.<br><em>Score Higher.</em></h1>
-  <p>Practice with expertly crafted mock tests covering Maths, English, Verbal &amp; Non-Verbal Reasoning — exactly what top grammar schools expect.</p>
-  <div class="hero-stats">
-    <div class="stat"><div class="stat-num">40</div><div class="stat-label">Question Bank</div></div>
-    <div class="stat"><div class="stat-num">10</div><div class="stat-label">Per Test</div></div>
-    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Subjects</div></div>
-    <div class="stat"><div class="stat-num">PDF</div><div class="stat-label">Download</div></div>
-  </div>
-</div>
-
-<div class="main">
-  <div class="section-header">
-    <div>
-      <div class="section-title">
-        <span>Mock Test · Set A · 40-Question Bank</span>
-        Mixed 11+ Practice Paper
-      </div>
-      <div class="shuffle-badge" id="shuffleBadge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
-        Shuffled Mode
-      </div>
-    </div>
-    <div class="btn-row">
-      <button class="btn-shuffle" id="shuffleBtn" onclick="shuffleTest()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
-        Shuffle
-      </button>
-      <button class="btn-download" id="dlBtn" onclick="downloadPDF()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="7 10 12 15 17 10"/>
-          <line x1="12" y1="15" x2="12" y2="3"/>
-        </svg>
-        Download PDF
-      </button>
-    </div>
-  </div>
-
-  <div class="progress-label" id="progressLabel">Question 0 of 10 answered</div>
-  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
-
-  <div id="questionsContainer"></div>
-
-  <div class="test-footer">
-    <button class="btn-submit" id="submitBtn" onclick="submitTest()" disabled>Submit Test</button>
-  </div>
-
-  <div class="results-card" id="resultsCard">
-    <div class="score-ring">
-      <div class="score-big" id="scoreNum">0</div>
-      <div class="score-denom">/ <span id="testSize">10</span></div>
-    </div>
-    <h2 id="resultsTitle"></h2>
-    <p id="resultsMsg"></p>
-    <button class="btn-retry" onclick="retryTest()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-      New Test (10 fresh questions)
+  <div class="hdr-inner">
+    <a class="logo" href="index.html">Eleven<em>Plus</em> Academy</a>
+    <nav class="nav-links" style="display:flex;align-items:center;gap:clamp(12px,2.5vw,28px)">
+      <a class="nav-a" href="#features">Features</a>
+      <a class="nav-a" href="#how">How it works</a>
+      <a class="nav-a" href="#pricing">Pricing</a>
+      <a class="btn-login" href="login.html">Log in</a>
+      <a class="btn-cta-sm" href="login.html">Start Free Trial</a>
+    </nav>
+    <button class="mob-menu" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">🎓 Trusted by 2,000+ UK Families</div>
+    <h1>The smarter way to<br>pass the <em>11 Plus.</em></h1>
+    <p class="hero-sub">Authentic CGP-style practice tests, instant feedback, XP rewards, and everything your child needs to walk into the exam with confidence.</p>
+    <div class="hero-btns">
+      <a class="btn-hero-primary" href="login.html">Start Free Trial — No Card Needed</a>
+      <a class="btn-hero-secondary" href="#how">See how it works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num">80+</div>
+        <div class="hstat-lbl">Practice Questions</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hstat">
+        <div class="hstat-num">4</div>
+        <div class="hstat-lbl">Exam Subjects</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hstat">
+        <div class="hstat-num">3</div>
+        <div class="hstat-lbl">Difficulty Sets</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hstat">
+        <div class="hstat-num">100%</div>
+        <div class="hstat-lbl">UK Curriculum</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<footer><strong>ElevenPlus Academy</strong> · MVP Demo · Practice use only · © 2025</footer>
-<div class="toast" id="toast"></div>
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="trust-icon">✅</span> No credit card required</div>
+    <div class="trust-item"><span class="trust-icon">🔒</span> Cancel any time</div>
+    <div class="trust-item"><span class="trust-icon">📄</span> CGP-style questions</div>
+    <div class="trust-item"><span class="trust-icon">⚡</span> Instant feedback &amp; XP</div>
+    <div class="trust-item"><span class="trust-icon">🏫</span> Grammar school focused</div>
+  </div>
+</div>
 
-<script>
-/* ===== QUESTION BANK (40 questions across 4 subjects, 10 each) ===== */
-const QUESTION_BANK = [
+<!-- FEATURES -->
+<section class="features-bg" id="features">
+  <div class="section-inner">
+    <div class="section-eyebrow text-center">Why ElevenPlus Academy</div>
+    <h2 class="section-title text-center">Everything your child needs<br>to succeed</h2>
+    <p class="section-sub centered">Built by 11+ experts and parents. Every feature is designed around how children actually learn best.</p>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon fi-gold">📝</div>
+        <div class="feat-title">Authentic Practice Tests</div>
+        <div class="feat-desc">80+ questions modelled on real CGP and GL Assessment style papers — exactly what your child will see on exam day.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-blue">⚡</div>
+        <div class="feat-title">Instant Feedback</div>
+        <div class="feat-desc">Every answer is marked immediately with a clear explanation, helping children understand mistakes and learn faster.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-purple">🏆</div>
+        <div class="feat-title">XP &amp; Streak Rewards</div>
+        <div class="feat-desc">Gamified learning keeps children motivated. Earn XP for correct answers and build streaks that encourage daily practice.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-green">🎯</div>
+        <div class="feat-title">3 Difficulty Sets</div>
+        <div class="feat-desc">Start with Core Foundations, progress through CGP Assessment, then master the Mixed Challenge set as confidence grows.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-teal">📊</div>
+        <div class="feat-title">Progress Tracking</div>
+        <div class="feat-desc">Subject-by-subject performance breakdowns let you spot weak areas and focus revision exactly where it's needed most.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-red">📄</div>
+        <div class="feat-title">PDF Paper Download</div>
+        <div class="feat-desc">Print professional practice papers with full answer keys — perfect for timed exam simulation at the kitchen table.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  /* ── MATHEMATICS (10) ── */
-  { category:"Mathematics", text:"A train travels 240 km in 3 hours. What is its average speed?", options:["60 km/h","80 km/h","90 km/h","75 km/h"], answer:1, explanation:"Speed = Distance / Time = 240 / 3 = 80 km/h." },
-  { category:"Mathematics", text:"What is 15% of 320?", options:["42","48","52","56"], answer:1, explanation:"10% of 320 = 32; 5% of 320 = 16; 32 + 16 = 48." },
-  { category:"Mathematics", text:"What is the next number in the sequence: 3, 6, 12, 24, ___?", options:["36","42","48","30"], answer:2, explanation:"Each number is multiplied by 2: 24 x 2 = 48." },
-  { category:"Mathematics", text:"A rectangle has a length of 12 cm and a width of 7 cm. What is its area?", options:["38 cm2","76 cm2","84 cm2","96 cm2"], answer:2, explanation:"Area = Length x Width = 12 x 7 = 84 cm2." },
-  { category:"Mathematics", text:"What is the value of 7 squared?", options:["42","47","49","56"], answer:2, explanation:"7 squared (7²) = 7 x 7 = 49." },
-  { category:"Mathematics", text:"A bag has 3 red, 5 blue, and 2 green balls. What is the probability of picking a blue ball?", options:["1/2","3/10","5/10","2/5"], answer:2, explanation:"5 blue out of 10 total = 5/10 = 1/2. Both 5/10 and 1/2 are correct; 5/10 is the direct fraction." },
-  { category:"Mathematics", text:"What is the missing number? 4, 9, 16, 25, ___", options:["30","34","36","40"], answer:2, explanation:"These are square numbers: 2²=4, 3²=9, 4²=16, 5²=25, 6²=36." },
-  { category:"Mathematics", text:"A shop sells apples for 35p each. How much do 8 apples cost?", options:["£2.40","£2.80","£3.00","£2.60"], answer:1, explanation:"8 x 35p = 280p = £2.80." },
-  { category:"Mathematics", text:"What is 3/4 of 96?", options:["68","72","76","80"], answer:1, explanation:"96 / 4 = 24; 24 x 3 = 72." },
-  { category:"Mathematics", text:"The angles in a triangle add up to 180°. If two angles are 65° and 75°, what is the third?", options:["30°","40°","50°","45°"], answer:1, explanation:"180 - 65 - 75 = 40°." },
+<!-- HOW IT WORKS -->
+<section class="how-bg" id="how">
+  <div class="section-inner">
+    <div class="section-eyebrow text-center">Simple to get started</div>
+    <h2 class="section-title text-center">Up and running in minutes</h2>
+    <p class="section-sub centered">No setup required. Just sign up and your child can start their first practice test immediately.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Create your free account</div>
+        <div class="step-desc">Sign up in seconds — no credit card needed. Start exploring straight away.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Choose a practice set</div>
+        <div class="step-desc">Pick Set A, B or C based on your child's current level and the exam they're preparing for.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Track &amp; improve</div>
+        <div class="step-desc">Review results, read explanations, earn XP, and watch scores climb week by week.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  /* ── ENGLISH – VOCABULARY & GRAMMAR (10) ── */
-  { category:"English - Vocabulary", text:"Choose the word most similar in meaning to BENEVOLENT.", options:["Cruel","Generous","Timid","Arrogant"], answer:1, explanation:"Benevolent means well-meaning and kindly — closest to Generous." },
-  { category:"English - Grammar", text:"Choose the correctly punctuated sentence.", options:["Its a lovely day, isnt it.","It's a lovely day, isn't it?","Its a lovely day isn't it?","It's a lovely day isn't it."], answer:1, explanation:"It's (it is) and isn't both need apostrophes; the sentence is a question." },
-  { category:"English - Vocabulary", text:"Which word is the antonym (opposite) of ANCIENT?", options:["Old","Historic","Modern","Worn"], answer:2, explanation:"Ancient means very old; its opposite is Modern." },
-  { category:"English - Grammar", text:"Which sentence is written in the passive voice?", options:["The dog chased the cat.","The cat was chased by the dog.","The cat ran away quickly.","A dog barked loudly."], answer:1, explanation:"Passive voice: the subject receives the action. 'The cat was chased by the dog' — the cat is acted upon." },
-  { category:"English - Vocabulary", text:"Choose the word closest in meaning to DILIGENT.", options:["Lazy","Hardworking","Careless","Noisy"], answer:1, explanation:"Diligent means showing careful and persistent effort — synonymous with hardworking." },
-  { category:"English - Grammar", text:"Which of the following is a compound sentence?", options:["She sang beautifully.","Although it rained, we stayed dry.","I like cats and I like dogs.","Running through the park, she tripped."], answer:2, explanation:"A compound sentence joins two independent clauses with a conjunction: 'I like cats' + 'I like dogs'." },
-  { category:"English - Vocabulary", text:"What does the word MELANCHOLY mean?", options:["Happy","Confused","Angry","Sad"], answer:3, explanation:"Melancholy means a deep, long-lasting sadness or gloom." },
-  { category:"English - Grammar", text:"Identify the adverb in: 'She spoke quietly in the library.'", options:["She","spoke","quietly","library"], answer:2, explanation:"An adverb modifies a verb — 'quietly' describes how she spoke." },
-  { category:"English - Vocabulary", text:"Which word means to make something less severe?", options:["Aggravate","Mitigate","Amplify","Provoke"], answer:1, explanation:"Mitigate means to lessen the severity or seriousness of something." },
-  { category:"English - Grammar", text:"Choose the sentence that uses a semicolon correctly.", options:["I love reading; books are great.","I love; reading books.","I; love reading books.","I love reading books;"], answer:0, explanation:"A semicolon correctly links two related independent clauses: 'I love reading' and 'books are great'." },
-
-  /* ── VERBAL REASONING (10) ── */
-  { category:"Verbal Reasoning", text:"If CAT becomes FDW (each letter +3), what does DOG become?", options:["GRJ","GRK","GPJ","GQJ"], answer:0, explanation:"D+3=G, O+3=R, G+3=J. Answer: GRJ." },
-  { category:"Verbal Reasoning", text:"Which word is the odd one out? Apple, Pear, Carrot, Grape", options:["Apple","Pear","Carrot","Grape"], answer:2, explanation:"Apple, Pear and Grape are fruits. Carrot is a vegetable." },
-  { category:"Verbal Reasoning", text:"DENTIST is to TEETH as OPTICIAN is to ___", options:["Glasses","Hospital","Eyes","Ears"], answer:2, explanation:"A dentist cares for teeth; an optician cares for eyes." },
-  { category:"Verbal Reasoning", text:"Find the word that completes both pairs: PLAY ___ / ___ WORK", options:["GROUND","TIME","FIELD","HOUSE"], answer:0, explanation:"PLAYGROUND and GROUNDWORK both work — GROUND completes both compound words." },
-  { category:"Verbal Reasoning", text:"Which number comes next? 2, 5, 10, 17, 26, ___", options:["33","35","37","39"], answer:2, explanation:"Differences are +3, +5, +7, +9, +11 — next is 26 + 11 = 37." },
-  { category:"Verbal Reasoning", text:"PIANO is to MUSIC as PAINTBRUSH is to ___", options:["Canvas","Colour","Art","Paint"], answer:2, explanation:"A piano produces music; a paintbrush produces art." },
-  { category:"Verbal Reasoning", text:"Which word cannot be made from the letters in CHAMPION?", options:["CHAIN","MANIC","PIANO","BACON"], answer:3, explanation:"BACON needs a B — there is no B in CHAMPION." },
-  { category:"Verbal Reasoning", text:"If FRIEND is coded as GSJFOE (each letter +1), how is BRAVE coded?", options:["CSBWF","CRAVF","DSCXG","CSAWF"], answer:0, explanation:"B+1=C, R+1=S, A+1=B, V+1=W, E+1=F → CSBWF." },
-  { category:"Verbal Reasoning", text:"Complete the analogy: Cub is to Bear as Kitten is to ___", options:["Dog","Lion","Cat","Tiger"], answer:2, explanation:"A cub is a young bear; a kitten is a young cat." },
-  { category:"Verbal Reasoning", text:"Which word is most similar in meaning to SWIFT?", options:["Strong","Quick","Silent","Steady"], answer:1, explanation:"Swift means moving or capable of moving at high speed — synonymous with Quick." },
-
-  /* ── NON-VERBAL REASONING (10) ── */
-  { category:"Non-Verbal Reasoning", text:"A square has a perimeter of 36 cm. What is its area?", options:["72 cm2","81 cm2","64 cm2","90 cm2"], answer:1, explanation:"Side = 36 / 4 = 9 cm. Area = 9 x 9 = 81 cm2." },
-  { category:"Non-Verbal Reasoning", text:"A shape has 6 faces, 12 edges, and 8 vertices. What is it?", options:["Tetrahedron","Cube","Triangular prism","Cylinder"], answer:1, explanation:"A cube has exactly 6 faces, 12 edges, and 8 vertices." },
-  { category:"Non-Verbal Reasoning", text:"How many lines of symmetry does a regular hexagon have?", options:["4","5","6","8"], answer:2, explanation:"A regular hexagon has 6 lines of symmetry — one through each pair of opposite vertices and one through each pair of opposite edges." },
-  { category:"Non-Verbal Reasoning", text:"A triangle has a base of 10 cm and a height of 8 cm. What is its area?", options:["40 cm2","80 cm2","20 cm2","48 cm2"], answer:0, explanation:"Area of triangle = ½ x base x height = ½ x 10 x 8 = 40 cm2." },
-  { category:"Non-Verbal Reasoning", text:"Which 3D shape has one circular face and comes to a point?", options:["Sphere","Cylinder","Cone","Pyramid"], answer:2, explanation:"A cone has one circular base and tapers to a single apex (point)." },
-  { category:"Non-Verbal Reasoning", text:"A rectangle is 9 cm long and 4 cm wide. What is its perimeter?", options:["36 cm","26 cm","18 cm","13 cm"], answer:1, explanation:"Perimeter = 2 x (length + width) = 2 x (9 + 4) = 2 x 13 = 26 cm." },
-  { category:"Non-Verbal Reasoning", text:"How many faces does a triangular prism have?", options:["4","5","6","3"], answer:1, explanation:"A triangular prism has 5 faces: 2 triangular ends and 3 rectangular sides." },
-  { category:"Non-Verbal Reasoning", text:"A circle has a radius of 5 cm. What is its diameter?", options:["5 cm","15 cm","10 cm","25 cm"], answer:2, explanation:"Diameter = 2 x radius = 2 x 5 = 10 cm." },
-  { category:"Non-Verbal Reasoning", text:"Which shape has exactly 4 lines of symmetry?", options:["Rectangle","Square","Rhombus","Parallelogram"], answer:1, explanation:"A square has 4 lines of symmetry: 2 diagonal and 2 through midpoints of opposite sides." },
-  { category:"Non-Verbal Reasoning", text:"A cube has a side length of 3 cm. What is its volume?", options:["9 cm3","18 cm3","27 cm3","36 cm3"], answer:2, explanation:"Volume of cube = side³ = 3 x 3 x 3 = 27 cm3." }
-];
-
-/* ── Subject groups for balanced drawing ── */
-const SUBJECTS = ["Mathematics","English","Verbal Reasoning","Non-Verbal Reasoning"];
-
-const LETTERS = ['A','B','C','D'];
-const TEST_SIZE = 10;           // questions per test
-const PER_SUBJECT = 2;          // guaranteed questions per subject (4 x 2 = 8, remaining 2 random)
-
-let answered = new Array(TEST_SIZE).fill(null);
-let isShuffled = false;
-let activeQuestions = [];
-
-/* ===== SHUFFLE UTILS ===== */
-function fisherYates(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-function shuffleOptions(q) {
-  const indices = [0,1,2,3];
-  fisherYates(indices);
-  const newOptions = indices.map(i => q.options[i]);
-  const newCorrect = indices.indexOf(q.answer);
-  return { ...q, options: newOptions, answer: newCorrect };
-}
-
-/* ===== DRAW A FRESH TEST FROM THE BANK =====
-   Strategy: draw PER_SUBJECT (2) from each of the 4 subjects = 8 guaranteed
-   balanced questions, then fill remaining 2 from whatever is left. This ensures
-   every test always has Maths, English, Verbal AND Non-Verbal questions. ===== */
-function drawTest() {
-  const pool = [...QUESTION_BANK];
-  fisherYates(pool);
-
-  const selected = [];
-  const used = new Set();
-
-  // Draw PER_SUBJECT from each subject first
-  for (const subj of SUBJECTS) {
-    let count = 0;
-    for (let i = 0; i < pool.length && count < PER_SUBJECT; i++) {
-      if (!used.has(i) && pool[i].category.startsWith(subj.split(' ')[0])) {
-        selected.push(pool[i]);
-        used.add(i);
-        count++;
-      }
-    }
-  }
-
-  // Fill remaining slots from the rest of the pool
-  for (let i = 0; i < pool.length && selected.length < TEST_SIZE; i++) {
-    if (!used.has(i)) { selected.push(pool[i]); used.add(i); }
-  }
-
-  // Final shuffle of the selected set so subject order is randomised
-  fisherYates(selected);
-  return selected.map(q => ({ ...q, options: [...q.options] }));
-}
-
-// Build: draw fresh set, optionally shuffle options too
-function buildShuffled() {
-  return drawTest().map(q => shuffleOptions(q));
-}
-
-function buildOriginal() {
-  return drawTest(); // still draws fresh questions, just no option-shuffling
-}
-
-/* ===== RENDER ===== */
-function renderQuestions() {
-  const c = document.getElementById('questionsContainer');
-  c.innerHTML = '';
-  activeQuestions.forEach((q, qi) => {
-    const card = document.createElement('div');
-    card.className = 'question-card';
-    card.id = 'card-' + qi;
-    card.style.animationDelay = (qi * 0.04) + 's';
-    card.innerHTML = `
-      <div class="q-header">
-        <div class="q-num">${qi+1}</div>
-        <div class="q-meta">
-          <div class="q-category">${q.category}</div>
-          <div class="q-text">${q.text}</div>
+<!-- SUBJECTS -->
+<section class="subjects-bg">
+  <div class="section-inner">
+    <div class="section-eyebrow text-center">Curriculum coverage</div>
+    <h2 class="section-title text-center">All four 11+ subjects covered</h2>
+    <p class="section-sub centered">ElevenPlus Academy covers every subject tested in UK grammar school entrance exams.</p>
+    <div class="subjects-grid">
+      <div class="subj-card sA">
+        <div class="subj-emoji">➕</div>
+        <div>
+          <div class="subj-title">Mathematics</div>
+          <div class="subj-desc">Speed, fractions, percentages, ratios, geometry, algebra, sequences, word problems and more — all at 11+ level.</div>
+          <span class="subj-tag tagA">Core · CGP · Mixed</span>
         </div>
       </div>
-      <div class="options" id="opts-${qi}">
-        ${q.options.map((opt,oi) => `
-          <div class="option" id="opt-${qi}-${oi}" onclick="selectAnswer(${qi},${oi})" role="button" tabindex="0"
-               onkeydown="if(event.key==='Enter'||event.key===' ')selectAnswer(${qi},${oi})">
-            <div class="opt-letter">${LETTERS[oi]}</div><span>${opt}</span>
-          </div>`).join('')}
+      <div class="subj-card sB">
+        <div class="subj-emoji">📖</div>
+        <div>
+          <div class="subj-title">English</div>
+          <div class="subj-desc">Vocabulary, grammar, punctuation, comprehension, similes, metaphors, and creative writing techniques.</div>
+          <span class="subj-tag tagB">Core · Mixed</span>
+        </div>
       </div>
-      <div class="feedback" id="fb-${qi}"></div>`;
-    c.appendChild(card);
-  });
+      <div class="subj-card sC">
+        <div class="subj-emoji">🔤</div>
+        <div>
+          <div class="subj-title">Verbal Reasoning</div>
+          <div class="subj-desc">Word analogies, codes, letter sequences, odd-one-out, word connections and logic challenges.</div>
+          <span class="subj-tag tagC">Core · Mixed</span>
+        </div>
+      </div>
+      <div class="subj-card sD">
+        <div class="subj-emoji">🔷</div>
+        <div>
+          <div class="subj-title">Non-Verbal Reasoning</div>
+          <div class="subj-desc">3D shapes, symmetry, rotations, reflections, nets, surface area, patterns and spatial reasoning.</div>
+          <span class="subj-tag tagD">Core · Mixed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<div class="testi-bg">
+  <div class="section-inner">
+    <div class="section-eyebrow text-center" style="color:var(--gold-l)">What parents say</div>
+    <h2 class="section-title text-center" style="color:#fff;margin-bottom:36px">Families love ElevenPlus Academy</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"My daughter went from dreading maths to asking for extra practice sessions. The XP system is genuinely brilliant — she treats it like a game."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">SR</div>
+          <div>
+            <div class="testi-name">Sarah R.</div>
+            <div class="testi-role">Parent · Birmingham</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"The question quality is excellent — clearly written by people who know the 11+ inside and out. The explanations are really clear too."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">MK</div>
+          <div>
+            <div class="testi-name">Michael K.</div>
+            <div class="testi-role">Parent · London</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Brilliant value. We've tried three other platforms and this has the best questions by far. My son passed his grammar school entrance — I'm certain this helped."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">JP</div>
+          <div>
+            <div class="testi-name">Jenny P.</div>
+            <div class="testi-role">Parent · Manchester</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="pricing-bg" id="pricing">
+  <div class="section-inner">
+    <div class="section-eyebrow text-center">Simple pricing</div>
+    <h2 class="section-title text-center">Start free. Upgrade when ready.</h2>
+    <p class="section-sub centered">Every plan includes a free trial. No hidden fees, no long-term contracts.</p>
+    <div class="billing-toggle">
+      <span class="toggle-lbl on" id="lbl-mo">Monthly</span>
+      <div class="tog-track" id="togTrack" onclick="toggleBill()" role="switch">
+        <div class="tog-thumb"></div>
+      </div>
+      <span class="toggle-lbl" id="lbl-yr">Yearly</span>
+      <span class="save-pill">Save 20%</span>
+    </div>
+    <div class="pricing-grid">
+      <!-- FREE -->
+      <div class="p-card">
+        <div class="p-accent acc-free"></div>
+        <div class="p-body">
+          <div class="p-icon">📖</div>
+          <div class="p-name">Starter</div>
+          <div class="p-desc">Try the platform at no cost. Perfect for getting a feel for the 11+.</div>
+          <div class="p-price"><span class="p-curr">£</span><span class="p-amt">0</span><span class="p-per">/ mo</span></div>
+          <div class="p-note">Free forever · No card needed</div>
+          <a class="p-cta cta-free" href="login.html">Get started free</a>
+          <ul class="p-features">
+            <li><span class="fchk fok">✓</span>10 questions per session</li>
+            <li><span class="fchk fok">✓</span>Set A: Core Foundations</li>
+            <li><span class="fchk fok">✓</span>Instant feedback</li>
+            <li><span class="fchk fok">✓</span>XP &amp; streaks</li>
+            <li><span class="fchk fno">–</span>Verbal &amp; Non-Verbal Reasoning</li>
+            <li><span class="fchk fno">–</span>PDF download</li>
+            <li><span class="fchk fno">–</span>All 3 question sets</li>
+          </ul>
+        </div>
+      </div>
+      <!-- EXAM PREP -->
+      <div class="p-card popular">
+        <div class="p-accent acc-pop"></div>
+        <span class="p-pop-badge">⭐ Most Popular</span>
+        <div class="p-body">
+          <div class="p-icon">🎯</div>
+          <div class="p-name">Exam Prep</div>
+          <div class="p-desc">Complete 11+ preparation across all four key subjects.</div>
+          <div class="p-price"><span class="p-curr">£</span><span class="p-amt" id="p2">9</span><span class="p-per">/ mo</span></div>
+          <div class="p-note" id="p2n">Billed monthly · Cancel any time</div>
+          <div class="p-save" id="p2s">🎉 Save £21.60 per year</div>
+          <a class="p-cta cta-pop" href="login.html">Start free trial</a>
+          <ul class="p-features">
+            <li><span class="fchk fok">✓</span>Everything in Starter</li>
+            <li><span class="fchk fok">✓</span>All 3 question sets (80+ Qs)</li>
+            <li><span class="fchk fok">✓</span>All 4 subjects</li>
+            <li><span class="fchk fok">✓</span>PDF paper download</li>
+            <li><span class="fchk fok">✓</span>Shuffle &amp; randomise</li>
+            <li><span class="fchk fok">✓</span>Detailed explanations</li>
+            <li><span class="fchk fno">–</span>Progress analytics</li>
+          </ul>
+        </div>
+      </div>
+      <!-- PRO -->
+      <div class="p-card">
+        <div class="p-accent acc-pro"></div>
+        <div class="p-body">
+          <div class="p-icon">🏆</div>
+          <div class="p-name">Pro</div>
+          <div class="p-desc">Full suite with analytics and parent dashboard for serious prep.</div>
+          <div class="p-price"><span class="p-curr">£</span><span class="p-amt" id="p3">15</span><span class="p-per">/ mo</span></div>
+          <div class="p-note" id="p3n">Billed monthly · Cancel any time</div>
+          <div class="p-save" id="p3s">🎉 Save £36 per year</div>
+          <a class="p-cta cta-pro" href="login.html">Start free trial</a>
+          <ul class="p-features">
+            <li><span class="fchk fok">✓</span>Everything in Exam Prep</li>
+            <li><span class="fchk fok">✓</span>Progress analytics</li>
+            <li><span class="fchk fok">✓</span>Parent dashboard</li>
+            <li><span class="fchk fok">✓</span>Subject breakdown reports</li>
+            <li><span class="fchk fok">✓</span>Weakness identification</li>
+            <li><span class="fchk fok">✓</span>Printable progress reports</li>
+            <li><span class="fchk fok">✓</span>Priority support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>Ready to give your child the<br><em style="font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">best chance?</em></h2>
+  <p>Join thousands of UK families already using ElevenPlus Academy to prepare for grammar school success.</p>
+  <div class="cta-band-btns">
+    <a class="btn-white" href="login.html">Start Free Trial</a>
+    <a class="btn-ghost-white" href="login.html">Log in</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="logo" href="index.html" style="font-size:1.15rem">Eleven<em style="color:rgba(255,255,255,.5)">Plus</em> Academy</a>
+      <div class="footer-tagline">Helping UK children pass the 11+ with confidence, one practice test at a time.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+    <div class="footer-col">
+      <h4>Practice</h4>
+      <a href="practice.html">Set A — Core</a>
+      <a href="practice.html">Set B — CGP</a>
+      <a href="practice.html">Set C — Mixed</a>
+      <a href="practice.html">PDF Download</a>
+    </div>
+    <div class="footer-col">
+      <h4>Account</h4>
+      <a href="login.html">Log in</a>
+      <a href="login.html">Sign up free</a>
+      <a href="#">Contact</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <strong>ElevenPlus Academy</strong> · MVP Demo · Practice use only · © 2026
+  </div>
+</footer>
+
+<script>
+let yearly = false;
+function toggleBill(){
+  yearly = !yearly;
+  document.getElementById('togTrack').classList.toggle('active', yearly);
+  document.getElementById('lbl-mo').classList.toggle('on', !yearly);
+  document.getElementById('lbl-yr').classList.toggle('on', yearly);
+  document.getElementById('p2').textContent = yearly ? '7' : '9';
+  document.getElementById('p2n').textContent = yearly ? '£84 billed yearly' : 'Billed monthly · Cancel any time';
+  document.getElementById('p2s').style.display = yearly ? 'block' : 'none';
+  document.getElementById('p3').textContent = yearly ? '12' : '15';
+  document.getElementById('p3n').textContent = yearly ? '£144 billed yearly' : 'Billed monthly · Cancel any time';
+  document.getElementById('p3s').style.display = yearly ? 'block' : 'none';
 }
-
-function selectAnswer(qi, oi) {
-  if (answered[qi] !== null) return;
-  answered[qi] = oi;
-  const q = activeQuestions[qi], ok = oi === q.answer;
-  document.getElementById('card-'+qi).classList.add(ok ? 'answered-correct' : 'answered-wrong');
-  for (let i = 0; i < q.options.length; i++) {
-    const el = document.getElementById('opt-'+qi+'-'+i);
-    el.classList.add('disabled');
-    if (i === oi) el.classList.add(ok ? 'selected-correct' : 'selected-wrong');
-    if (!ok && i === q.answer) el.classList.add('show-correct');
-  }
-  const fb = document.getElementById('fb-'+qi);
-  fb.className = 'feedback show ' + (ok ? 'correct-fb' : 'wrong-fb');
-  fb.innerHTML = '<strong>' + (ok ? '&#10003; Correct!' : '&#10007; Incorrect.') + '</strong> ' + q.explanation;
-  updateProgress();
-}
-
-function updateProgress() {
-  const n = answered.filter(a=>a!==null).length;
-  document.getElementById('progressLabel').textContent = 'Question ' + n + ' of ' + TEST_SIZE + ' answered';
-  document.getElementById('progressBar').style.width = (n / TEST_SIZE * 100) + '%';
-  document.getElementById('submitBtn').disabled = n < TEST_SIZE;
-}
-
-function submitTest() {
-  const score = answered.reduce((acc,a,i)=>acc+(a===activeQuestions[i].answer?1:0),0);
-  document.getElementById('scoreNum').textContent = score;
-  document.getElementById('testSize').textContent = TEST_SIZE;
-  const p = score / TEST_SIZE;
-  let title, msg;
-  if (p===1)    { title='🏆 Perfect Score!';   msg='Outstanding! Every question correct. Exceptional 11+ preparation! Try a new test to tackle fresh questions from the bank.'; }
-  else if(p>=.8){ title='🌟 Excellent Work!';  msg='You scored '+score+'/'+TEST_SIZE+'. Fantastic result! Start a new test to face different questions and keep improving.'; }
-  else if(p>=.6){ title='👍 Good Effort!';     msg='You scored '+score+'/'+TEST_SIZE+'. Good progress! Review your incorrect answers, then try a new test for fresh practice.'; }
-  else          { title='📚 Keep Practising!'; msg='You scored '+score+'/'+TEST_SIZE+'. Don\'t be discouraged — read each explanation carefully, then start a new test.'; }
-  document.getElementById('resultsTitle').textContent = title;
-  document.getElementById('resultsMsg').textContent = msg;
-  const rc = document.getElementById('resultsCard');
-  rc.classList.add('show');
-  rc.scrollIntoView({ behavior:'smooth', block:'start' });
-  document.getElementById('submitBtn').disabled = true;
-}
-
-function retryTest() {
-  answered = new Array(TEST_SIZE).fill(null);
-  document.getElementById('resultsCard').classList.remove('show');
-  document.getElementById('submitBtn').disabled = true;
-  // Always draw a fresh set of questions from the bank on retry
-  activeQuestions = isShuffled ? buildShuffled() : buildOriginal();
-  renderQuestions();
-  updateProgress();
-  showToast('🎲 New set of questions drawn from the bank!');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-/* ===== SHUFFLE TOGGLE ===== */
-function shuffleTest() {
-  // Don't shuffle mid-test if questions already answered
-  const answeredCount = answered.filter(a=>a!==null).length;
-  if (answeredCount > 0 && !confirm('Shuffling will reset your current progress. Continue?')) return;
-
-  isShuffled = !isShuffled;
-  activeQuestions = isShuffled ? buildShuffled() : buildOriginal();
-  answered = new Array(TEST_SIZE).fill(null);
-
-  // Update button appearance
-  const btn = document.getElementById('shuffleBtn');
-  const badge = document.getElementById('shuffleBadge');
-  if (isShuffled) {
-    btn.classList.add('shuffled');
-    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg> Shuffled ✓`;
-    badge.classList.add('show');
-    showToast('🔀 Questions & answer options shuffled!');
-  } else {
-    btn.classList.remove('shuffled');
-    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg> Shuffle`;
-    badge.classList.remove('show');
-    showToast('↩ Restored original order.');
-  }
-
-  document.getElementById('resultsCard').classList.remove('show');
-  renderQuestions();
-  updateProgress();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 3500);
-}
-
-/* ===== PDF DOWNLOAD =====
-   Pure-JS minimal PDF 1.4 builder — zero external dependencies.
-   Works offline and in all modern browsers via Blob + object URL.
-================================================= */
-function downloadPDF() {
-  const btn = document.getElementById('dlBtn');
-  btn.disabled = true;
-  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Generating...`;
-
-  setTimeout(function() {
-    try {
-      const pdfStr = buildPDF();
-      // Convert to byte array
-      const len = pdfStr.length;
-      const bytes = new Uint8Array(len);
-      for (let i = 0; i < len; i++) bytes[i] = pdfStr.charCodeAt(i) & 0xFF;
-      const blob = new Blob([bytes], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = '11plus-mock-test-set-a.pdf';
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      setTimeout(()=>URL.revokeObjectURL(url), 4000);
-      showToast('✓ PDF downloaded successfully!');
-    } catch(e) {
-      console.error(e);
-      showToast('⚠ Could not generate PDF. Please try again.');
-    }
-    btn.disabled = false;
-    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF`;
-  }, 40);
-}
-
-function buildPDF() {
-  /* A4 in points: 595 x 842 */
-  var W = 595, H = 842, ML = 48, MR = 48, CW = W - ML - MR;
-  var objs = [], offsets = {}, nextId = 1;
-
-  function addObj(str) { var id = nextId++; objs.push({id:id, str:str}); return id; }
-  function addStream(s) { var id = nextId++; objs.push({id:id, stream:s}); return id; }
-
-  /* Helvetica font refs */
-  var fNorm = '/Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding';
-  var fBold = '/Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding';
-
-  /* escape for PDF string */
-  function esc(s) { return s.replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)'); }
-
-  /* Approximate text wrap */
-  function wrap(text, maxPt, fsize) {
-    var cw = fsize * 0.54, max = Math.floor(maxPt / cw);
-    var words = text.split(' '), lines = [], cur = '';
-    for (var i=0;i<words.length;i++) {
-      var w=words[i], test = cur ? cur+' '+w : w;
-      if (test.length <= max) cur = test;
-      else { if(cur)lines.push(cur); cur=w; }
-    }
-    if(cur)lines.push(cur); return lines;
-  }
-
-  /* Build page streams */
-  var pageStreams = [];
-
-  function makePage(drawFn) {
-    var cmds = [];
-    var y = 0; // top-down tracking; convert with: H - y
-
-    function py(ty) { return (H - ty).toFixed(2); }
-
-    function rgb(r,g,b,stroke) {
-      var v=(r/255).toFixed(3)+' '+(g/255).toFixed(3)+' '+(b/255).toFixed(3);
-      cmds.push(v + (stroke?' RG':' rg'));
-    }
-
-    function fillRect(x,ty,w,h) {
-      cmds.push(x.toFixed(2)+' '+py(ty+h)+' '+w.toFixed(2)+' '+h.toFixed(2)+' re f');
-    }
-
-    function strokeRect(x,ty,w,h,lw) {
-      cmds.push((lw||0.5)+' w');
-      cmds.push(x.toFixed(2)+' '+py(ty+h)+' '+w.toFixed(2)+' '+h.toFixed(2)+' re S');
-    }
-
-    function drawText(t, x, ty, size, bold, r,g,b) {
-      rgb(r,g,b);
-      cmds.push('BT /'+(bold?'FB':'FN')+' '+size+' Tf '+x.toFixed(2)+' '+py(ty)+' Td ('+esc(t)+') Tj ET');
-    }
-
-    function hline(ty) {
-      rgb(201,151,58,true);
-      cmds.push('0.8 w');
-      cmds.push(ML.toFixed(2)+' '+py(ty)+' m '+(W-MR).toFixed(2)+' '+py(ty)+' l S');
-    }
-
-    drawFn({ cmds, rgb, fillRect, strokeRect, drawText, hline, wrap,
-      ML, MR, CW, W, H, esc });
-
-    return cmds.join('\n');
-  }
-
-  /* ── PAGE 1: Questions ── */
-  var p1stream = makePage(function(ctx) {
-    var c=ctx, y=0;
-
-    /* Header band */
-    c.fillRect(0,0,W,54);    /* navy fill (default black — we set colour first) */
-    c.rgb(13,31,60); c.fillRect(0,0,W,54);
-    c.rgb(201,151,58); c.fillRect(0,54,W,2.5);
-
-    c.drawText('ElevenPlus Academy', ctx.ML, 20, 17, true, 240,200,108);
-    c.drawText('UK 11+ Exam Preparation  |  Mock Test Set A', ctx.ML, 35, 9, false, 190,183,170);
-
-    var dateStr = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
-    c.drawText('Generated: '+dateStr, W-ctx.MR-145, 35, 8, false, 190,183,170);
-
-    y = 70;
-    c.drawText('Mixed Practice Paper — 10 Questions', ctx.ML, y, 12, true, 13,31,60);
-    y += 13;
-    c.drawText('Subjects: Mathematics  |  English  |  Verbal Reasoning  |  Non-Verbal Reasoning', ctx.ML, y, 8.5, false, 120,112,100);
-    y += 10;
-    c.hline(y); y += 14;
-
-    questions.forEach(function(q,i) {
-      /* Num bubble */
-      c.rgb(13,31,60); c.fillRect(ctx.ML, y, 16, 16);
-      c.drawText(String(i+1), ctx.ML+4, y+11.5, 8, true, 240,200,108);
-
-      /* Category */
-      c.drawText(q.category.toUpperCase(), ctx.ML+22, y+8, 7, true, 201,151,58);
-
-      y += 15;
-      var qlines = wrap(q.text, ctx.CW-22, 10);
-      qlines.forEach(function(l){ c.drawText(l, ctx.ML+22, y, 10, false, 28,26,22); y+=13; });
-      y += 2;
-
-      q.options.forEach(function(opt,oi){
-        c.rgb(248,245,240); c.fillRect(ctx.ML+22, y-3, ctx.CW-22, 16);
-        c.rgb(210,204,192,true); c.strokeRect(ctx.ML+22, y-3, ctx.CW-22, 16, 0.4);
-        c.rgb(13,31,60); c.fillRect(ctx.ML+27, y+1, 11, 11);
-        c.drawText(LETTERS[oi], ctx.ML+30.5, y+9.5, 7, true, 255,255,255);
-        c.drawText(opt, ctx.ML+44, y+8.5, 9, false, 28,26,22);
-        y += 20;
-      });
-      y += 9;
-    });
-  });
-
-  /* ── PAGE 2: Answer Key ── */
-  var p2stream = makePage(function(ctx) {
-    var c=ctx, y=0;
-
-    c.rgb(13,31,60); c.fillRect(0,0,W,44);
-    c.rgb(201,151,58); c.fillRect(0,44,W,2.5);
-    c.drawText('Answer Key & Explanations', ctx.ML, 25, 13, true, 240,200,108);
-    c.drawText('Mock Test Set A  —  ElevenPlus Academy', ctx.ML, 38, 8.5, false, 170,163,152);
-
-    y = 60;
-
-    questions.forEach(function(q,i) {
-      /* Num */
-      c.rgb(13,31,60); c.fillRect(ctx.ML, y, 14, 14);
-      c.drawText(String(i+1), ctx.ML+3.5, y+10.5, 8, true, 255,255,255);
-
-      /* Correct answer green pill */
-      var ca = LETTERS[q.answer]+'  '+q.options[q.answer];
-      var pw = Math.min(ca.length*5.6+14, ctx.CW-28);
-      c.rgb(45,122,79); c.fillRect(ctx.ML+20, y, pw, 14);
-      c.drawText(ca, ctx.ML+27, y+10.5, 8, true, 255,255,255);
-
-      y += 18;
-
-      /* Explanation */
-      var expLines = wrap(q.explanation, ctx.CW-20, 9);
-      expLines.forEach(function(l){ c.drawText(l, ctx.ML+20, y, 9, false, 110,100,90); y+=12; });
-
-      /* Divider */
-      c.rgb(220,213,200,true);
-      var cc=c.cmds; cc.push('0.5 w');
-      cc.push(ctx.ML.toFixed(2)+' '+(H-(y+5)).toFixed(2)+' m '+(W-ctx.MR).toFixed(2)+' '+(H-(y+5)).toFixed(2)+' l S');
-      y += 12;
-    });
-  });
-
-  /* Register streams */
-  var s1id = addStream(p1stream);
-  var s2id = addStream(p2stream);
-
-  /* Font objects */
-  var fnId = addObj('<< '+fNorm+' >>');
-  var fbId = addObj('<< '+fBold+' >>');
-
-  /* Resource dict (shared) */
-  var resDict = '<< /Font << /FN '+fnId+' 0 R /FB '+fbId+' 0 R >> >>';
-
-  /* Page objects */
-  var kidsId = nextId; // pages dict will come after
-  var p1id = addObj('<< /Type /Page /Parent '+(kidsId+1)+' 0 R /MediaBox [0 0 '+W+' '+H+'] /Contents '+s1id+' 0 R /Resources '+resDict+' >>');
-  var p2id = addObj('<< /Type /Page /Parent '+(kidsId+1)+' 0 R /MediaBox [0 0 '+W+' '+H+'] /Contents '+s2id+' 0 R /Resources '+resDict+' >>');
-
-  var pagesId = addObj('<< /Type /Pages /Kids ['+p1id+' 0 R '+p2id+' 0 R] /Count 2 >>');
-  var catalogId = addObj('<< /Type /Catalog /Pages '+pagesId+' 0 R >>');
-
-  /* ── Serialise ── */
-  objs.sort(function(a,b){return a.id-b.id});
-
-  var out = '%PDF-1.4\n%\xFF\xFF\xFF\xFF\n';
-
-  objs.forEach(function(obj) {
-    offsets[obj.id] = out.length;
-    if ('stream' in obj) {
-      out += obj.id+' 0 obj\n<< /Length '+obj.stream.length+' >>\nstream\n'+obj.stream+'\nendstream\nendobj\n';
-    } else {
-      out += obj.id+' 0 obj\n'+obj.str+'\nendobj\n';
-    }
-  });
-
-  var xref = out.length;
-  var total = nextId;
-  out += 'xref\n0 '+total+'\n';
-  out += '0000000000 65535 f \n';
-  for (var i=1;i<total;i++) {
-    var off = offsets[i];
-    out += (off!==undefined ? String(off).padStart(10,'0') : '0000000000')+' 00000 n \n';
-  }
-  out += 'trailer\n<< /Size '+total+' /Root '+catalogId+' 0 R >>\nstartxref\n'+xref+'\n%%EOF';
-  return out;
-}
-
-/* ===== INIT ===== */
-activeQuestions = buildOriginal();  // draw first fresh set on load
-renderQuestions();
-updateProgress();
 </script>
 </body>
 </html>

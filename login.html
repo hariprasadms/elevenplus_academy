@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log in — ElevenPlus Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a1628;--royal:#12265e;--mid:#1e3a7a;
+  --gold:#d4912a;--gold-l:#f5c842;--gold-dim:#7a5010;
+  --cream:#faf7f0;--soft:#f0ebe0;--border:#e2d9c8;
+  --text:#1a1612;--muted:#7a7060;--faint:#b0a898;
+  --ok:#1e7a4a;--ok-bg:#edf8f2;--ok-b:#a8dfc0;
+  --err:#b02020;--err-bg:#fdf0f0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+header{background:var(--navy);box-shadow:0 2px 24px rgba(0,0,0,.4);flex-shrink:0}
+.hdr-inner{max-width:1160px;margin:0 auto;padding:0 clamp(14px,3vw,40px);height:66px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Fraunces',serif;font-size:clamp(1.1rem,3vw,1.45rem);font-weight:900;color:var(--gold-l);text-decoration:none;letter-spacing:-.3px}
+.logo em{color:#fff;font-style:normal}
+.hdr-right{font-size:.84rem;color:rgba(255,255,255,.55)}
+.hdr-right a{color:var(--gold-l);text-decoration:none;font-weight:600;margin-left:6px}
+.hdr-right a:hover{text-decoration:underline}
+.login-wrap{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 66px - 52px)}
+@media(max-width:760px){.login-wrap{grid-template-columns:1fr}}
+.login-left{background:linear-gradient(135deg,var(--navy) 0%,var(--royal) 55%,var(--mid) 100%);color:#fff;padding:clamp(40px,6vw,70px) clamp(28px,5vw,64px);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.login-left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(212,145,42,.18),transparent 55%),radial-gradient(ellipse at 85% 15%,rgba(245,200,66,.09),transparent 50%);pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(55px);pointer-events:none;opacity:.15}
+.orb1{width:320px;height:320px;background:var(--gold);top:-80px;right:-60px}
+.orb2{width:240px;height:240px;background:#2a7ad4;bottom:-50px;left:-40px}
+.left-inner{position:relative}
+.left-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-l);margin-bottom:16px}
+.left-inner h2{font-family:'Fraunces',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;line-height:1.12;margin-bottom:16px}
+.left-inner h2 em{font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.left-inner p{color:rgba(255,255,255,.68);font-size:.9rem;line-height:1.7;margin-bottom:32px;max-width:360px}
+.left-perks{display:flex;flex-direction:column;gap:12px}
+.perk{display:flex;align-items:center;gap:12px;font-size:.85rem;color:rgba(255,255,255,.82)}
+.perk-icon{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;backdrop-filter:blur(4px)}
+@media(max-width:760px){.login-left{display:none}}
+.login-right{background:#fff;display:flex;align-items:center;justify-content:center;padding:clamp(28px,5vw,60px) clamp(20px,5vw,64px)}
+.login-card{width:100%;max-width:420px}
+.login-card h1{font-family:'Fraunces',serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:var(--navy);margin-bottom:6px}
+.login-card .subtitle{font-size:.88rem;color:var(--muted);margin-bottom:28px;line-height:1.5}
+.demo-box{background:linear-gradient(135deg,#fffbf0,#fff8e5);border:1.5px solid #f0d888;border-radius:12px;padding:14px 16px;margin-bottom:26px;display:flex;gap:12px;align-items:flex-start}
+.demo-icon{font-size:1.3rem;flex-shrink:0;margin-top:1px}
+.demo-text{font-size:.8rem;color:#7a5a00;line-height:1.6}
+.demo-text strong{color:#5a3800;font-weight:700;display:block;margin-bottom:6px;font-size:.82rem}
+.demo-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.demo-label{font-weight:600;min-width:60px}
+.demo-cred{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e8cc7a;border-radius:6px;padding:3px 9px;font-family:monospace;font-size:.82rem;color:#5a3800;cursor:pointer;transition:background .15s;user-select:all}
+.demo-cred:hover{background:#fffcf0}
+.copy-btn{background:var(--gold);color:#fff;border:none;border-radius:4px;font-size:.65rem;font-weight:700;padding:2px 7px;cursor:pointer;transition:opacity .15s;flex-shrink:0}
+.copy-btn:hover{opacity:.85}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:6px;letter-spacing:.2px}
+.form-group input{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;color:var(--text);background:var(--cream);transition:border-color .18s,box-shadow .18s;outline:none}
+.form-group input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,145,42,.14);background:#fff}
+.form-group input::placeholder{color:var(--faint)}
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:44px}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--faint);padding:4px;transition:color .18s}
+.pw-toggle:hover{color:var(--muted)}
+.form-opts{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:8px}
+.remember{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--muted);cursor:pointer}
+.remember input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer}
+.forgot{font-size:.82rem;color:var(--gold-dim);text-decoration:none;font-weight:600}
+.forgot:hover{text-decoration:underline}
+.alert{display:none;border-radius:8px;padding:11px 14px;font-size:.83rem;line-height:1.5;margin-bottom:18px;border-left:3px solid;align-items:center;gap:8px}
+.alert.show{display:flex}
+.alert-err{background:var(--err-bg);color:var(--err);border-color:var(--err)}
+.alert-ok{background:var(--ok-bg);color:var(--ok);border-color:var(--ok)}
+.btn-submit{width:100%;padding:15px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--gold),#e8a830);color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 3px 14px rgba(212,145,42,.3);transition:all .2s;min-height:52px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(212,145,42,.42)}
+.btn-submit:active{transform:scale(.98)}
+.btn-submit.loading{opacity:.75;pointer-events:none}
+.spinner{width:18px;height:18px;border:2.5px solid rgba(0,0,0,.2);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.divider{display:flex;align-items:center;gap:12px;margin:22px 0;color:var(--faint);font-size:.78rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.btn-register{display:block;width:100%;padding:14px;border-radius:10px;border:1.5px solid var(--border);background:transparent;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:.92rem;font-weight:600;cursor:pointer;text-decoration:none;text-align:center;transition:all .18s}
+.btn-register:hover{border-color:var(--navy);background:var(--soft)}
+.login-footer-note{text-align:center;font-size:.78rem;color:var(--faint);margin-top:20px;line-height:1.6}
+.login-footer-note a{color:var(--gold-dim);text-decoration:none;font-weight:600}
+.login-footer-note a:hover{text-decoration:underline}
+footer{background:var(--navy);color:rgba(255,255,255,.4);text-align:center;font-size:.76rem;padding:18px 24px;flex-shrink:0}
+footer strong{color:var(--gold-l)}
+@media(max-width:400px){.login-right{padding:24px 16px}.login-card h1{font-size:1.4rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-inner">
+    <a class="logo" href="index.html">Eleven<em>Plus</em> Academy</a>
+    <div class="hdr-right">Don't have an account? <a href="login.html">Sign up free</a></div>
+  </div>
+</header>
+
+<div class="login-wrap">
+
+  <!-- LEFT: Brand Panel -->
+  <div class="login-left">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="left-inner">
+      <div class="left-eyebrow">🎓 UK 11+ Preparation</div>
+      <h2>Welcome back to<br><em>ElevenPlus Academy</em></h2>
+      <p>Pick up right where you left off. Your practice sets, XP, and progress are all waiting for you.</p>
+      <div class="left-perks">
+        <div class="perk"><div class="perk-icon">📝</div><span>80+ CGP-style practice questions</span></div>
+        <div class="perk"><div class="perk-icon">⚡</div><span>Instant marking &amp; detailed explanations</span></div>
+        <div class="perk"><div class="perk-icon">🏆</div><span>XP rewards &amp; streak tracking</span></div>
+        <div class="perk"><div class="perk-icon">📄</div><span>Downloadable PDF practice papers</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Login Form -->
+  <div class="login-right">
+    <div class="login-card">
+      <h1>Log in</h1>
+      <p class="subtitle">Enter your details below to access your dashboard.</p>
+
+      <div class="demo-box">
+        <div class="demo-icon">💡</div>
+        <div class="demo-text">
+          <strong>Demo credentials — click to auto-fill</strong>
+          <div class="demo-row">
+            <span class="demo-label">Email:</span>
+            <span class="demo-cred" onclick="fillEmail()">demo@elevenplus.ac.uk</span>
+            <button class="copy-btn" onclick="fillEmail()">Fill</button>
+          </div>
+          <div class="demo-row">
+            <span class="demo-label">Password:</span>
+            <span class="demo-cred" onclick="fillPassword()">Demo1234</span>
+            <button class="copy-btn" onclick="fillPassword()">Fill</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-err" id="alertErr">
+        <span>⚠️</span><span id="alertErrMsg">Incorrect email or password.</span>
+      </div>
+      <div class="alert alert-ok" id="alertOk">
+        <span>✅</span><span>Login successful! Redirecting to your dashboard…</span>
+      </div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="pw-wrap">
+            <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+            <button type="button" class="pw-toggle" onclick="togglePw()" aria-label="Toggle password">
+              <svg id="pwEye" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="form-opts">
+          <label class="remember"><input type="checkbox" id="remember"> Remember me</label>
+          <a class="forgot" href="#">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <div class="spinner" id="spinner"></div>
+          <span id="btnText">Log in to my account</span>
+        </button>
+      </form>
+
+      <div class="divider">or</div>
+      <a class="btn-register" href="login.html">Create a free account</a>
+      <div class="login-footer-note">
+        By logging in you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>ElevenPlus Academy</strong> · MVP Demo · Practice use only · © 2026
+</footer>
+
+<script>
+const DEMO_EMAIL = 'demo@elevenplus.ac.uk';
+const DEMO_PASS  = 'Demo1234';
+
+function fillEmail() {
+  document.getElementById('email').value = DEMO_EMAIL;
+  document.getElementById('email').focus();
+}
+function fillPassword() {
+  document.getElementById('password').value = DEMO_PASS;
+  document.getElementById('password').focus();
+}
+function togglePw() {
+  const inp = document.getElementById('password');
+  const show = inp.type === 'password';
+  inp.type = show ? 'text' : 'password';
+  document.getElementById('pwEye').innerHTML = show
+    ? '<path d="M17.94 17.94A10 10 0 0 1 12 20c-7 0-11-8-11-8a18 18 0 0 1 5.06-5.94M9.9 4.24A9 9 0 0 1 12 4c7 0 11 8 11 8a18 18 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+    : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+}
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const pass  = document.getElementById('password').value;
+  const btn   = document.getElementById('submitBtn');
+  const spin  = document.getElementById('spinner');
+  const txt   = document.getElementById('btnText');
+  const errEl = document.getElementById('alertErr');
+  const okEl  = document.getElementById('alertOk');
+
+  errEl.classList.remove('show');
+  okEl.classList.remove('show');
+  btn.classList.add('loading');
+  spin.style.display = 'block';
+  txt.textContent = 'Logging in…';
+
+  setTimeout(() => {
+    if (email === DEMO_EMAIL && pass === DEMO_PASS) {
+      okEl.classList.add('show');
+      txt.textContent = 'Success!';
+      spin.style.display = 'none';
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
+    } else {
+      btn.classList.remove('loading');
+      spin.style.display = 'none';
+      txt.textContent = 'Log in to my account';
+      document.getElementById('alertErrMsg').textContent =
+        email !== DEMO_EMAIL
+          ? 'Email not found. Use the demo credentials above.'
+          : 'Incorrect password. Use the demo credentials above.';
+      errEl.classList.add('show');
+      document.getElementById('loginForm').style.animation = 'shake .3s ease';
+      setTimeout(() => document.getElementById('loginForm').style.animation = '', 400);
+    }
+  }, 1000);
+}
+</script>
+</body>
+</html>
