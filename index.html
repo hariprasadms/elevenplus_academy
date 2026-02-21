@@ -18,19 +18,42 @@
 html{font-size:16px;scroll-behavior:smooth}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
 
-/* ── HEADER ── */
-header{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 24px rgba(0,0,0,.4)}
-.hdr-inner{max-width:1160px;margin:0 auto;padding:0 clamp(14px,3vw,40px);height:66px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-family:'Fraunces',serif;font-size:clamp(1.1rem,3vw,1.5rem);font-weight:900;color:var(--gold-l);text-decoration:none;letter-spacing:-.3px;white-space:nowrap}
-.logo em{color:#fff;font-style:normal}
-nav{display:flex;align-items:center;gap:clamp(12px,2.5vw,28px)}
-.nav-a{color:rgba(255,255,255,.72);font-size:.87rem;font-weight:600;text-decoration:none;transition:color .18s;white-space:nowrap}
-.nav-a:hover{color:#fff}
-.btn-login{background:transparent;color:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.25);padding:8px 18px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .18s;white-space:nowrap}
-.btn-login:hover{border-color:rgba(255,255,255,.6);color:#fff}
-.btn-cta-sm{background:linear-gradient(135deg,var(--gold),#e8a830);color:var(--navy);padding:9px 20px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;text-decoration:none;border:none;white-space:nowrap;box-shadow:0 3px 12px rgba(212,145,42,.3);transition:all .18s}
-.btn-cta-sm:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(212,145,42,.42)}
-.mob-menu{display:none;background:none;border:none;cursor:pointer;padding:6px;color:#fff}
+/* ════ SHARED HEADER ═══════════════════════════════════════════ */
+header{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 1px 0 rgba(255,255,255,.06),0 4px 20px rgba(0,0,0,.38)}
+.hdr{max-width:1160px;margin:0 auto;padding:0 clamp(16px,3vw,40px);height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:'Fraunces',serif;font-size:clamp(1rem,2.5vw,1.3rem);font-weight:900;letter-spacing:-.3px;color:var(--gold-l);text-decoration:none;white-space:nowrap;flex-shrink:0}
+.logo em{color:rgba(255,255,255,.55);font-style:normal;font-weight:400}
+.nav-pub{display:flex;align-items:center;gap:clamp(10px,2vw,24px)}
+.nav-link{font-size:.84rem;font-weight:600;color:rgba(255,255,255,.62);text-decoration:none;transition:color .15s;white-space:nowrap}
+.nav-link:hover,.nav-link.active{color:#fff}
+.nav-ghost{padding:7px 15px;border-radius:8px;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);font-family:inherit;font-size:.84rem;font-weight:700;background:transparent;cursor:pointer;text-decoration:none;transition:all .15s;white-space:nowrap}
+.nav-ghost:hover{border-color:rgba(255,255,255,.55);color:#fff}
+.nav-cta{padding:8px 18px;border-radius:8px;background:linear-gradient(135deg,var(--gold),#e8a030);color:var(--navy);font-family:inherit;font-size:.84rem;font-weight:700;border:none;cursor:pointer;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(212,145,42,.32);transition:all .15s}
+.nav-cta:hover{filter:brightness(1.09);transform:translateY(-1px)}
+.mob-btn{display:none;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;padding:4px;line-height:0}
+@media(max-width:600px){.mob-btn{display:block}.nav-pub{display:none;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--navy);border-top:1px solid rgba(255,255,255,.07);padding:14px 20px;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,.3);z-index:199}.nav-pub.open{display:flex}.nav-ghost,.nav-cta{text-align:center}}
+.nav-app{display:flex;align-items:center;gap:14px}
+.nav-stat{display:flex;align-items:center;gap:5px;font-size:.76rem;font-weight:600;color:rgba(255,255,255,.5);white-space:nowrap}
+.nav-stat b{font-family:'Fraunces',serif;font-size:.93rem;font-weight:700;color:var(--gold-l)}
+.nav-xp{width:54px;height:5px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden}
+.nav-xp-f{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:3px;transition:width .6s}
+.nav-back{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.58);text-decoration:none;padding:6px 12px;border:1px solid rgba(255,255,255,.14);border-radius:8px;transition:all .15s;white-space:nowrap}
+.nav-back:hover{color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.06)}
+.nav-avatar-wrap{position:relative}
+.nav-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#92400e,var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:.85rem;color:#fff;border:2px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0}
+.nav-avatar:hover{border-color:rgba(255,255,255,.4)}
+.nav-dd{position:absolute;top:calc(100% + 10px);right:0;background:#fff;border:1.5px solid var(--border);border-radius:12px;box-shadow:0 10px 36px rgba(0,0,0,.14);min-width:186px;overflow:hidden;display:none;z-index:300}
+.nav-dd.open{display:block;animation:ddpop .16s ease}
+@keyframes ddpop{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.nav-dd-head{padding:11px 15px;border-bottom:1.5px solid var(--border)}
+.nav-dd-head .dd-name{font-size:.84rem;font-weight:700;color:var(--text);margin-bottom:1px}
+.nav-dd-head .dd-email{font-size:.72rem;color:var(--faint)}
+.nav-dd a,.nav-dd button{display:flex;align-items:center;gap:9px;padding:10px 15px;font-size:.83rem;color:var(--text);text-decoration:none;border:none;background:none;width:100%;text-align:left;cursor:pointer;transition:background .12s;font-family:inherit}
+.nav-dd a:hover,.nav-dd button:hover{background:var(--soft)}
+.nav-dd a.red{color:#c0200a}
+.nav-dd-div{height:1.5px;background:var(--border)}
+@media(max-width:520px){.nav-stat.sm-hide{display:none}}
+/* ═══════════════════════════════════════════════════════════════ */
 
 /* ── HERO ── */
 .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--royal) 52%,var(--mid) 100%);color:#fff;padding:clamp(60px,9vw,110px) clamp(16px,5vw,48px) clamp(60px,8vw,100px);text-align:center;position:relative;overflow:hidden}
@@ -64,7 +87,7 @@ nav{display:flex;align-items:center;gap:clamp(12px,2.5vw,28px)}
 
 /* ── SECTION SHARED ── */
 section{padding:clamp(52px,7vw,90px) clamp(16px,4vw,40px)}
-.section-inner{max-width:1100px;margin:0 auto}
+.section-inner{max-width:1160px;margin:0 auto}
 .section-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
 .section-title{font-family:'Fraunces',serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:var(--navy);line-height:1.15;margin-bottom:14px}
 .section-sub{font-size:clamp(.88rem,2vw,1rem);color:var(--muted);max-width:520px;line-height:1.7;margin-bottom:44px}
@@ -184,7 +207,7 @@ section{padding:clamp(52px,7vw,90px) clamp(16px,4vw,40px)}
 
 /* ── FOOTER ── */
 footer{background:var(--navy);color:rgba(255,255,255,.4);padding:clamp(28px,4vw,44px) clamp(16px,4vw,40px)}
-.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px}
+.footer-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px}
 @media(max-width:700px){.footer-inner{grid-template-columns:1fr 1fr}}
 @media(max-width:420px){.footer-inner{grid-template-columns:1fr}}
 .footer-brand .logo{display:block;margin-bottom:12px;font-size:1.2rem}
@@ -192,7 +215,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.4);padding:clamp(28px,4vw,
 .footer-col h4{font-size:.75rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:14px}
 .footer-col a{display:block;font-size:.82rem;color:rgba(255,255,255,.38);text-decoration:none;margin-bottom:8px;transition:color .18s}
 .footer-col a:hover{color:rgba(255,255,255,.75)}
-.footer-bottom{max-width:1100px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:.76rem;color:rgba(255,255,255,.3)}
+.footer-bottom{max-width:1160px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:.76rem;color:rgba(255,255,255,.3)}
 .footer-bottom strong{color:var(--gold-l)}
 
 /* ── MOBILE ── */
@@ -206,22 +229,33 @@ footer{background:var(--navy);color:rgba(255,255,255,.4);padding:clamp(28px,4vw,
 @media(max-width:520px){
   .btn-login{display:none}
 }
+
+/* ── SHARED FOOTER ── */
+.site-footer{background:var(--navy);color:rgba(255,255,255,.45);padding:clamp(36px,5vw,56px) clamp(16px,3vw,40px) 0}
+.foot-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:32px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.08)}
+.foot-brand p{font-size:.8rem;line-height:1.65;margin-top:10px;color:rgba(255,255,255,.38);max-width:260px}
+.foot-head{font-size:.7rem;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.foot-col a{display:block;font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:8px;transition:color .15s}
+.foot-col a:hover{color:var(--gold-l)}
+.foot-bar{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 0;font-size:.73rem;color:rgba(255,255,255,.28)}
+@media(max-width:700px){.foot-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.foot-inner{grid-template-columns:1fr}.foot-bar{flex-direction:column;gap:4px}}
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <header>
-  <div class="hdr-inner">
-    <a class="logo" href="index.html">Eleven<em>Plus</em> Academy</a>
-    <nav class="nav-links" style="display:flex;align-items:center;gap:clamp(12px,2.5vw,28px)">
-      <a class="nav-a" href="#features">Features</a>
-      <a class="nav-a" href="#how">How it works</a>
-      <a class="nav-a" href="#pricing">Pricing</a>
-      <a class="btn-login" href="login.html">Log in</a>
-      <a class="btn-cta-sm" href="login.html">Start Free Trial</a>
+  <div class="hdr">
+    <a class="logo" href="index.html">ElevenPlus<em> Academy</em></a>
+    <nav class="nav-pub" id="pubNav">
+      <a class="nav-link active" href="#">Features</a>
+      <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-link" href="#pricing">Pricing</a>
+      <a class="nav-ghost" href="login.html">Log in</a>
+      <a class="nav-cta" href="login.html">Start Free Trial</a>
     </nav>
-    <button class="mob-menu" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'" aria-label="Menu">
+    <button class="mob-btn" onclick="document.getElementById('pubNav').classList.toggle('open')" aria-label="Toggle menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
@@ -523,36 +557,34 @@ footer{background:var(--navy);color:rgba(255,255,255,.4);padding:clamp(28px,4vw,
 </div>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <a class="logo" href="index.html" style="font-size:1.15rem">Eleven<em style="color:rgba(255,255,255,.5)">Plus</em> Academy</a>
-      <div class="footer-tagline">Helping UK children pass the 11+ with confidence, one practice test at a time.</div>
+<footer class="site-footer">
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <a class="logo" href="index.html">ElevenPlus<em> Academy</em></a>
+      <p>UK 11+ exam preparation — Maths, English, Verbal &amp; Non-Verbal Reasoning.</p>
     </div>
-    <div class="footer-col">
-      <h4>Platform</h4>
-      <a href="#features">Features</a>
-      <a href="#how">How it works</a>
-      <a href="#pricing">Pricing</a>
+    <div class="foot-col">
+      <div class="foot-head">Practice</div>
       <a href="dashboard.html">Dashboard</a>
+      <a href="practice.html">Practice Sets</a>
+      <a href="index.html#pricing">Upgrade to Pro</a>
     </div>
-    <div class="footer-col">
-      <h4>Practice</h4>
-      <a href="practice.html">Set A — Core</a>
-      <a href="practice.html">Set B — CGP</a>
-      <a href="practice.html">Set C — Mixed</a>
-      <a href="practice.html">PDF Download</a>
+    <div class="foot-col">
+      <div class="foot-head">Product</div>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#pricing">Pricing</a>
     </div>
-    <div class="footer-col">
-      <h4>Account</h4>
-      <a href="login.html">Log in</a>
-      <a href="login.html">Sign up free</a>
-      <a href="#">Contact</a>
+    <div class="foot-col">
+      <div class="foot-head">Legal</div>
       <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Policy</a>
     </div>
   </div>
-  <div class="footer-bottom">
-    <strong>ElevenPlus Academy</strong> · MVP Demo · Practice use only · © 2026
+  <div class="foot-bar">
+    <span>© 2026 ElevenPlus Academy. MVP Demo — practice use only.</span>
+    <span>Not affiliated with CGP Books Ltd.</span>
   </div>
 </footer>
 
@@ -570,6 +602,15 @@ function toggleBill(){
   document.getElementById('p3n').textContent = yearly ? '£144 billed yearly' : 'Billed monthly · Cancel any time';
   document.getElementById('p3s').style.display = yearly ? 'block' : 'none';
 }
+</script>
+<script>
+// Shared nav interactions
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-avatar-wrap'))
+    document.querySelectorAll('.nav-dd').forEach(d => d.classList.remove('open'));
+  if (!e.target.closest('.mob-btn') && !e.target.closest('.nav-pub'))
+    document.querySelectorAll('.nav-pub').forEach(n => n.classList.remove('open'));
+});
 </script>
 </body>
 </html>
