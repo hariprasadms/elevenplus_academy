@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "elevenplusacademy-26"
+  },
+  "targets": {
+    "elevenplusacademy-26": {
+      "hosting": {
+        "main": [
+          "elevenplusacademy"
+        ]
+      }
+    }
   }
 }
