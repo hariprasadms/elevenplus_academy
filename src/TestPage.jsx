@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useApp } from "./AppContext";
-import { Header, Footer, Confetti } from "./SharedComponents";
+import { Header, AppFooter, Confetti } from "./SharedComponents";
 
 /* ═══════════════════════════════════════════════════════════
    TEST PAGE (Premium Timed Paper)
@@ -250,7 +250,7 @@ export default function TestPage() {
         )}
       </div>
 
-      <Footer />
+      <AppFooter />
     </>
   );
 }

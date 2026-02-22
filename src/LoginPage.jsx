@@ -33,7 +33,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight:"calc(100vh - 64px)", display:"flex", flexDirection:"column" }}>
+    <div style={{ minHeight:"100vh", display:"flex", flexDirection:"column" }}>
+      <div className="login-top-bar">
+        <div className="logo" style={{ cursor:"pointer" }} onClick={() => navigate("landing")}>ElevenPlus<em> Academy</em><span className="beta-tag">Beta</span></div>
+        <button className="login-back-link" onClick={() => navigate("landing")}>← Back to home</button>
+      </div>
       <div className="login-wrap" style={{ flex:1 }}>
         <div className="panel-left">
           <div className="orb" style={{ width:300, height:300, background:"var(--gold)", top:-80, right:-60 }}/>

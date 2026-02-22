@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useApp } from "./AppContext";
-import { Header, Footer, PaywallModal } from "./SharedComponents";
+import { Header, AppFooter, PaywallModal } from "./SharedComponents";
 
 /* ═══════════════════════════════════════════════════════════
    DASHBOARD PAGE
@@ -208,7 +208,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <Footer />
+      <AppFooter />
     </>
   );
 }

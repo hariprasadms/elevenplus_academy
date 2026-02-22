@@ -48,7 +48,7 @@ export function Header({ showBack, showTimer, timerSec, timerState }) {
     <header className="header">
       <div className="hdr">
         <div className="logo" onClick={() => navigate("dashboard")}>
-          ElevenPlus<em> Academy</em>
+          ElevenPlus<em> Academy</em><span className="beta-tag">Beta</span>
         </div>
         <div className="nav-app">
           {showBack && (
@@ -126,6 +126,23 @@ export function Footer() {
       <div className="foot-bar">
         <span>© 2026 ElevenPlus Academy. MVP Demo — practice use only.</span>
         <span>Not affiliated with CGP Books Ltd.</span>
+      </div>
+    </footer>
+  );
+}
+
+export function AppFooter() {
+  return (
+    <footer className="app-footer">
+      <div className="app-footer-inner">
+        <span className="app-footer-brand">ElevenPlus<em> Academy</em> <span className="beta-tag">Beta</span></span>
+        <span className="app-footer-divider"/>
+        <span>© 2026 ElevenPlus Academy — practice use only.</span>
+      </div>
+      <div className="app-footer-links">
+        <a>Privacy Policy</a>
+        <a>Terms of Service</a>
+        <a>Cookie Policy</a>
       </div>
     </footer>
   );

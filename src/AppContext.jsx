@@ -8,7 +8,7 @@ export const AppContext = createContext(null);
 export function useApp() { return useContext(AppContext); }
 
 export function AppProvider({ children }) {
-  const [page, setPage] = useState("login"); // login | dashboard | practice | test
+  const [page, setPage] = useState(() => sessionStorage.getItem("ep_page") || "landing"); // landing | login | dashboard | practice | test
   const [isPro, setIsPro] = useState(false);
   const [user] = useState({ name: "Demo", email: "demo@elevenplus.ac.uk" });
   const [xp, setXp] = useState(180);
@@ -29,7 +29,7 @@ export function AppProvider({ children }) {
     toastTimer.current = setTimeout(() => setToast(t => ({ ...t, show: false })), 3400);
   }, []);
 
-  const navigate = useCallback((p) => setPage(p), []);
+  const navigate = useCallback((p) => { sessionStorage.setItem("ep_page", p); setPage(p); }, []);
 
   const addXp = useCallback((amount) => setXp(v => v + amount), []);
   const addCorrect = useCallback((n) => setTotalCorrect(v => v + n), []);

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useApp } from "./AppContext";
-import { Header, Footer, Confetti } from "./SharedComponents";
+import { Header, AppFooter, Confetti } from "./SharedComponents";
 
 /* ═══════════════════════════════════════════════════════════
    QUESTION BANKS
@@ -478,7 +478,7 @@ export default function PracticePage() {
         )}
       </div>
 
-      <Footer />
+      <AppFooter />
     </>
   );
 }
